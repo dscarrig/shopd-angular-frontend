@@ -1,1 +1,26 @@
-<p>login works!</p>
+<style>
+  .aligncenter {
+    text-align: center;
+  }
+</style>
+
+<h1>Welcome to SHOP'D! Please login or create an account.</h1>
+
+<div class="container">
+  <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+
+  <div>
+    User Name : <input type="text" name="username" [(ngModel)]="username">
+    <br />
+    <br />
+    Password  : <input type="password" name="password" [(ngModel)]="password">
+    <br />
+    <br />
+
+    <button (click)=login() class="btn btn-success">Login</button>
+    <br />
+    <br />
+    <button (click)=goToCreateAccount() class="btn btn-success">Create Account</button>
+
+  </div>
+</div>
