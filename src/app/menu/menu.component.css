@@ -1,0 +1,17 @@
+
+
+nav.navbar {
+  padding: 1rem 2rem;
+  background-color: rgba(156, 34, 13, 0.945);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-nav .nav-link {
+  margin: 0 10px;
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: rgba(255,255,255,0.1);
+}
