@@ -9,4 +9,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'angular-frontend';
   isLoggedIn: boolean = false;
+  public refresh = false;
+
+  refreshMenu() {
+    this.refresh = true;
+  }
+
+  finishRefresh() {
+    this.refresh = false;
+  }
+
+  getRefreshStatus() {
+    return this.refresh;
+  }
 }
