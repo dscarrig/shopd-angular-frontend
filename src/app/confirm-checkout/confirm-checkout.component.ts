@@ -6,11 +6,13 @@ import { AccountDetailItem } from '../my-account/my-account.component';
 import { ShopItem } from '../shop-item/shop-item.component';
 import { CartService } from '../service/app/cart.service';
 import { OrderService, Order, OrderItem } from '../service/app/order.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-checkout',
   templateUrl: './confirm-checkout.component.html',
-  styleUrls: ['./confirm-checkout.component.css']
+  styleUrls: ['./confirm-checkout.component.css'],
+  imports: [CommonModule]
 })
 export class ConfirmCheckoutComponent implements OnInit {
   private userInfoService = inject(UserInfoService);

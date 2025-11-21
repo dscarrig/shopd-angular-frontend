@@ -1,1 +1,68 @@
-<p>shop-item-menu works!</p>
+<h1 class="text-center fw-bold">Things for sale!</h1>
+
+<div class="container" *ngIf="shopItems && shopItems.length > 0">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Picture</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let shopItem of shopItems">
+        <td><img [src]="shopItem.picture" [alt]="shopItem.itemName" width="200" height="150"></td>
+        <td>{{shopItem.itemName}}</td>
+        <td>{{shopItem.description}}</td>
+        <td>${{shopItem.price}}</td>
+        <td><button (click)="addItemToCart(shopItem)" class="btn btn-success">Add to cart</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="!shopItems || shopItems.length === 0" class="alert alert-info">
+  <p>No items available at the moment. Please try again later.</p>
+</div>
+
+<style>
+  .container {
+    background-color: lightgrey;
+    max-width: 1200px;
+    border: 15px solid brown;
+    padding: 20px;
+    margin: 20px auto;
+  }
+  
+  .table td {
+    background-color: lightgrey;
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .table th {
+    background-color: #8B4513;
+    color: white;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+</style>
