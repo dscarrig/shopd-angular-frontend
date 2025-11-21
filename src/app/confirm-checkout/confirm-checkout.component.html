@@ -1,1 +1,58 @@
-<p>confirm-checkout works!</p>
+<h1>Click Pay Now to complete order.</h1>
+
+<div>
+  <br />
+  <h3>Order details:</h3>
+  <table class="table">
+
+    <tbody>
+      <tr *ngFor="let shopItem of shopItems">
+        <td>{{shopItem.itemName}}</td>
+        <td>{{shopItem.price}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+  <table class="table">
+
+    <tbody>
+    <td>Total price:</td>
+    <td>${{getCartTotal().toFixed(2)}}</td>
+    </tbody>
+
+  </table>
+</div>
+
+<div>
+  <br />
+  <h3>Shipping address:</h3>
+  {{accountDetailItem.fullName}}
+  <br />
+  {{accountDetailItem.address}}
+  <br />
+  {{accountDetailItem.city}} {{accountDetailItem.state}}
+  <br />
+  {{accountDetailItem.zipCode}}
+  <br />
+</div>
+
+<div>
+  <br />
+  <h3>Payment method:</h3>
+  {{accountDetailItem.cardNum}}
+</div>
+
+<div>
+  <br />
+  <button (click)="orderComplete()" class="btn-success" [disabled]="isSubmittingOrder">
+    <span *ngIf="!isSubmittingOrder">Pay Now</span>
+    <span *ngIf="isSubmittingOrder">Processing Order...</span>
+  </button>
+</div>
+
+<div>
+  <br />
+  <button (click)="backToCart()" class="btn-success">Go Back To Cart</button>
+</div>
+

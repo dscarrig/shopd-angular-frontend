@@ -1,1 +1,57 @@
-<p>user-cart works!</p>
+<body>
+
+  <div *ngIf="getCartTotal() > 0" class="container">
+    <table class="table">
+
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let cartItem of cartItems">
+          <td>{{cartItem.item.itemName}}</td>
+          <td>{{cartItem.item.description}}</td>
+          <td>${{cartItem.item.price.toFixed(2)}}</td>
+          <td>{{cartItem.quantity}}</td>
+          <td>${{cartItem.totalPrice.toFixed(2)}}</td>
+          <td>
+            <button (click)="removeItemFromCart(cartItem)" class="btn-success" style="margin-right: 5px;">Remove One</button>
+            <button (click)="removeAllOfItem(cartItem)" class="btn-danger">Remove All</button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div *ngIf="getCartTotal() > 0" class="container">
+    <table class="table">
+
+      <tbody>
+      <td>Total price:</td>
+      <td>${{getCartTotal().toFixed(2)}}</td>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div *ngIf="getCartTotal() === 0" class="container">
+    Cart is empty.
+    <br />
+    <button (click)="goToMenu()" class="btn-success">Go to the menu to add items to the cart.</button>
+  </div>
+
+  <div class="container">
+    <button *ngIf="authenticationService.isUserLoggedIn() && getCartTotal() > 0" (click)="payNow()" class="btn-success">PAY NOW</button>
+    <button *ngIf="!authenticationService.isUserLoggedIn()" (click)="goToLogin()" class="btn-success">Log in to check out</button>
+  </div>
+
+
+</body>
