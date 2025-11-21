@@ -1,9 +1,36 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { BasicAuthenticationService } from './basic-authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RouteGuardService {
+  private authenticationService = inject(BasicAuthenticationService);
+  private router = inject(Router);
 
-  constructor() { }
+  canActivate() {
+    if (this.authenticationService.isUserLoggedIn()) {
+      return true;
+    }
+    else {
+      console.log('Blocked by dat route guard!');
+      this.router.navigate(['login']);
+    }
+
+
+    return false;
+  }
+
+  notLogged() {
+    if (!this.authenticationService.isUserLoggedIn()) {
+      return true;
+    }
+    else {
+      console.log('Blocked by dat route guard!');
+    }
+
+
+    return false;
+  }
 }
