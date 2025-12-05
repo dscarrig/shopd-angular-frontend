@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { MenuComponent } from './menu/menu.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter-basic-auth.service';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    MenuComponent
+    MenuComponent,
+    CreateAccountComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true },

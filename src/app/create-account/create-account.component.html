@@ -1,1 +1,17 @@
-<p>create-account works!</p>
+<h1>
+  CREATE AN ACCOUNT!
+</h1>
+
+<div>
+
+  <div class="alert alert-warning" *ngIf="userExists">Username already exists</div>
+  <br />
+
+  User Name : <input type="text" name="username" [(ngModel)]="username">
+  Password  : <input type="password" name="password" [(ngModel)]="password">
+  <br />
+  <br />
+
+  <button (click)=createUser() class="btn btn-success">Create ME!</button>
+
+</div>
