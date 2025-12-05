@@ -9,7 +9,11 @@
 </p>
 
 <h1 class="aligncenter">
-    Welcome to SHOP'D!
+    @if (username) {
+      Welcome {{username}}!
+    } @else {
+      Welcome to SHOP'D!
+    }
 </h1>
 <h2 class="aligncenter">
     Your one-stop shop for all of your human needs.

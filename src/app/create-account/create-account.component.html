@@ -4,7 +4,9 @@
 
 <div>
 
-  <div class="alert alert-warning" *ngIf="userExists">Username already exists</div>
+  @if (userExists) {
+    <div class="alert alert-warning">Username already exists</div>
+  }
   <br />
 
   User Name : <input type="text" name="username" [(ngModel)]="username">

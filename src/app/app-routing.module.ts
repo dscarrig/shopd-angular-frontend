@@ -11,6 +11,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ConfirmCheckoutComponent } from './confirm-checkout/confirm-checkout.component';
 import { ShopItemMenuComponent } from './shop-item-menu/shop-item-menu.component';
+import { RouteGuardService } from './service/app/route-guard.service';
 
 
 const routes: Routes = [
@@ -27,6 +28,8 @@ const routes: Routes = [
   { path: 'userdetails', component: UserDetailsComponent },
   { path: 'confirmcheckout', component: ConfirmCheckoutComponent },
   { path: 'menu', component: ShopItemMenuComponent },
+  { path: 'home', component: HomeComponent, canActivate: [RouteGuardService] },
+  { path: 'home/:name', component: HomeComponent, canActivate: [RouteGuardService] },
 
 ];
 

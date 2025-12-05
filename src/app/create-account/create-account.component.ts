@@ -23,6 +23,7 @@ export class CreateAccountComponent implements OnInit {
   userExists = false;
 
   ngOnInit(): void {
+    console.log('CreateAccountComponent initialized');
     if (this.route.snapshot.params['id'] === 'fail') {
       this.userExists = true;
     }
@@ -30,6 +31,7 @@ export class CreateAccountComponent implements OnInit {
 
   createUser(): void {
     console.log('Trying to create a user');
+    console.log('Username:', this.username);
 
     this.createUserService.createUser(this.username, this.password);
   }

@@ -33,8 +33,10 @@ export class CreateUserService {
             this.basicAuthenticationService.logout();
 
             if (!this.userExists) {
+              console.log('Navigating to success page');
               this.router.navigate(['success']);
             } else {
+              console.log('Navigating to createaccount/fail page');
               this.router.navigate(['createaccount', 'fail']);
             }
           },

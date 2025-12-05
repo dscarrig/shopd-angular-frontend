@@ -16,7 +16,6 @@ import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent,
     UserDetailsComponent
   ],
   imports: [
@@ -24,6 +23,7 @@ import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter
     AppRoutingModule,
     FormsModule,
     MenuComponent,
+    LoginComponent,
     CreateAccountComponent
   ],
   providers: [
