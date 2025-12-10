@@ -1,0 +1,27 @@
+<div class="address-form-container">
+  <div>
+    Full Name : <input type="text" [(ngModel)]="fullName">
+    <br />
+    Address Line 1 : <input type="text" [(ngModel)]="addressOne">
+    <br />
+    Address Line 2 : <input type="text" [(ngModel)]="addressTwo">
+    <br />
+    City : <input type="text" [(ngModel)]="city">
+    <br />
+    State : 
+    <select [(ngModel)]="state">
+      <option value="">Select a state</option>
+      <option *ngFor="let st of usStates" [value]="st">{{st}}</option>
+    </select>
+    <br />
+    Zip Code : <input type="text" [(ngModel)]="zipCode">
+    <br />
+    <br />
+
+    <button *ngIf="isFormValid()" (click)="onSubmit()" class="btn btn-success">{{submitButtonText}}</button>
+    <div class="alert alert-warning" *ngIf="!isFormValid()">Please fill out all address fields correctly.</div>
+    <br />
+    <br />
+    <button *ngIf="showCancelButton" (click)="onCancel()" class="btn btn-success">{{cancelButtonText}}</button>
+  </div>
+</div>

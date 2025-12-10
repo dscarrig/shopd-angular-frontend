@@ -1,1 +1,74 @@
-<p>my-account works!</p>
+<h1>{{accountDetailItem.username}}'s Account</h1>
+
+
+<div *ngIf="hasSavedAddress() === 1" class="container">
+  <table class="table">
+
+    <tbody>
+      <tr *ngFor="let accountDetailItem of allAccountDetailItems">
+        <td>
+          {{accountDetailItem.fullName}}
+          <br />
+          {{accountDetailItem.address}}
+          <br />
+          {{accountDetailItem.addressTwo}}
+          <br *ngIf="hasAddressLineTwo()"/>
+          {{accountDetailItem.city}} {{accountDetailItem.state}}
+          <br />
+          {{accountDetailItem.zipCode}}
+        </td>
+
+        <td>
+          <div class="alert alert-warning" *ngIf="isDefaultAccountDetailItem(accountDetailItem) === 1">Default Address</div>
+          <button *ngIf="isDefaultAccountDetailItem(accountDetailItem) === 0" (click)="setAsDefault(accountDetailItem)" class="btn-success">Set As Default</button>
+          <br />
+          <br />
+          <button (click)="deleteAddress(accountDetailItem)" class="btn-success">Delete Address</button>
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
+</div>
+
+
+<div *ngIf="hasSavedAddress() === 0">
+  <h3>You have no saved address.</h3>
+</div>
+
+<div>
+  <br />
+  <button (click)="modifyAddress()" class="btn-success">Add New Address</button>
+  <br />
+</div>
+
+<div *ngIf="hasSavedCardNum() === 1">
+  <br />
+  <h3>Saved card number for {{accountDetailItem.fullName}}:</h3>
+  {{accountDetailItem.cardNum}}
+  <button (click)="deleteCardNum()" class="btn-success">Delete Payment Info</button>
+</div>
+
+<div *ngIf="hasSavedCardNum() === 0 && hasSavedAddress() === 1">
+  <br />
+  <h3>No saved card number for {{accountDetailItem.fullName}}.</h3>
+</div>
+
+<div *ngIf="hasSavedCardNum() === 0 && hasSavedAddress() === 0">
+  <br />
+  <h3>No saved card number.</h3>
+</div>
+
+<div>
+  <br />
+  <button (click)="modifyCardNum()" class="btn-success">Change Saved Card Number</button>
+</div>
+
+<!-- Order History Section -->
+<div class="order-history-section">
+  <br />
+  <h3>Order History</h3>
+  <app-order-history [username]="username"></app-order-history>
+</div>
+

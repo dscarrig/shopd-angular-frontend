@@ -30,7 +30,7 @@ export class ConfirmCheckoutComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
     this.shopItems = [new ShopItem(0, '0', '0', 0, '0')];
-    this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', false);
+    this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
     this.refreshItems();
 
     this.userInfoService.getUserAccountDetails(this.username).subscribe(

@@ -10,7 +10,7 @@ export class UserInfoService {
   private http = inject(HttpClient);
 
   addUserInfo(username: string, userInfo: string): any {
-    console.log(`Adding info: ${userInfo}`);
+    //console.log(`Adding info: ${userInfo}`);
     return this.http.post(`${TODO_JPA_API_URL}/users/${username}/account-details/add`, userInfo);
   }
 
