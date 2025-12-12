@@ -17,7 +17,7 @@ export class CreateUserService {
 
   createUser(username: string, password: string): void {
 
-    this.basicAuthenticationService.executeJWTAuthenticationService('Guest', 'temp')
+    this.basicAuthenticationService.executeJWTAuthenticationService('temp', 'temp')
       .subscribe(
         () => {
 
