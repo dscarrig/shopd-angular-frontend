@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 export interface AddressFormData {
@@ -15,7 +16,7 @@ export interface AddressFormData {
   templateUrl: './address-form.component.html',
   styleUrls: ['./address-form.component.css'],
   standalone: true,
-  imports: [FormsModule]
+  imports: [CommonModule, FormsModule]
 })
 export class AddressFormComponent implements OnInit {
   @Input() initialData?: AddressFormData;

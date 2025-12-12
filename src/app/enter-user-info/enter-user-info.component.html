@@ -1,1 +1,23 @@
-<p>enter-user-info works!</p>
+<h1>Please enter your address and payment information.</h1>
+
+<div class="container">
+  <app-address-form
+    [initialData]="initialAddressData"
+    submitButtonText="Check Out"
+    cancelButtonText="Back to Cart"
+    [showCancelButton]="true"
+    (formSubmit)="onCheckout($event)"
+    (formCancel)="backToCart()">
+  </app-address-form>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <label>Credit Card Number : </label>
+    <input type="text" digitOnly [(ngModel)]="creditCardNumber" style="display: inline-block; width: auto;">
+    <br />
+    <div class="alert alert-warning" *ngIf="!isCheckoutValid()" style="margin-top: 10px;">
+      Please enter a valid 16-digit credit card number.
+    </div>
+  </div>
+</div>
+
+

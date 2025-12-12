@@ -1,0 +1,100 @@
+<div class="container mt-4">
+  <form>
+    <!-- Item Name -->
+    <div class="mb-3">
+      <label for="itemName" class="form-label">Item Name *</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="itemName" 
+        name="itemName"
+        [(ngModel)]="itemName"
+        placeholder="Enter item name"
+        required>
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <label for="price" class="form-label">Price ($) *</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        id="price" 
+        name="price"
+        [(ngModel)]="price"
+        placeholder="0.00"
+        step="0.01"
+        min="0"
+        required>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label">Description *</label>
+      <textarea 
+        class="form-control" 
+        id="description" 
+        name="description"
+        [(ngModel)]="description"
+        rows="4"
+        placeholder="Describe your item"
+        required></textarea>
+    </div>
+
+    <!-- Photo Upload -->
+    <div class="mb-3">
+      <label for="photo" class="form-label">Item Photo</label>
+      <input 
+        type="file" 
+        class="form-control" 
+        id="photo" 
+        name="photo"
+        accept="image/*"
+        (change)="onFileSelected($event)">
+      <small class="form-text text-muted">Upload a photo of your item (optional)</small>
+    </div>
+
+    <!-- Photo Preview -->
+    @if (photoPreview) {
+      <div class="mb-3">
+        <label class="form-label">Photo Preview:</label>
+        <div class="position-relative d-inline-block">
+          <img [src]="photoPreview" alt="Item preview" class="img-thumbnail" style="max-width: 300px; max-height: 300px;">
+          <button 
+            type="button" 
+            class="btn btn-danger btn-sm position-absolute top-0 end-0 m-2"
+            (click)="removePhoto()">
+            Remove
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2">
+      <button 
+        type="button"
+        class="btn btn-success" 
+        [disabled]="!isFormValid()"
+        (click)="onSubmit()">
+        {{submitButtonText}}
+      </button>
+      
+      @if (showCancelButton) {
+        <button 
+          type="button"
+          class="btn btn-secondary" 
+          (click)="onCancel()">
+          {{cancelButtonText}}
+        </button>
+      }
+    </div>
+
+    <!-- Validation Message -->
+    @if (!isFormValid()) {
+      <div class="alert alert-warning mt-3">
+        Please fill out all required fields (Item Name, Price, and Description)
+      </div>
+    }
+  </form>
+</div>

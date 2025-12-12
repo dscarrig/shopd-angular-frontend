@@ -30,7 +30,7 @@ export class BasicAuthenticationService {
   }
 
   loginAsGuest(): any {
-    const username = 'temp';
+    const username = 'Guest';
     const password = 'temp';
 
     return this.http.post<any>(
@@ -62,7 +62,7 @@ export class BasicAuthenticationService {
 
   isUserLoggedIn(): boolean {
     const user = sessionStorage.getItem(AUTHENTICATED_USER);
-    return !(user === null) && !(user === 'temp');
+    return !(user === null) && !(user === 'Guest');
   }
 
   logout(): void {

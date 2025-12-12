@@ -1,1 +1,10 @@
-<p>create-shopd-listing works!</p>
+<h1>Create a Listing</h1>
+<p>Here you can create a new SHOP'D listing to sell your items!</p>
+
+<app-shopd-listing-form
+  submitButtonText="Create Listing"
+  cancelButtonText="Back to Menu"
+  [showCancelButton]="true"
+  (formSubmit)="onCreateListing($event)"
+  (formCancel)="backToMenu()">
+</app-shopd-listing-form>
