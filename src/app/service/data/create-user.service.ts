@@ -18,36 +18,27 @@ export class CreateUserService {
   createUser(username: string, password: string): void {
 
     this.basicAuthenticationService.executeJWTAuthenticationService('temp', 'temp')
-      .subscribe(
-        () => {
-        this.http.get<boolean>(`${API_URL}/users/exists/${username}`).subscribe(
-          userExistsData => {
-            this.userExists = userExistsData;
-          }
-        );
-
-        this.http.post(`${API_URL}/register`, {username, password}).subscribe(
-          result => {
-            console.log(result);
-            this.basicAuthenticationService.logout();
-
-            if (!this.userExists) {
+      .subscribe({
+        next: () => {
+          this.http.post(`${API_URL}/register`, {username, password}, { observe: 'response' }).subscribe({
+            next: response => {
+              console.log(response);
+              this.basicAuthenticationService.logout();
               console.log('Navigating to success page');
               this.router.navigate(['success']);
-            } else {
-              console.log('Navigating to createaccount/fail page');
+              
+            },
+            error: error => {
+              console.log(error);
               this.router.navigate(['createaccount', 'fail']);
             }
-          },
-          error => {
-            console.log(error);
-          }
-        );
+          });
         },
-        (error: any) => {
+        error: (error: any) => {
           console.log(error);
+          this.router.navigate(['createaccount', 'fail']);
         }
-    );
+      });
   }
 
 }
