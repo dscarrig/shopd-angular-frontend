@@ -7,17 +7,26 @@
     <ul class="navbar-nav">
         
       <li><a (click)="refreshMenu()" routerLink="/home" class="nav-link">Home</a></li>
-      <li><a (click)="refreshMenu()" routerLink="/my-account" class="nav-link">{{userName}}'s Account</a></li>
+      @if (isLoggedIn()) {
+        <li><a (click)="refreshMenu()" routerLink="/my-account" class="nav-link">{{userName}}'s Account</a></li>
+      }
       <li><a (click)="refreshMenu()" routerLink="/menu" class="nav-link">Browse Items</a></li>
-      <li><a (click)="refreshMenu()" routerLink="/create-shopd-listing" class="nav-link">Create a Listing</a></li>
     </ul>
 
     <ul class="navbar-nav navbar-collapse justify-content-end">
-      <li><a (click)="refreshMenu()" routerLink="/cart" class="nav-link">Cart</a></li>
-      <li><a routerLink="/cart" class="nav-link">Cart ({{itemsInCart}})</a></li>
-      <li><a (click)="refreshMenu()" routerLink="/createaccount" class="nav-link">Create Account</a></li>
-      <li><a (click)="refreshMenu()" routerLink="/login" class="nav-link">Login</a></li>
-      <li><a (click)="refreshMenu()" routerLink="/logout" class="nav-link">Logout</a></li>
+      @if (itemsInCart == 0) {
+        <li><a (click)="refreshMenu()" routerLink="/cart" class="nav-link">Cart</a></li>
+      } @else {
+        <li><a routerLink="/cart" class="nav-link">Cart ({{itemsInCart}})</a></li>
+      }
+      @if (!isLoggedIn()) {
+        <li><a (click)="refreshMenu()" routerLink="/createaccount" class="nav-link">Create Account</a></li>
+        <li><a (click)="refreshMenu()" routerLink="/login" class="nav-link">Log In</a></li>
+      }
+      @if (isLoggedIn()) {
+        <li><a (click)="refreshMenu()" routerLink="/create-shopd-listing" class="nav-link">Create a Listing</a></li>
+        <li><a (click)="refreshMenu()" routerLink="/logout" class="nav-link">Log Out</a></li>
+      }
     </ul>
   </nav>
 </header>

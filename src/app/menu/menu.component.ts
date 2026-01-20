@@ -24,6 +24,10 @@ export class MenuComponent implements OnInit {
     // Logic to refresh menu items, e.g., fetch cart items count or user info
   }
 
+  isLoggedIn(): boolean {
+    return this.authenticationService.isUserLoggedIn();
+  }
+
   private updateUsername() {
     const authenticatedUser = this.authenticationService.getAuthenticatedUser();
     this.userName = authenticatedUser || 'Guest';

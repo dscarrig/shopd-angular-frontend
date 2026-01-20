@@ -14,11 +14,11 @@
             <!-- Username Field -->
             <div class="mb-3">
               <label for="username" class="form-label">User Name</label>
-              <input 
-                type="text" 
-                class="form-control" 
+              <input
+                type="text"
+                class="form-control"
                 id="username"
-                name="username" 
+                name="username"
                 [(ngModel)]="username"
                 placeholder="Enter username"
                 required>
@@ -27,11 +27,11 @@
             <!-- Password Field -->
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input 
-                type="password" 
-                class="form-control" 
+              <input
+                type="password"
+                class="form-control"
                 id="password"
-                name="password" 
+                name="password"
                 [(ngModel)]="password"
                 placeholder="Enter password"
                 required>
@@ -39,9 +39,9 @@
 
             <!-- Login Button -->
             <div class="d-grid mb-2">
-              <button 
+              <button
                 type="button"
-                (click)="handleJWTAuthLogin()" 
+                (click)="handleJWTAuthLogin()"
                 class="btn btn-success btn-lg">
                 Login
               </button>
@@ -49,9 +49,9 @@
 
             <!-- Create Account Button -->
             <div class="d-grid">
-              <button 
+              <button
                 type="button"
-                (click)="goToCreateAccount()" 
+                (click)="goToCreateAccount()"
                 class="btn btn-outline-success">
                 Create Account
               </button>

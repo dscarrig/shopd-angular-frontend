@@ -20,14 +20,13 @@ export class CreateUserService {
     this.basicAuthenticationService.executeJWTAuthenticationService('temp', 'temp')
       .subscribe(
         () => {
-
         this.http.get<boolean>(`${API_URL}/users/exists/${username}`).subscribe(
           userExistsData => {
             this.userExists = userExistsData;
           }
         );
 
-        this.http.post(`${API_URL}/users/new/${username}`, password).subscribe(
+        this.http.post(`${API_URL}/register`, {username, password}).subscribe(
           result => {
             console.log(result);
             this.basicAuthenticationService.logout();

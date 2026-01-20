@@ -5,12 +5,13 @@ import { BasicAuthenticationService } from '../service/app/basic-authentication.
 import { AccountDetailItem } from '../my-account/my-account.component';
 import { AddressFormData, AddressFormComponent } from '../shared/address-form/address-form.component';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-enter-user-info',
   templateUrl: './enter-user-info.component.html',
   styleUrls: ['./enter-user-info.component.css'],
-  imports: [FormsModule, AddressFormComponent]
+  imports: [CommonModule, FormsModule, AddressFormComponent]
 })
 export class EnterUserInfoComponent implements OnInit {
   private router = inject(Router);
