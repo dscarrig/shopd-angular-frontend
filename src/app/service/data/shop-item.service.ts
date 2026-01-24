@@ -11,10 +11,10 @@ export class ShopItemService {
   private http = inject(HttpClient);
 
   retrieveItem(id: number): any {
-    return this.http.get<ShopItem>(`${TODO_JPA_API_URL}/shop-items/${id}`);
+    return this.http.get<ShopItem>(`${TODO_JPA_API_URL}/items/${id}`);
   }
 
   retrieveAllItems(): any {
-    return this.http.get<ShopItem[]>(`${TODO_JPA_API_URL}/shop-items`);
+    return this.http.get<ShopItem[]>(`${TODO_JPA_API_URL}/items`);
   }
 }
