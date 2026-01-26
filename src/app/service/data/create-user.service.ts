@@ -22,20 +22,19 @@ export class CreateUserService {
         next: () => {
           this.http.post(`${API_URL}/register`, {username, userId: '0', password}, { observe: 'response' }).subscribe({
             next: response => {
-              console.log(response);
+              console.log('User creation response:', response);
               this.basicAuthenticationService.logout();
-              console.log('Navigating to success page');
               this.router.navigate(['success']);
               
             },
             error: error => {
-              console.log(error);
+              console.error('Error during user creation', error);
               this.router.navigate(['createaccount', 'fail']);
             }
           });
         },
         error: (error: any) => {
-          console.log(error);
+          console.error('Authentication failed', error);
           this.router.navigate(['createaccount', 'fail']);
         }
       });

@@ -26,8 +26,6 @@ export class ShopItemComponent {
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['id'];
-    console.log(this.id);
-
     this.shopItem = new ShopdItem(this.id, this.name, this.description, this.price, this.imageUrl, '', false, 0, '');
 
     if (this.id !== '-1') {

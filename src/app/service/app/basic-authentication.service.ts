@@ -23,7 +23,6 @@ export class BasicAuthenticationService {
         password
       }).pipe(
         tap(data => {
-          console.log('User logged in successfully with username:', username);
           sessionStorage.setItem(AUTHENTICATED_USER, username);
           sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
         }),

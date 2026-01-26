@@ -39,6 +39,7 @@ export class UserCartComponent implements OnInit {
   }
 
   refreshItems() {
+    this.userId = this.authenticationService.getAuthenticatedUserId();
     if (!this.userId) return;
     
     this.cartService.retrieveAllFromCart(this.userId).subscribe(

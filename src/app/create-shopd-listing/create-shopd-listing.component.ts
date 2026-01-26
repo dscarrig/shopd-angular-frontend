@@ -24,10 +24,8 @@ export class CreateShopdListingComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.authService.getAuthenticatedUser() || '';
     this.userId = this.authService.getAuthenticatedUserId() || '';
-    console.log('Authenticated user:', this.username, 'User ID:', this.userId);
     
     if (!this.username) {
-      console.log('User not authenticated, redirecting to login');
       this.router.navigate(['login']);
     }
   }

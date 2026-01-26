@@ -21,22 +21,19 @@ export class LoginComponent {
   username = '';
   userId = '';
   password = '';
-  errorMessage = 'Invalid Creds';
+  errorMessage = 'Invalid Credentials';
   invalidLogin = false;
 
   handleJWTAuthLogin() {
-    console.log('logging in with username: ' + this.username);
-
     this.basicAuthenticationService.executeJWTAuthenticationService(this.username, this.password)
       .subscribe(
       () => {
-        console.log('logging in!');
         this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
         this.router.navigate(['home', this.userId]);
         this.invalidLogin = false;
         },
         (error: any) => {
-          console.log(error);
+          console.error('Login failed', error);
           this.invalidLogin = true;
         }
       );

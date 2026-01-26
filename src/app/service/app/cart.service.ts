@@ -19,6 +19,7 @@ export class CartService {
   }
 
   retrieveAllFromCart(userId: string): any {
+    console.log(`Retrieving all items from cart for user ID ${userId}`);
     return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/cart/items/${userId}`);
   }
 

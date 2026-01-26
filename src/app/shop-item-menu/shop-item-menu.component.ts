@@ -26,12 +26,10 @@ export class ShopItemMenuComponent implements OnInit {
     if (this.authenticationService.isUserLoggedIn()) {
       this.userId = this.authenticationService.getAuthenticatedUserId();
       this.refreshItems();
-      console.log('User is logged in with ID:', this.userId);
     }
     else {
       this.authenticationService.loginAsGuest().subscribe(
         (response: any) => {
-          console.log(response);
           this.userId = this.authenticationService.getAuthenticatedUserId();
           this.refreshItems();
         }
@@ -40,10 +38,8 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   refreshItems() {
-    console.log('Fetching items from API...');
     this.itemMenuService.retrieveAllItems().subscribe(
       (response: ShopdItem[]) => {
-        console.log('Items received:', response);
         this.shopItems = response;
       },
       (error: any) => {
@@ -54,9 +50,6 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   addItemToCart(item: ShopdItem) {
-    console.log('Item object:', item);
-    console.log('Item id:', item.id);
-    console.log(`Added ${item.name} to cart`);
 
     if (this.userId) {
       this.cartService.addToCart(this.userId, item.id).subscribe(
