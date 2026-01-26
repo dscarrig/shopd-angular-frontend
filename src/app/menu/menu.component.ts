@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BasicAuthenticationService } from '../service/app/basic-authentication.service';
+import { CartService } from '../service/app/cart.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,17 +12,33 @@ import { BasicAuthenticationService } from '../service/app/basic-authentication.
 })
 export class MenuComponent implements OnInit {
   private authenticationService = inject(BasicAuthenticationService);
+  private cartService = inject(CartService);
   
   itemsInCart: number = 0;
   userName: string = 'Guest';
 
   ngOnInit(): void {
     this.updateUsername();
+    this.subscribeToCartCount();
+    this.refreshCartCount();
   }
 
   refreshMenu() {
     this.updateUsername();
-    // Logic to refresh menu items, e.g., fetch cart items count or user info
+    this.refreshCartCount();
+  }
+
+  private subscribeToCartCount(): void {
+    this.cartService.cartItemCount$.subscribe(
+      count => this.itemsInCart = count
+    );
+  }
+
+  private refreshCartCount(): void {
+    const userId = this.authenticationService.getAuthenticatedUserId();
+    if (userId) {
+      this.cartService.refreshCartCount(userId);
+    }
   }
 
   isLoggedIn(): boolean {

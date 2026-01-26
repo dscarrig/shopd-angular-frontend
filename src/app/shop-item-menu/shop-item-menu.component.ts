@@ -52,11 +52,7 @@ export class ShopItemMenuComponent implements OnInit {
   addItemToCart(item: ShopdItem) {
 
     if (this.userId) {
-      this.cartService.addToCart(this.userId, item.id).subscribe(
-        () => {
-          this.appComponent.refreshMenu();
-        }
-      );
+      this.cartService.addToCart(this.userId, item.id).subscribe();
     }
     else {
       console.error('User ID is not available. Cannot add item to cart.');
