@@ -3,7 +3,7 @@ import { UserInfoService } from '../service/app/user-info.service';
 import { BasicAuthenticationService } from '../service/app/basic-authentication.service';
 import { Router } from '@angular/router';
 import { AccountDetailItem } from '../my-account/my-account.component';
-import { ShopItem } from '../shop-item/shop-item.component';
+import { ShopdItem } from '../app.constants';
 import { CartService } from '../service/app/cart.service';
 import { OrderService, Order, OrderItem } from '../service/app/order.service';
 import { CommonModule } from '@angular/common';
@@ -21,19 +21,20 @@ export class ConfirmCheckoutComponent implements OnInit {
   private cartService = inject(CartService);
   private orderService = inject(OrderService);
 
-
   username!: string;
+  userId!: string;
   accountDetailItem!: AccountDetailItem;
-  shopItems!: ShopItem[];
+  shopItems!: ShopdItem[];
   isSubmittingOrder = false;
 
   ngOnInit(): void {
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
-    this.shopItems = [new ShopItem(0, '0', '0', 0, '0')];
+    this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+    this.shopItems = [new ShopdItem('0', '0', '0', 0, '0', '0', false, 0, '0')];
     this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
     this.refreshItems();
 
-    this.userInfoService.getUserAccountDetails(this.username).subscribe(
+    this.userInfoService.getUserAccountDetails(this.userId).subscribe(
       (response: AccountDetailItem) => {
         console.log('Account details loaded:', response);
         this.accountDetailItem = response;
@@ -45,8 +46,8 @@ export class ConfirmCheckoutComponent implements OnInit {
   }
 
   refreshItems(): void {
-    this.cartService.retrieveAllFromCart(this.username).subscribe(
-      (response: ShopItem[]) => {
+    this.cartService.retrieveAllFromCart(this.userId).subscribe(
+      (response: ShopdItem[]) => {
         console.log('Cart items loaded:', response);
         this.shopItems = response;
       },
@@ -81,7 +82,7 @@ export class ConfirmCheckoutComponent implements OnInit {
     this.isSubmittingOrder = true;
 
     // Group items by ID and count quantities
-    const itemMap = new Map<number, { item: ShopItem, quantity: number }>();
+    const itemMap = new Map<string, { item: ShopdItem, quantity: number }>();
     
     this.shopItems.forEach(item => {
       if (itemMap.has(item.id)) {
@@ -95,7 +96,7 @@ export class ConfirmCheckoutComponent implements OnInit {
     // Create order items with proper quantities
     const orderItems: OrderItem[] = Array.from(itemMap.values()).map(({ item, quantity }) => ({
       itemId: item.id,
-      itemName: item.itemName,
+      itemName: item.name,
       quantity: quantity,
       itemPrice: item.price
     }));

@@ -19,6 +19,7 @@ export class LoginComponent {
   private appComponent = inject(AppComponent);
 
   username = '';
+  userId = '';
   password = '';
   errorMessage = 'Invalid Creds';
   invalidLogin = false;
@@ -30,8 +31,8 @@ export class LoginComponent {
       .subscribe(
       () => {
         console.log('logging in!');
-        this.tranferTempCart();
-        this.router.navigate(['home', this.username]);
+        this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+        this.router.navigate(['home', this.userId]);
         this.invalidLogin = false;
         },
         (error: any) => {
@@ -46,7 +47,7 @@ export class LoginComponent {
   }
 
   tranferTempCart() {
-    this.cartService.copyTempCart(this.username).subscribe(
+    this.cartService.copyTempCart(this.userId).subscribe(
       () => {
         this.appComponent.refreshMenu();
         this.cartService.deleteAllFromCart('temp').subscribe();

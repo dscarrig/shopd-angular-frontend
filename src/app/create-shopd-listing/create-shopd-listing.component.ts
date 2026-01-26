@@ -17,11 +17,14 @@ export class CreateShopdListingComponent implements OnInit {
   private authService = inject(BasicAuthenticationService);
 
   username: string = '';
+  userId: string = '';
   isSubmitting: boolean = false;
   errorMessage: string = '';
 
   ngOnInit(): void {
     this.username = this.authService.getAuthenticatedUser() || '';
+    this.userId = this.authService.getAuthenticatedUserId() || '';
+    console.log('Authenticated user:', this.username, 'User ID:', this.userId);
     
     if (!this.username) {
       console.log('User not authenticated, redirecting to login');
@@ -37,10 +40,15 @@ export class CreateShopdListingComponent implements OnInit {
     this.errorMessage = '';
 
     const listing: ShopdListing = {
-      itemName: formData.itemName,
-      price: formData.price,
+      itemId: formData.itemId,
+      name: formData.name,
       description: formData.description,
-      username: this.username
+      price: formData.price,
+      imageUrl: formData.imageUrl,
+      category: formData.category,
+      available : formData.available,
+      quantity : formData.quantity,
+      userId : this.userId
     };
 
     console.log('Creating listing with data:', listing);

@@ -16,7 +16,7 @@
 
       <tbody>
         <tr *ngFor="let cartItem of cartItems">
-          <td>{{cartItem.item.itemName}}</td>
+          <td>{{cartItem.item.name}}</td>
           <td>{{cartItem.item.description}}</td>
           <td>${{cartItem.item.price.toFixed(2)}}</td>
           <td>{{cartItem.quantity}}</td>

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TODO_JPA_API_URL } from '../../app.constants';
-import { ShopItem } from '../../shop-item/shop-item.component';
+import { SHOPD_JPA_API_URL } from '../../app.constants';
+import { ShopdItem } from '../../app.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -9,31 +9,32 @@ import { ShopItem } from '../../shop-item/shop-item.component';
 export class CartService {
   private http = inject(HttpClient);
 
-  addToCart(username: string, id: number): any {
-    return this.http.post(`${TODO_JPA_API_URL}/users/${username}/cart/add`, id);
+  addToCart(userId: string, itemId: string): any {
+    console.log(`Adding item with ID ${itemId} to cart for user ID ${userId}`);
+    return this.http.post(`${SHOPD_JPA_API_URL}/cart/add/${userId}`, itemId);
   }
 
-  copyTempCart(username: string): any {
-    return this.http.post(`${TODO_JPA_API_URL}/users/${username}/cart/copy-cart`, 'temp');
+  copyTempCart(userId: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/cart/copy/${userId}`, 'temp');
   }
 
-  retrieveAllFromCart(username: string): any {
-    return this.http.get<ShopItem[]>(`${TODO_JPA_API_URL}/users/${username}/cart`);
+  retrieveAllFromCart(userId: string): any {
+    return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/cart/items/${userId}`);
   }
 
-  deleteFromCart(username: string, id: number): any {
-    return this.http.delete(`${TODO_JPA_API_URL}/users/${username}/cart/delete/${id}`);
+  deleteFromCart(userId: string, itemId: string): any {
+    return this.http.delete(`${SHOPD_JPA_API_URL}/cart/remove/${userId}/${itemId}`);
   }
 
-  deleteAllFromCart(username: string): any {
-    return this.http.delete(`${TODO_JPA_API_URL}/users/${username}/cart/delete-all`);
+  deleteAllFromCart(userId: string): any {
+    return this.http.delete(`${SHOPD_JPA_API_URL}/cart/clear/${userId}`);
   }
 
-  totalPriceOfCart(username: string): any {
-    return this.http.get(`${TODO_JPA_API_URL}/users/${username}/cart/totalPrice`);
+  totalPriceOfCart(userId: string): any {
+    return this.http.get(`${SHOPD_JPA_API_URL}/cart/total/${userId}`);
   }
 
-  totalItemsInCart(username: string): any {
-    return this.http.get(`${TODO_JPA_API_URL}/users/${username}/cart/totalItems`);
+  totalItemsInCart(userId: string): any {
+    return this.http.get(`${SHOPD_JPA_API_URL}/cart/item-count/${userId}`);
   }
 }

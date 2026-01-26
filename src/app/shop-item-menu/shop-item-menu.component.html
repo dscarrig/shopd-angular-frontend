@@ -13,8 +13,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let shopItem of shopItems">
-        <td><img [src]="shopItem.picture" [alt]="shopItem.itemName" width="200" height="150"></td>
-        <td>{{shopItem.itemName}}</td>
+        <td><img [src]="shopItem.imageUrl" [alt]="shopItem.name" width="200" height="150"></td>
+        <td>{{shopItem.name}}</td>
         <td>{{shopItem.description}}</td>
         <td>${{shopItem.price}}</td>
         <td><button (click)="addItemToCart(shopItem)" class="btn btn-success">Add to cart</button></td>

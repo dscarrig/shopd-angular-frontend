@@ -20,7 +20,7 @@ export class CreateUserService {
     this.basicAuthenticationService.executeJWTAuthenticationService('temp', 'temp')
       .subscribe({
         next: () => {
-          this.http.post(`${API_URL}/register`, {username, password}, { observe: 'response' }).subscribe({
+          this.http.post(`${API_URL}/register`, {username, userId: '0', password}, { observe: 'response' }).subscribe({
             next: response => {
               console.log(response);
               this.basicAuthenticationService.logout();

@@ -1,21 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ShopItemService } from '../service/data/shop-item.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { BasicAuthenticationService } from '../service/app/basic-authentication.service';
 import { CartService } from '../service/app/cart.service';
 import { AppComponent } from '../app.component';
 import { CommonModule } from '@angular/common';
-
-export class ShopItem {
-  constructor(
-    public id: number,
-    public itemName: string,
-    public description: string,
-    public price: number,
-    public picture: string
-
-  ) { }
-}
+import { ShopdItem } from '../app.constants';
 
 @Component({
   selector: 'app-item-menu',
@@ -25,26 +14,25 @@ export class ShopItem {
 })
 export class ShopItemMenuComponent implements OnInit {
   private itemMenuService = inject(ShopItemService);
-  private route = inject(ActivatedRoute);
-  private router = inject(Router);
   private authenticationService = inject(BasicAuthenticationService);
   private cartService = inject(CartService);
   private appComponent = inject(AppComponent);
 
 
-  shopItems: ShopItem[] = [];
-  username!: string | null;
+  shopItems: ShopdItem[] = [];
+  userId!: string | null;
 
   ngOnInit(): void {
     if (this.authenticationService.isUserLoggedIn()) {
-      this.username = this.authenticationService.getAuthenticatedUser();
+      this.userId = this.authenticationService.getAuthenticatedUserId();
       this.refreshItems();
+      console.log('User is logged in with ID:', this.userId);
     }
     else {
       this.authenticationService.loginAsGuest().subscribe(
         (response: any) => {
           console.log(response);
-          this.username = this.authenticationService.getAuthenticatedUser();
+          this.userId = this.authenticationService.getAuthenticatedUserId();
           this.refreshItems();
         }
       );
@@ -54,7 +42,7 @@ export class ShopItemMenuComponent implements OnInit {
   refreshItems() {
     console.log('Fetching items from API...');
     this.itemMenuService.retrieveAllItems().subscribe(
-      (response: ShopItem[]) => {
+      (response: ShopdItem[]) => {
         console.log('Items received:', response);
         this.shopItems = response;
       },
@@ -65,15 +53,20 @@ export class ShopItemMenuComponent implements OnInit {
     );
   }
 
-  addItemToCart(item: ShopItem) {
-    console.log(`Added ${item.itemName} to cart`);
+  addItemToCart(item: ShopdItem) {
+    console.log('Item object:', item);
+    console.log('Item id:', item.id);
+    console.log(`Added ${item.name} to cart`);
 
-    if (this.username) {
-      this.cartService.addToCart(this.username, item.id).subscribe(
+    if (this.userId) {
+      this.cartService.addToCart(this.userId, item.id).subscribe(
         () => {
           this.appComponent.refreshMenu();
         }
       );
+    }
+    else {
+      console.error('User ID is not available. Cannot add item to cart.');
     }
 
   }

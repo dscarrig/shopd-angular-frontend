@@ -4,12 +4,15 @@ import { Observable } from 'rxjs';
 import { API_URL } from '../../app.constants';
 
 export interface ShopdListing {
-  id?: number;
-  itemName: string;
-  price: number;
-  description: string;
-  picture?: string;
-  username?: string;
+  itemId: number,
+  name: string,
+  description: string,
+  price: number,
+  imageUrl: string,
+  category: string,
+  available : boolean,
+  quantity : number,
+  userId : string
 }
 
 @Injectable({
@@ -29,7 +32,7 @@ export class CreateShopdListingService {
 
     // Create FormData for multipart upload
     const formData = new FormData();
-    formData.append('itemName', listing.itemName);
+    formData.append('name', listing.name);
     formData.append('price', listing.price.toString());
     formData.append('description', listing.description);
     formData.append('photo', photo, photo.name);

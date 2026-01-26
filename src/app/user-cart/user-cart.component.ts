@@ -4,21 +4,11 @@ import { BasicAuthenticationService } from '../service/app/basic-authentication.
 import { CartService } from '../service/app/cart.service';
 import { AppComponent } from '../app.component';
 import { CommonModule } from '@angular/common';
-
-export class ShopItem {
-  constructor(
-    public id: number,
-    public itemName: string,
-    public description: string,
-    public price: number,
-    public picture: string
-
-  ) { }
-}
+import { ShopdItem } from '../app.constants';
 
 export class CartItem {
   constructor(
-    public item: ShopItem,
+    public item: ShopdItem,
     public quantity: number
   ) { }
 
@@ -35,27 +25,24 @@ export class CartItem {
 })
 export class UserCartComponent implements OnInit {
   private cartService = inject(CartService);
-  private route = inject(ActivatedRoute);
   private router = inject(Router);
   authenticationService = inject(BasicAuthenticationService);
   private appComponent = inject(AppComponent);
 
-
-  shopItems: ShopItem[] = [];
+  shopItems: ShopdItem[] = [];
   cartItems: CartItem[] = [];
-  username: string | null = '';
+  userId: string | null = '';
 
   ngOnInit(): void {
-    this.username = this.authenticationService.getAuthenticatedUser();
-    this.shopItems = [new ShopItem(0, '0', '0', 0, '0')];
+    this.shopItems = [new ShopdItem('0', '0', '0', 0, '0', '0', false, 0, '0')];
     this.refreshItems();
   }
 
   refreshItems() {
-    if (!this.username) return;
+    if (!this.userId) return;
     
-    this.cartService.retrieveAllFromCart(this.username).subscribe(
-      (response: ShopItem[]) => {
+    this.cartService.retrieveAllFromCart(this.userId).subscribe(
+      (response: ShopdItem[]) => {
         this.shopItems = response;
         this.groupItems();
         this.appComponent.refreshMenu();
@@ -64,7 +51,7 @@ export class UserCartComponent implements OnInit {
   }
 
   private groupItems() {
-    const itemMap = new Map<number, CartItem>();
+    const itemMap = new Map<string, CartItem>();
     
     this.shopItems.forEach(item => {
       if (itemMap.has(item.id)) {
@@ -80,9 +67,9 @@ export class UserCartComponent implements OnInit {
 
   removeItemFromCart(cartItem: CartItem) {
     // Remove one instance of the item
-    if (!this.username) return;
+    if (!this.userId) return;
     
-    this.cartService.deleteFromCart(this.username, cartItem.item.id).subscribe(
+    this.cartService.deleteFromCart(this.userId, cartItem.item.id).subscribe(
       () => {
         this.refreshItems();
       }
@@ -91,16 +78,16 @@ export class UserCartComponent implements OnInit {
 
   removeAllOfItem(cartItem: CartItem) {
     // Remove all instances of this item
-    if (!this.username) return;
+    if (!this.userId) return;
     
     const deleteObservables = [];
     for (let i = 0; i < cartItem.quantity; i++) {
       deleteObservables.push(
-        this.cartService.deleteFromCart(this.username, cartItem.item.id)
+        this.cartService.deleteFromCart(this.userId, cartItem.item.id)
       );
     }
       deleteObservables.push(
-        this.cartService.deleteFromCart(this.username, cartItem.item.id)
+        this.cartService.deleteFromCart(this.userId, cartItem.item.id)
       );
     
     // Execute all delete operations

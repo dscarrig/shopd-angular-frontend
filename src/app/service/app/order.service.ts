@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { API_URL } from '../../app.constants';
 
 export interface OrderItem {
-  itemId: number;
+  itemId: string;
   itemName: string;
   quantity: number;
   itemPrice: number;

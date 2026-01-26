@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TODO_JPA_API_URL } from '../../app.constants';
+import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { AccountDetailItem } from '../../my-account/my-account.component';
 
 @Injectable({
@@ -9,44 +9,44 @@ import { AccountDetailItem } from '../../my-account/my-account.component';
 export class UserInfoService {
   private http = inject(HttpClient);
 
-  addUserInfo(username: string, userInfo: string): any {
+  addUserInfo(userId: string, userInfo: string): any {
     //console.log(`Adding info: ${userInfo}`);
-    return this.http.post(`${TODO_JPA_API_URL}/users/${username}/account-details/add`, userInfo);
+    return this.http.put(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/add`, userInfo);
   }
 
-  getUserAccountDetails(username: string): any {
-    return this.http.get<AccountDetailItem>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-account-details`);
+  getUserAccountDetails(userId: string): any {
+    return this.http.get<AccountDetailItem>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-account-details`);
   }
 
-  getAllUsersAccountDetails(username: string): any {
-    return this.http.get<AccountDetailItem[]>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-all-users-account-details`);
+  getAllUsersAccountDetails(userId: string): any {
+    return this.http.get<AccountDetailItem[]>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-all-users-account-details`);
   }
 
-  getUserAddress(username: string): any {
-    return this.http.get<string>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-address`);
+  getUserAddress(userId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-address`);
   }
 
-  getUserCity(username: string): any {
-    return this.http.get<string>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-city`);
+  getUserCity(userId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-city`);
   }
 
-  getUserState(username: string): any {
-    return this.http.get<string>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-state`);
+  getUserState(userId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-state`);
   }
 
-  getUserZipCode(username: string): any {
-    return this.http.get<string>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-zip-code`);
+  getUserZipCode(userId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-zip-code`);
   }
 
-  getUserCardNumber(username: string): any {
-    return this.http.get<string>(`${TODO_JPA_API_URL}/users/${username}/account-details/get-card-number`);
+  getUserCardNumber(userId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/get-card-number`);
   }
 
-  deleteUserDetail(username: string, toDelete: string): any {
-    return this.http.post(`${TODO_JPA_API_URL}/users/${username}/account-details/delete-account-detail`, toDelete);
+  deleteUserDetail(userId: string, toDelete: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/delete-account-detail`, toDelete);
   }
 
-  setDefaultDetail(username: string, newDefault: string): any {
-    return this.http.post(`${TODO_JPA_API_URL}/users/${username}/account-details/set-new-default`, newDefault);
+  setDefaultDetail(userId: string, newDefault: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/${userId}/account-details/set-new-default`, newDefault);
   }
 }
