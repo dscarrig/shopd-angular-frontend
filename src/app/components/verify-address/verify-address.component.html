@@ -1,0 +1,19 @@
+<h1>Use default address and payment info?</h1>
+<div>
+  <br />
+  {{accountDetailItem.fullName}}
+  <br />
+  {{accountDetailItem.address}}
+  <br />
+  {{accountDetailItem.city}} {{accountDetailItem.state}}
+  <br />
+  {{accountDetailItem.zipCode}}
+  <br />
+</div>
+
+<div>
+  <br />
+  <button (click)=navigateToConfirmCheckout() class="btn btn-success">Yes</button>
+  <button (click)=navigateToEnterUserInfo() class="btn btn-success">No</button>
+</div>
+

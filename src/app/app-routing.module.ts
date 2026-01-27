@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { CreateAccountComponent } from './create-account/create-account.component';
-import { ShopItemComponent } from './shop-item/shop-item.component';
-import { SuccessComponent } from './success/success.component';
-import { UserCartComponent } from './user-cart/user-cart.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { LogoutComponent } from './logout/logout.component';
-import { ConfirmCheckoutComponent } from './confirm-checkout/confirm-checkout.component';
-import { ShopItemMenuComponent } from './shop-item-menu/shop-item-menu.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { UserDetailsComponent } from './components/user-details/user-details.component';
+import { CreateAccountComponent } from './components/create-account/create-account.component';
+import { ShopItemComponent } from './components/shop-item/shop-item.component';
+import { SuccessComponent } from './components/success/success.component';
+import { UserCartComponent } from './components/user-cart/user-cart.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { LogoutComponent } from './components/logout/logout.component';
+import { ConfirmCheckoutComponent } from './components/confirm-checkout/confirm-checkout.component';
+import { ShopItemMenuComponent } from './components/shop-item-menu/shop-item-menu.component';
 import { RouteGuardService } from './service/app/route-guard.service';
-import { EnterUserInfoComponent } from './enter-user-info/enter-user-info.component';
-import { MyAccountComponent } from './my-account/my-account.component';
-import { OrderCompleteComponent } from './order-complete/order-complete.component';
-import {CreateShopdListingComponent} from './create-shopd-listing/create-shopd-listing.component'
+import { EnterUserInfoComponent } from './components/enter-user-info/enter-user-info.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
+import { OrderCompleteComponent } from './components/order-complete/order-complete.component';
+import {CreateShopdListingComponent} from './components/create-shopd-listing/create-shopd-listing.component'
+import { ModifyAddressComponent } from './components/modify-address/modify-address.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 const routes: Routes = [
@@ -39,7 +41,9 @@ const routes: Routes = [
   { path: 'confirm-checkout', component: ConfirmCheckoutComponent, canActivate: [RouteGuardService] },
   { path: 'order-complete', component: OrderCompleteComponent, canActivate: [RouteGuardService] },
   { path: 'create-shopd-listing', component: CreateShopdListingComponent, canActivate: [RouteGuardService] },
+  { path: 'modify-address', component: ModifyAddressComponent, canActivate: [RouteGuardService] },
 
+  { path: '**', component: ErrorComponent }
 ];
 
 @NgModule({

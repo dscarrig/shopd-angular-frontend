@@ -1,0 +1,11 @@
+<h1>Modify your address.</h1>
+
+<div class="container">
+<app-address-form
+    [initialData]="initialAddressData"
+    submitButtonText="Save New Address"
+    cancelButtonText="Cancel"
+    (formSubmit)="onAddressSave($event)"
+    (formCancel)="onCancel()">
+</app-address-form>
+</div>

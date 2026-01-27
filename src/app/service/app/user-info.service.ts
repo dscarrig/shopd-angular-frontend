@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
-import { AccountDetailItem } from '../../my-account/my-account.component';
+import { AccountDetailItem } from '../../components/my-account/my-account.component';
 
 @Injectable({
   providedIn: 'root'
