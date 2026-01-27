@@ -14,10 +14,9 @@ export class RouteGuardService {
       return true;
     }
     else {
-      console.log('Blocked by route guard!');
+      console.warn('Blocked by route guard!');
       this.router.navigate(['login']);
     }
-
 
     return false;
   }
@@ -27,7 +26,7 @@ export class RouteGuardService {
       return true;
     }
     else {
-      console.log('Blocked by route guard!');
+      console.warn('Blocked by route guard!');
     }
 
 
