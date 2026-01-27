@@ -1,10 +1,13 @@
 import { Component, OnInit, Input, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { OrderService, Order } from '../../service/app/order.service';
 
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
-  styleUrls: ['./order-history.component.css']
+  styleUrls: ['./order-history.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
 export class OrderHistoryComponent implements OnInit {
   @Input() username?: string;

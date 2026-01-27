@@ -1,1 +1,41 @@
-<p>order-history works!</p>
+<div *ngIf="username" class="order-history-container">
+    <div *ngIf="isLoading" class="loading">
+        <p>Loading order history...</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+        <p>{{errorMessage}}</p>
+    </div>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div *ngIf="hasOrders(); else noOrders">
+            <div class="order-item" *ngFor="let order of orders">
+                <div class="order-header">
+                    <strong>Order #{{order.id}}</strong> - {{formatDate(order.date)}}
+                    <span class="order-status">{{order.status}}</span>
+                </div>
+                <div class="order-details">
+                    <p>Total: ${{order.total.toFixed(2)}}</p>
+                    <div *ngIf="order.items && order.items.length > 0" class="order-items">
+                        <p><strong>Items:</strong></p>
+                        <ul>
+                            <li *ngFor="let item of order.items">
+                                {{item.itemName}} (x{{item.quantity}}) - ${{item.itemPrice.toFixed(2)}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <ng-template #noOrders>
+        <div class="no-orders">
+            <p>No order history found.</p>
+        </div>
+    </ng-template>
+</div>
+
+<div *ngIf="!username">
+    <p>Please log in to view your order history.</p>
+</div>
