@@ -2,8 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { UserInfoService } from '../../service/app/user-info.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { Router } from '@angular/router';
-import { AccountDetailItem } from '../my-account/my-account.component';
-import { ShopdItem } from '../../app.constants';
+import { AccountDetailItem, ShopdItem } from '../../app.classes';
 import { CartService } from '../../service/app/cart.service';
 import { OrderService, Order, OrderItem } from '../../service/app/order.service';
 import { CommonModule } from '@angular/common';
@@ -26,23 +25,27 @@ export class ConfirmCheckoutComponent implements OnInit {
   accountDetailItem!: AccountDetailItem;
   shopItems!: ShopdItem[];
   isSubmittingOrder = false;
+  cardNum: string = '';
+
+  cardNumCorrectFormat(): boolean {
+    const cardNum = this.basicAuthenticationService.getAuthenticatedUserCardNum();
+    const cardNumPattern = /^\d{16}$/; // Simple pattern for 16 digit card number
+
+    return cardNum !== null && cardNumPattern.test(cardNum);
+  }
 
   ngOnInit(): void {
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
     this.shopItems = [new ShopdItem('0', '0', '0', 0, '0', '0', false, 0, '0')];
-    this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
-    this.refreshItems();
-
-    this.userInfoService.getUserAccountDetails(this.userId).subscribe(
+    
+    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
-        console.log('Account details loaded:', response);
         this.accountDetailItem = response;
-      },
-      (error: any) => {
-        console.error('Error loading account details:', error);
       }
     );
+    
+    this.refreshItems();
   }
 
   refreshItems(): void {

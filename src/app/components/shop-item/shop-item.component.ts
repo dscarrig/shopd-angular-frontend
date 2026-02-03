@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ShopItemService } from '../../service/data/shop-item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
-import { ShopdItem } from '../../app.constants';
+import { ShopdItem } from '../../app.classes';
 
 @Component({
   selector: 'app-shop-item',

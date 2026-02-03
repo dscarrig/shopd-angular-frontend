@@ -4,7 +4,7 @@ import { BasicAuthenticationService } from '../../service/app/basic-authenticati
 import { CartService } from '../../service/app/cart.service';
 import { AppComponent } from '../../app.component';
 import { CommonModule } from '@angular/common';
-import { ShopdItem } from '../../app.constants';
+import { ShopdItem } from '../../app.classes';
 
 export class CartItem {
   constructor(

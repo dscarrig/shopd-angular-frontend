@@ -1,4 +1,4 @@
-<h1>{{accountDetailItem.username}}'s Account</h1>
+<h1>{{username}}'s Account</h1>
 
 
 <div *ngIf="hasSavedAddress() === 1" class="container">
@@ -9,9 +9,9 @@
         <td>
           {{accountDetailItem.fullName}}
           <br />
-          {{accountDetailItem.address}}
+          {{accountDetailItem.street}}
           <br />
-          {{accountDetailItem.addressTwo}}
+          {{accountDetailItem.state}}
           <br *ngIf="hasAddressLineTwo()"/>
           {{accountDetailItem.city}} {{accountDetailItem.state}}
           <br />
@@ -46,7 +46,7 @@
 <div *ngIf="hasSavedCardNum() === 1">
   <br />
   <h3>Saved card number for {{accountDetailItem.fullName}}:</h3>
-  {{accountDetailItem.cardNum}}
+  <!--{{accountDetailItem.cardNumber}}-->
   <button (click)="deleteCardNum()" class="btn-success">Delete Payment Info</button>
 </div>
 

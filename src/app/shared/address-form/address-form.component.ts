@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 export interface AddressFormData {
+  id?: string;
   fullName: string;
-  addressOne: string;
-  addressTwo: string;
+  street: string;
+  street2: string;
   city: string;
   state: string;
   zipCode: string;
+  country: string;
 }
 
 @Component({
@@ -26,12 +28,13 @@ export class AddressFormComponent implements OnInit {
   @Output() formSubmit = new EventEmitter<AddressFormData>();
   @Output() formCancel = new EventEmitter<void>();
 
-  fullName = '';
-  addressOne = '';
-  addressTwo = '';
-  city = '';
-  state = '';
-  zipCode = '';
+  fullName: string = '';
+  street: string = '';
+  street2: string = '';
+  city: string = '';
+  state: string = '';
+  zipCode: string = '';
+  country: string = '';
 
   usStates = [
     'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
@@ -44,11 +47,12 @@ export class AddressFormComponent implements OnInit {
   ngOnInit(): void {
     if (this.initialData) {
       this.fullName = this.initialData.fullName;
-      this.addressOne = this.initialData.addressOne;
-      this.addressTwo = this.initialData.addressTwo;
+      this.street = this.initialData.street;
+      this.street2 = this.initialData.street2;
       this.city = this.initialData.city;
       this.state = this.initialData.state;
       this.zipCode = this.initialData.zipCode;
+      this.country = this.initialData.country;
     }
   }
 
@@ -56,11 +60,12 @@ export class AddressFormComponent implements OnInit {
     if (this.isFormValid()) {
       this.formSubmit.emit({
         fullName: this.fullName,
-        addressOne: this.addressOne,
-        addressTwo: this.addressTwo,
+        street: this.street,
+        street2: this.street2,
         city: this.city,
         state: this.state,
-        zipCode: this.zipCode
+        zipCode: this.zipCode,
+        country: this.country
       });
     }
   }
@@ -74,7 +79,7 @@ export class AddressFormComponent implements OnInit {
   }
 
   allInputEntered(): boolean {
-    return this.fullName !== '' && this.addressOne !== '' && this.city !== ''
+    return this.fullName !== '' && this.street !== '' && this.city !== ''
       && this.state !== '' && this.zipCode !== '';
   }
 

@@ -4,24 +4,7 @@ import { UserInfoService } from '../../service/app/user-info.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { Router } from '@angular/router';
 import { OrderHistoryComponent } from '../order-history/order-history.component';
-
-export class AccountDetailItem {
-  constructor(
-    public id: number,
-    public username: string,
-    public email: string,
-    public accountType: string,
-    public fullName: string,
-    public address: string,
-    public addressTwo: string,
-    public city: string,
-    public state: string,
-    public zipCode: string,
-    public cardNum: string,
-    public isDefault: boolean
-
-  ) { }
-}
+import { AccountDetailItem } from '../../app.classes';
 
 @Component({
   selector: 'app-my-account',
@@ -35,30 +18,24 @@ export class MyAccountComponent implements OnInit {
   private router = inject(Router);
 
   username: string = '';
-  accountDetailItem: AccountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
-  defaultAccountDetailItem: AccountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
+  userId: string = '';
+  accountDetailItem: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
+  defaultAccountDetailItem: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
   allAccountDetailItems: AccountDetailItem[] = [];
 
   ngOnInit(): void {
-    this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
     this.refreshAccountInfo();
   }
 
   refreshAccountInfo() {
-
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
+    this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
 
-    this.userInfoService.getUserAccountDetails(this.username).subscribe(
+    console.log('Fetching account details for user: ' + this.userId);
+
+    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
-      this.accountDetailItem = response;
-      this.defaultAccountDetailItem = this.accountDetailItem;
-      }
-    );
-
-    this.userInfoService.getAllUsersAccountDetails(this.username).subscribe(
-      (response: AccountDetailItem[]) => {
-        this.allAccountDetailItems = response;
-        this.allAccountDetailItems.reverse();
+        this.accountDetailItem = response;
       }
     );
   }
@@ -72,39 +49,20 @@ export class MyAccountComponent implements OnInit {
   }
 
   deleteAddress(toDelete: AccountDetailItem) {
-
-    const toDeleteString = `${toDelete.fullName}_${toDelete.email}_${toDelete.accountType}_${toDelete.address}_${toDelete.addressTwo}_${toDelete.city}_${toDelete.state}_${toDelete.zipCode}_${toDelete.cardNum}`;
     
-    this.userInfoService.deleteUserDetail(this.username, toDeleteString).subscribe(
+    this.userInfoService.deleteUserDetail(this.userId, toDelete.id).subscribe(
       () => {
         this.ngOnInit();
       }
     );
-
   }
 
   deleteCardNum() {
-
-    let combinedInfo;
-
-    if (this.accountDetailItem.fullName === ' ' || this.accountDetailItem.fullName === '') {
-      combinedInfo = '_ _ _ _ _ _ -1';
-    }
-    else {
-      combinedInfo = this.accountDetailItem.fullName + '_' + this.accountDetailItem.email + '_' + this.accountDetailItem.accountType + '_' + this.accountDetailItem.address + '_' + this.accountDetailItem.addressTwo + '_' + this.accountDetailItem.city + '_' + this.accountDetailItem.state + '_' + this.accountDetailItem.zipCode + '_-1';
-    }
-
-    this.userInfoService.addUserInfo(this.username, combinedInfo).subscribe(
-      () => {
-        this.ngOnInit();
-      }
-    );
-
+    // Card number is deleted along with address in this implementation
   }
 
   setAsDefault(newDefault: AccountDetailItem) {
-    const newDefaultString = `${newDefault.fullName}_${newDefault.email}_${newDefault.accountType}_${newDefault.address}_${newDefault.addressTwo}_${newDefault.city}_${newDefault.state}_${newDefault.zipCode}_${newDefault.cardNum}`;
-    this.userInfoService.setDefaultDetail(this.username, newDefaultString).subscribe(
+    this.userInfoService.setDefaultDetail(this.userId, newDefault.id).subscribe(
       () => {
         this.ngOnInit();
       }
@@ -112,15 +70,15 @@ export class MyAccountComponent implements OnInit {
   }
 
   hasSavedAddress() {
-    return this.checkIfValid(this.accountDetailItem.address);
+    return this.checkIfValid(this.accountDetailItem.street);
   }
 
   hasSavedCardNum() {
-    return this.checkIfValid(this.accountDetailItem.cardNum);
+    return this.checkIfValid(this.accountDetailItem.zipCode);
   }
 
   hasAddressLineTwo() {
-    return (this.accountDetailItem.addressTwo != '' && this.accountDetailItem.addressTwo != ' ');
+    return this.checkIfValid(this.accountDetailItem.state);
   }
 
   checkIfValid(toCheck: string) {

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
-import { ShopdItem } from '../../app.constants';
+import { ShopdItem } from '../../app.classes';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({

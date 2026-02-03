@@ -69,7 +69,13 @@ export class BasicAuthenticationService {
   }
 
   getAuthenticatedUserId(): string | null {
-    return sessionStorage.getItem(USER_ID);
+    const userId = sessionStorage.getItem(USER_ID);
+    console.log('Retrieved user ID: ' + userId);
+    return userId ? userId.replace(/"/g, '') : null;
+  }
+
+  getAuthenticatedUserCardNum(): string | null {
+    return sessionStorage.getItem('authenticatedUserCardNum');
   }
 
   getAuthenticatedToken(): string | null {

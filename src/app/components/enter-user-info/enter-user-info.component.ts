@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserInfoService } from '../../service/app/user-info.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
-import { AccountDetailItem } from '../my-account/my-account.component';
+import { AccountDetailItem } from '../../app.classes';
 import { AddressFormData, AddressFormComponent } from '../../shared/address-form/address-form.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -19,33 +19,24 @@ export class EnterUserInfoComponent implements OnInit {
   private basicAuthenticationService = inject(BasicAuthenticationService);
 
   accountDetailItem!: AccountDetailItem;
-  username!: string;
+  userId!: string;
   initialAddressData?: AddressFormData;
   creditCardNumber = '';
 
   ngOnInit(): void {
-    this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
-    this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
-
-    this.userInfoService.getUserAccountDetails(this.username).subscribe(
+    this.userId = this.basicAuthenticationService.getAuthenticatedUser() || '';
+    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
-        this.initialAddressData = {
-          fullName: response.fullName,
-          addressOne: response.address,
-          addressTwo: response.addressTwo,
-          city: response.city,
-          state: response.state,
-          zipCode: response.zipCode
-        };
-
-        if (response.cardNum !== '-1') {
-          this.creditCardNumber = response.cardNum;
-        } else {
-          this.creditCardNumber = '';
-        }
       }
     );
+    this.creditCardNumber = '';
+
+
+    // Extract credit card number from accountDetailItem if available
+    // Assuming accountDetailItem has a cardNum property
+    // this.creditCardNumber = response.cardNum || '';
+
   }
 
   onCheckout(addressData: AddressFormData): void {
@@ -53,12 +44,23 @@ export class EnterUserInfoComponent implements OnInit {
       return;
     }
 
-    const username = this.basicAuthenticationService.getAuthenticatedUser();
-    const combinedInfo = addressData.fullName + '_' + addressData.addressOne + '_' + addressData.addressTwo + '_' +
-                        addressData.city + '_' + addressData.state + '_' + addressData.zipCode + '_' + this.creditCardNumber;
+    const userId = this.basicAuthenticationService.getAuthenticatedUserId();
+    
+    const updatedAccountDetail = new AccountDetailItem(
+      this.accountDetailItem.id,
+      addressData.fullName,
+      addressData.street,
+      addressData.street2,
+      addressData.city,
+      addressData.state,
+      addressData.zipCode,
+      addressData.country,
+      this.creditCardNumber,
+      true
+    );
 
-    if (username) {
-      this.userInfoService.addUserInfo(username, combinedInfo).subscribe(
+    if (userId) {
+      this.userInfoService.addUserInfo(userId, updatedAccountDetail).subscribe(
         (response: any) => {
           this.router.navigate(['confirm-checkout']);
         }

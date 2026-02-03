@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { UserInfoService } from '../../service/app/user-info.service';
-import { AccountDetailItem } from '../my-account/my-account.component';
+import { AccountDetailItem } from '../../app.classes';
 import { AddressFormData, AddressFormComponent } from '../../shared/address-form/address-form.component';
 
 @Component({
@@ -17,25 +17,22 @@ export class ModifyAddressComponent implements OnInit {
   private basicAuthenticationService = inject(BasicAuthenticationService);
 
   accountDetailItem!: AccountDetailItem;
-  username = '';
+  userId: string = '';
   initialAddressData?: AddressFormData;
+  cardNum: string = '';
 
   ngOnInit(): void {
-    this.accountDetailItem = new AccountDetailItem(0, '', '', '', '', '', '', '', '', '', '', false);
+    this.userId = '';
+    this.cardNum = '';
+    this.loadAccountDetails();
+  }
 
-    this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
-
-    this.userInfoService.getUserAccountDetails(this.username).subscribe(
+  loadAccountDetails() {
+    this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+    //this.cardNum = this.basicAuthenticationService.getAuthenticatedUserCardNum() || '';
+    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
-        this.initialAddressData = {
-          fullName: response.fullName,
-          addressOne: response.address,
-          addressTwo: response.addressTwo,
-          city: response.city,
-          state: response.state,
-          zipCode: response.zipCode
-        };
       }
     );
   }
@@ -46,17 +43,20 @@ export class ModifyAddressComponent implements OnInit {
       return;
     }
     
-    let combinedInfo;
+    const updatedAccountDetail = new AccountDetailItem(
+      this.accountDetailItem.id,
+      addressData.fullName,
+      addressData.street,
+      addressData.street2,
+      addressData.city,
+      addressData.state,
+      addressData.zipCode,
+      addressData.country,
+      this.cardNum === '' || this.cardNum === '-1' ? '-1' : this.cardNum,
+      true
+    );
 
-    if (this.accountDetailItem.cardNum === '' || this.accountDetailItem.cardNum === '-1') {
-      combinedInfo = addressData.fullName + '_' + addressData.addressOne + '_' + addressData.addressTwo + '_' +
-                    addressData.city + '_' + addressData.state + '_' + addressData.zipCode + '_-1';
-    } else {
-      combinedInfo = addressData.fullName + '_' + addressData.addressOne + '_' + addressData.addressTwo + '_' +
-                    addressData.city + '_' + addressData.state + '_' + addressData.zipCode + '_' + this.accountDetailItem.cardNum;
-    }
-
-    this.userInfoService.addUserInfo(username, combinedInfo).subscribe(
+    this.userInfoService.addUserInfo(this.userId, updatedAccountDetail).subscribe(
       (response: any) => {
         console.log(response);
         this.router.navigate(['my-account']);
