@@ -31,8 +31,6 @@ export class MyAccountComponent implements OnInit {
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
 
-    console.log('Fetching account details for user: ' + this.userId);
-
     this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
@@ -62,7 +60,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   setAsDefault(newDefault: AccountDetailItem) {
-    this.userInfoService.setDefaultDetail(this.userId, newDefault.id).subscribe(
+    this.userInfoService.setDefaultAddress(this.userId, newDefault.id).subscribe(
       () => {
         this.ngOnInit();
       }

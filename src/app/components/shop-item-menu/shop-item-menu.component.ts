@@ -2,7 +2,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ShopItemService } from '../../service/data/shop-item.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { CartService } from '../../service/app/cart.service';
-import { AppComponent } from '../../app.component';
 import { CommonModule } from '@angular/common';
 import { ShopdItem } from '../../app.classes';
 
@@ -16,8 +15,6 @@ export class ShopItemMenuComponent implements OnInit {
   private itemMenuService = inject(ShopItemService);
   private authenticationService = inject(BasicAuthenticationService);
   private cartService = inject(CartService);
-  private appComponent = inject(AppComponent);
-
 
   shopItems: ShopdItem[] = [];
   userId!: string | null;
@@ -50,13 +47,11 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   addItemToCart(item: ShopdItem) {
-
     if (this.userId) {
       this.cartService.addToCart(this.userId, item.id).subscribe();
     }
     else {
       console.error('User ID is not available. Cannot add item to cart.');
     }
-
   }
 }

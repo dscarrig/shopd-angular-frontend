@@ -51,7 +51,6 @@ export class ConfirmCheckoutComponent implements OnInit {
   refreshItems(): void {
     this.cartService.retrieveAllFromCart(this.userId).subscribe(
       (response: ShopdItem[]) => {
-        console.log('Cart items loaded:', response);
         this.shopItems = response;
       },
       (error: any) => {

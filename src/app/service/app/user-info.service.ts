@@ -44,7 +44,7 @@ export class UserInfoService {
   }
 
   getUserCardNumber(userId: string): any {
-    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-card-number/${userId}`);
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-payment-info/${userId}`);
   }
 
   deleteUserDetail(userId: string, toDelete: string): any {
@@ -52,7 +52,7 @@ export class UserInfoService {
     return this.http.post(`${SHOPD_JPA_API_URL}/users/delete-account-detail/${userId}`, toDelete);
   }
 
-  setDefaultDetail(userId: string, newDefault: string): any {
+  setDefaultAddress(userId: string, newDefault: string): any {
     this.clearCache(); // Clear cache when changing default
     return this.http.post(`${SHOPD_JPA_API_URL}/users/set-new-default/${userId}`, newDefault);
   }

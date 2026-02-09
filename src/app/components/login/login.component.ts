@@ -23,12 +23,17 @@ export class LoginComponent {
   password = '';
   errorMessage = 'Invalid Credentials';
   invalidLogin = false;
+  tempUserId = ''; // Store guest user ID before login
 
   handleJWTAuthLogin() {
+    // Capture the guest/temp userId BEFORE authentication overwrites it
+    this.tempUserId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+    
     this.basicAuthenticationService.executeJWTAuthenticationService(this.username, this.password)
       .subscribe(
       () => {
         this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+        this.transferTempCart();
         this.router.navigate(['home', this.userId]);
         this.invalidLogin = false;
         },
@@ -43,13 +48,16 @@ export class LoginComponent {
     this.router.navigate(['createaccount']);
   }
 
-  tranferTempCart() {
-    this.cartService.copyTempCart(this.userId).subscribe(
-      () => {
-        this.appComponent.refreshMenu();
-        this.cartService.deleteAllFromCart('temp').subscribe();
-      }
-    );
+  transferTempCart() {
+    // Only transfer if there was a temp user (guest)
+    if (this.tempUserId) {
+      this.cartService.copyTempCart(this.userId, this.tempUserId).subscribe(
+        () => {
+          this.appComponent.refreshMenu();
+          this.cartService.deleteAllFromCart(this.tempUserId).subscribe();
+        }
+      );
+    }
   }
 
 }

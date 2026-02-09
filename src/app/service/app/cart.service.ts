@@ -19,18 +19,21 @@ export class CartService {
   }
 
   addToCart(userId: string, itemId: string): any {
-    console.log(`Adding item with ID ${itemId} to cart for user ID ${userId}`);
     return this.http.post(`${SHOPD_JPA_API_URL}/cart/add/${userId}`, itemId).pipe(
       tap(() => this.refreshCartCount(userId))
     );
   }
 
-  copyTempCart(userId: string): any {
-    return this.http.post(`${SHOPD_JPA_API_URL}/cart/copy/${userId}`, 'temp');
+  copyTempCart(userId: string, tempUserId: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/cart/copy/${userId}`, tempUserId, {
+      headers: { 'Content-Type': 'application/json' },
+      responseType: 'text' as 'json'
+    }).pipe(
+      tap(() => this.refreshCartCount(userId))
+    );
   }
 
   retrieveAllFromCart(userId: string): any {
-    console.log(`Retrieving all items from cart for user ID ${userId}`);
     return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/cart/items/${userId}`);
   }
 
