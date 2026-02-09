@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { CartService } from '../../service/app/cart.service';
 import { AppComponent } from '../../app.component';

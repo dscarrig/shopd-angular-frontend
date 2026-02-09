@@ -2,7 +2,6 @@ import { API_URL } from '../../app.constants';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
 
 export const TOKEN = 'token';
@@ -52,7 +51,7 @@ export class BasicAuthenticationService {
           sessionStorage.setItem(AUTHENTICATED_USER, username);
           sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
         }),
-        switchMap(data => 
+        switchMap(data =>
           this.http.get<string>(`${SHOPD_JPA_API_URL}/users/user-id/${username}`, { responseType: 'text' as 'json' })
             .pipe(
               tap(userId => {

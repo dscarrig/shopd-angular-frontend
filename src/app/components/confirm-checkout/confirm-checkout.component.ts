@@ -123,7 +123,7 @@ export class ConfirmCheckoutComponent implements OnInit {
       error: (error) => {
         console.error('Error creating order:', error);
         this.isSubmittingOrder = false;
-        // You might want to show an error message to the user here
+        // show an error message to the user here
         alert('Failed to create order. Please try again.');
       }
     });

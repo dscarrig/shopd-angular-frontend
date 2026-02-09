@@ -42,10 +42,10 @@ export class ShopdListingFormComponent {
   }
 
   isFormValid(): boolean {
-    return !!this.itemName.trim() && 
-           this.price !== null && 
-           this.price > 0 && 
-           !!this.description.trim();
+    return !!this.itemName.trim() &&
+      this.price !== null &&
+      this.price > 0 &&
+      !!this.description.trim();
   }
 
   onSubmit() {
