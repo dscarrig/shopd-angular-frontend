@@ -12,6 +12,7 @@ import { AccountDetailItem } from '../../app.classes';
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.css']
 })
+
 export class MyAccountComponent implements OnInit {
   private userInfoService = inject(UserInfoService);
   private basicAuthenticationService = inject(BasicAuthenticationService);
@@ -76,6 +77,10 @@ export class MyAccountComponent implements OnInit {
   }
 
   hasAddressLineTwo() {
+    return this.checkIfValid(this.accountDetailItem.streetLine2);
+  }
+
+  hasState() {
     return this.checkIfValid(this.accountDetailItem.state);
   }
 

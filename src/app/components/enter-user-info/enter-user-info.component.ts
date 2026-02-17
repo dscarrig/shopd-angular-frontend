@@ -50,7 +50,7 @@ export class EnterUserInfoComponent implements OnInit {
       this.accountDetailItem.id,
       addressData.fullName,
       addressData.street,
-      addressData.street2,
+      addressData.streetLine2,
       addressData.city,
       addressData.state,
       addressData.zipCode,

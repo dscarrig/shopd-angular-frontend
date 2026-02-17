@@ -4,11 +4,11 @@
     <br />
     Address Line 1 : <input type="text" [(ngModel)]="street">
     <br />
-    Address Line 2 : <input type="text" [(ngModel)]="street2">
+    Address Line 2 : <input type="text" [(ngModel)]="streetLine2">
     <br />
     City : <input type="text" [(ngModel)]="city">
     <br />
-    State : 
+    State :
     <select [(ngModel)]="state">
       <option value="">Select a state</option>
       <option *ngFor="let st of usStates" [value]="st">{{st}}</option>

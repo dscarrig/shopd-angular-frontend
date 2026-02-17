@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './placeholder.component.css'
 })
 export class PlaceholderComponent {
-
+  
 }

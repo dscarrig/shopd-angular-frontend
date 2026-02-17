@@ -6,11 +6,12 @@ export interface AddressFormData {
   id?: string;
   fullName: string;
   street: string;
-  street2: string;
+  streetLine2: string;
   city: string;
   state: string;
   zipCode: string;
   country: string;
+  user?: string;
 }
 
 @Component({
@@ -30,7 +31,7 @@ export class AddressFormComponent implements OnInit {
 
   fullName: string = '';
   street: string = '';
-  street2: string = '';
+  streetLine2: string = '';
   city: string = '';
   state: string = '';
   zipCode: string = '';
@@ -48,7 +49,7 @@ export class AddressFormComponent implements OnInit {
     if (this.initialData) {
       this.fullName = this.initialData.fullName;
       this.street = this.initialData.street;
-      this.street2 = this.initialData.street2;
+      this.streetLine2 = this.initialData.streetLine2;
       this.city = this.initialData.city;
       this.state = this.initialData.state;
       this.zipCode = this.initialData.zipCode;
@@ -61,7 +62,7 @@ export class AddressFormComponent implements OnInit {
       this.formSubmit.emit({
         fullName: this.fullName,
         street: this.street,
-        street2: this.street2,
+        streetLine2: this.streetLine2,
         city: this.city,
         state: this.state,
         zipCode: this.zipCode,

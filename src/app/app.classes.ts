@@ -17,12 +17,12 @@ export class AccountDetailItem {
         public id: string,
         public fullName: string,
         public street: string,
-        public street2: string,
+        public streetLine2: string,
         public city: string,
         public state: string,
         public zipCode: string,
         public country: string,
-        public userId: string,
+        public user: string,
         public isDefault: boolean
     ) { }
 }

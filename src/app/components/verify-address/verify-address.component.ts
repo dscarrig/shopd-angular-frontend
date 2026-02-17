@@ -38,7 +38,7 @@ export class VerifyAddressComponent implements OnInit {
       || this.accountDetailItem.city === ' ' || this.accountDetailItem.city === ''
       || this.accountDetailItem.state === ' ' || this.accountDetailItem.state === ''
       || this.accountDetailItem.zipCode === ' ' || this.accountDetailItem.zipCode === ''
-      || this.accountDetailItem.userId === ' ' || this.accountDetailItem.userId === '' || this.accountDetailItem.userId === '-1') {
+      || this.accountDetailItem.user === ' ' || this.accountDetailItem.user === '' || this.accountDetailItem.user === '-1') {
       this.navigateToEnterUserInfo();
     }
   }
