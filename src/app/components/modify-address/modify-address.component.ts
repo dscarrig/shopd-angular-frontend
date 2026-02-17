@@ -57,7 +57,7 @@ export class ModifyAddressComponent implements OnInit {
       true
     );
 
-    this.userInfoService.addUserInfo(this.userId, updatedAccountDetail).subscribe(
+    this.userInfoService.addUserAddress(this.userId, updatedAccountDetail).subscribe(
       (response: any) => {
         console.log(response);
         this.router.navigate(['my-account']);

@@ -30,30 +30,46 @@ export class UserInfoService {
     this.cachedUserId = null;
   }
 
-  addUserInfo(userId: string, userInfo: AccountDetailItem): any {
+  addUserAddress(userId: string, userAddress: AccountDetailItem): any {
     this.clearCache(); // Clear cache when adding new info
-    return this.http.post(`${SHOPD_JPA_API_URL}/users/create-new-address/${userId}`, userInfo);
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/create-new-address/${userId}`, userAddress);
   }
 
-  getAllUsersAccountDetails(userId: string): any {
-    return this.http.get<AccountDetailItem[]>(`${SHOPD_JPA_API_URL}/users/get-all-users-account-details/${userId}`);
+  getAllUsersAddresses(userId: string): any {
+    return this.http.get<AccountDetailItem[]>(`${SHOPD_JPA_API_URL}/users/all-addresses/${userId}`);
   }
 
   getUserAddress(userId: string): any {
     return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-default-address/${userId}`);
   }
 
-  getUserCardNumber(userId: string): any {
-    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-payment-info/${userId}`);
-  }
-
-  deleteUserDetail(userId: string, toDelete: string): any {
+  deleteUserAddress(userId: string, toDelete: string): any {
     this.clearCache(); // Clear cache when deleting
-    return this.http.post(`${SHOPD_JPA_API_URL}/users/delete-account-detail/${userId}`, toDelete);
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/delete-address/${userId}`, toDelete);
   }
 
   setDefaultAddress(userId: string, newDefault: string): any {
     this.clearCache(); // Clear cache when changing default
-    return this.http.post(`${SHOPD_JPA_API_URL}/users/set-new-default/${userId}`, newDefault);
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/set-new-default-address/${userId}`, newDefault);
+  }
+
+  addPaymentInfo(userId: string, paymentInfo: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/create-payment-info/${userId}`, paymentInfo);
+  }
+
+  getDefaultPaymentInfo(userId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-default-payment-info/${userId}`);
+  }
+
+  getAllUsersPaymentInfo(userId: string): any {
+    return this.http.get<string[]>(`${SHOPD_JPA_API_URL}/users/all-payment-info/${userId}`);
+  }
+
+  deletePaymentInfo(userId: string, toDelete: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/delete-payment-info/${userId}`, toDelete);
+  }
+
+  setDefaultPaymentInfo(userId: string, newDefault: string): any {
+    return this.http.post(`${SHOPD_JPA_API_URL}/users/set-default-payment/${userId}`, newDefault);
   }
 }

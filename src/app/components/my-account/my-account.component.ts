@@ -46,7 +46,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   deleteAddress(toDelete: AccountDetailItem) {
-    this.userInfoService.deleteUserDetail(this.userId, toDelete.id).subscribe(
+    this.userInfoService.deleteUserAddress(this.userId, toDelete.id).subscribe(
       () => {
         this.ngOnInit();
       }
@@ -54,7 +54,13 @@ export class MyAccountComponent implements OnInit {
   }
 
   deleteCardNum() {
-    // Card number is deleted along with address in this implementation
+    // Assuming we have a way to identify the card number to delete, we would call a similar method in the service.
+    // For example:
+    // this.userInfoService.deleteUserCardNum(this.userId, cardNumId).subscribe(
+    //   () => {
+    //     this.ngOnInit();
+    //   }
+    // );
   }
 
   setAsDefault(newDefault: AccountDetailItem) {

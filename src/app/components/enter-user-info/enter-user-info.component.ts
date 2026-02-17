@@ -60,7 +60,7 @@ export class EnterUserInfoComponent implements OnInit {
     );
 
     if (userId) {
-      this.userInfoService.addUserInfo(userId, updatedAccountDetail).subscribe(
+      this.userInfoService.addUserAddress(userId, updatedAccountDetail).subscribe(
         (response: any) => {
           this.router.navigate(['confirm-checkout']);
         }
