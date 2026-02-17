@@ -1,68 +1,107 @@
-<h1>{{username}}'s Account</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-xl-10">
+      
+      <!-- Header Card -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h1 class="text-center mb-2">{{username}}'s Account</h1>
+          <p class="text-center text-muted">Manage your addresses, payment methods, and view order history</p>
+        </div>
+      </div>
 
-<div *ngIf="hasSavedAddress()" class="container">
-  <table class="table">
-    <tbody>
-      <tr>
-        <td>
-          {{accountDetailItem.fullName}}
-          <br />
-          {{accountDetailItem.street}}
-          <br *ngIf="hasAddressLineTwo()" />
-          <span *ngIf="hasAddressLineTwo()">{{accountDetailItem.streetLine2}}</span>
-          <br />
-          {{accountDetailItem.city}} {{accountDetailItem.state}}
-          <br />
-          {{accountDetailItem.zipCode}}
-        </td>
+      <!-- Address Section -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Saved Addresses</h3>
+          
+          <div *ngIf="hasSavedAddress()">
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h5 class="card-title">{{accountDetailItem.fullName}}</h5>
+                    <p class="card-text mb-0">
+                      {{accountDetailItem.street}}<br />
+                      <span *ngIf="hasAddressLineTwo()">{{accountDetailItem.streetLine2}}<br /></span>
+                      {{accountDetailItem.city}}, {{accountDetailItem.state}} {{accountDetailItem.zipCode}}
+                    </p>
+                  </div>
+                  <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
+                    <div class="alert alert-success mb-2 py-1 px-3" *ngIf="isDefaultAccountDetailItem(accountDetailItem)">
+                      <small>Default Address</small>
+                    </div>
+                    <button *ngIf="!isDefaultAccountDetailItem(accountDetailItem)" 
+                            (click)="setAsDefault(accountDetailItem)" 
+                            class="btn btn-outline-success btn-sm mb-2">
+                      Set As Default
+                    </button>
+                    <button (click)="deleteAddress(accountDetailItem)" 
+                            class="btn btn-outline-danger btn-sm">
+                      Delete Address
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <td>
-          <div class="alert alert-warning" *ngIf="isDefaultAccountDetailItem(accountDetailItem)">Default Address</div>
-          <button *ngIf="!isDefaultAccountDetailItem(accountDetailItem)" (click)="setAsDefault(accountDetailItem)" class="btn-success">Set As Default</button>
-          <br />
-          <br />
-          <button (click)="deleteAddress(accountDetailItem)" class="btn-success">Delete Address</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+          <div *ngIf="!hasSavedAddress()" class="alert alert-info text-center">
+            You have no saved addresses.
+          </div>
 
-<div *ngIf="!hasSavedAddress()">
-  <h3>You have no saved address.</h3>
-</div>
+          <div class="d-grid">
+            <button (click)="modifyAddress()" class="btn btn-success">
+              <i class="bi bi-plus-circle"></i> Add New Address
+            </button>
+          </div>
+        </div>
+      </div>
 
-<div>
-  <br />
-  <button (click)="modifyAddress()" class="btn-success">Add New Address</button>
-  <br />
-</div>
+      <!-- Payment Information Section -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Payment Information</h3>
+          
+          <div *ngIf="hasSavedCardNum()" class="alert alert-success text-center mb-3">
+            Saved card number for {{accountDetailItem.fullName}}
+          </div>
 
-<div *ngIf="hasSavedCardNum()">
-  <br />
-  <h3>Saved card number for {{accountDetailItem.fullName}}:</h3>
-  <!--{{accountDetailItem.cardNumber}}-->
-  <button (click)="deleteCardNum()" class="btn-success">Delete Payment Info</button>
-</div>
+          <div *ngIf="!hasSavedCardNum() && hasSavedAddress()" class="alert alert-info text-center mb-3">
+            No saved card number for {{accountDetailItem.fullName}}.
+          </div>
 
-<div *ngIf="!hasSavedCardNum() && hasSavedAddress()">
-  <br />
-  <h3>No saved card number for {{accountDetailItem.fullName}}.</h3>
-</div>
+          <div *ngIf="!hasSavedCardNum() && !hasSavedAddress()" class="alert alert-info text-center mb-3">
+            No saved card number.
+          </div>
 
-<div *ngIf="!hasSavedCardNum() && !hasSavedAddress()">
-  <br />
-  <h3>No saved card number.</h3>
-</div>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <div class="d-grid">
+                <button (click)="modifyCardNum()" class="btn btn-success">
+                  Change Saved Card Number
+                </button>
+              </div>
+            </div>
+            <div class="col-md-6" *ngIf="hasSavedCardNum()">
+              <div class="d-grid">
+                <button (click)="deleteCardNum()" class="btn btn-outline-danger">
+                  Delete Payment Info
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<div>
-  <br />
-  <button (click)="modifyCardNum()" class="btn-success">Change Saved Card Number</button>
-</div>
+      <!-- Order History Section -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Order History</h3>
+          <app-order-history [username]="username"></app-order-history>
+        </div>
+      </div>
 
-<!-- Order History Section -->
-<div class="order-history-section">
-  <br />
-  <h3>Order History</h3>
-  <app-order-history [username]="username"></app-order-history>
+    </div>
+  </div>
 </div>

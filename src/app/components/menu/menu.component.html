@@ -1,33 +1,71 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark">
-    <div>
-        <img (click)="refreshMenu()" routerLink="/home" src="assets/logo.png" width="64" alt="SHOPD Logo">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+      <!-- Logo/Brand -->
+      <a class="navbar-brand" (click)="refreshMenu()" routerLink="/home">
+        <img src="assets/logo.png" width="64" alt="SHOPD Logo" class="d-inline-block align-top">
+      </a>
+
+      <!-- Hamburger Toggle Button for Mobile -->
+      <button class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNav"
+              aria-controls="navbarNav"
+              aria-expanded="false"
+              aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible Navigation -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Left Side Navigation -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a (click)="refreshMenu()" routerLink="/home" class="nav-link" routerLinkActive="active">Home</a>
+          </li>
+          @if (isLoggedIn()) {
+            <li class="nav-item">
+              <a (click)="refreshMenu()" routerLink="/my-account" class="nav-link" routerLinkActive="active">{{userName}}'s Account</a>
+            </li>
+          }
+          <li class="nav-item">
+            <a (click)="refreshMenu()" routerLink="/menu" class="nav-link" routerLinkActive="active">Browse Items</a>
+          </li>
+        </ul>
+
+        <!-- Right Side Navigation -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            @if (itemsInCart == 0) {
+              <a (click)="refreshMenu()" routerLink="/cart" class="nav-link" routerLinkActive="active">
+                <i class="bi bi-cart"></i> Cart
+              </a>
+            } @else {
+              <a routerLink="/cart" class="nav-link" routerLinkActive="active">
+                <i class="bi bi-cart-fill"></i> Cart <span class="badge bg-light text-dark">{{itemsInCart}}</span>
+              </a>
+            }
+          </li>
+          @if (!isLoggedIn()) {
+            <li class="nav-item">
+              <a (click)="refreshMenu()" routerLink="/createaccount" class="nav-link" routerLinkActive="active">Create Account</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="refreshMenu()" routerLink="/login" class="nav-link" routerLinkActive="active">Log In</a>
+            </li>
+          }
+          @if (isLoggedIn()) {
+            <li class="nav-item">
+              <a (click)="refreshMenu()" routerLink="/create-shopd-listing" class="nav-link" routerLinkActive="active">Create Listing</a>
+            </li>
+            <li class="nav-item">
+              <a (click)="refreshMenu()" routerLink="/logout" class="nav-link">Log Out</a>
+            </li>
+          }
+        </ul>
+      </div>
     </div>
-
-    <ul class="navbar-nav">
-        
-      <li><a (click)="refreshMenu()" routerLink="/home" class="nav-link">Home</a></li>
-      @if (isLoggedIn()) {
-        <li><a (click)="refreshMenu()" routerLink="/my-account" class="nav-link">{{userName}}'s Account</a></li>
-      }
-      <li><a (click)="refreshMenu()" routerLink="/menu" class="nav-link">Browse Items</a></li>
-    </ul>
-
-    <ul class="navbar-nav navbar-collapse justify-content-end">
-      @if (itemsInCart == 0) {
-        <li><a (click)="refreshMenu()" routerLink="/cart" class="nav-link">Cart</a></li>
-      } @else {
-        <li><a routerLink="/cart" class="nav-link">Cart ({{itemsInCart}})</a></li>
-      }
-      @if (!isLoggedIn()) {
-        <li><a (click)="refreshMenu()" routerLink="/createaccount" class="nav-link">Create Account</a></li>
-        <li><a (click)="refreshMenu()" routerLink="/login" class="nav-link">Log In</a></li>
-      }
-      @if (isLoggedIn()) {
-        <li><a (click)="refreshMenu()" routerLink="/create-shopd-listing" class="nav-link">Create a Listing</a></li>
-        <li><a (click)="refreshMenu()" routerLink="/logout" class="nav-link">Log Out</a></li>
-      }
-    </ul>
   </nav>
 </header>
 
