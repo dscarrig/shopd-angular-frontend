@@ -12,7 +12,6 @@ import { AccountDetailItem } from '../../app.classes';
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.css']
 })
-
 export class MyAccountComponent implements OnInit {
   private userInfoService = inject(UserInfoService);
   private basicAuthenticationService = inject(BasicAuthenticationService);
@@ -21,8 +20,6 @@ export class MyAccountComponent implements OnInit {
   username: string = '';
   userId: string = '';
   accountDetailItem: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
-  defaultAccountDetailItem: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
-  allAccountDetailItems: AccountDetailItem[] = [];
 
   ngOnInit(): void {
     this.refreshAccountInfo();
@@ -35,6 +32,7 @@ export class MyAccountComponent implements OnInit {
     this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
+        console.log('Loaded default account details:', this.accountDetailItem);
       }
     );
   }
@@ -48,7 +46,6 @@ export class MyAccountComponent implements OnInit {
   }
 
   deleteAddress(toDelete: AccountDetailItem) {
-    
     this.userInfoService.deleteUserDetail(this.userId, toDelete.id).subscribe(
       () => {
         this.ngOnInit();
@@ -68,32 +65,27 @@ export class MyAccountComponent implements OnInit {
     );
   }
 
-  hasSavedAddress() {
-    return this.checkIfValid(this.accountDetailItem.street);
+  hasSavedAddress(): boolean {
+    return this.isValid(this.accountDetailItem.street);
   }
 
-  hasSavedCardNum() {
-    return this.checkIfValid(this.accountDetailItem.zipCode);
+  hasSavedCardNum(): boolean {
+    return this.isValid(this.accountDetailItem.zipCode);
   }
 
-  hasAddressLineTwo() {
-    return this.checkIfValid(this.accountDetailItem.streetLine2);
+  hasAddressLineTwo(): boolean {
+    return this.isValid(this.accountDetailItem.streetLine2);
   }
 
-  hasState() {
-    return this.checkIfValid(this.accountDetailItem.state);
+  hasState(): boolean {
+    return this.isValid(this.accountDetailItem.state);
   }
 
-  checkIfValid(toCheck: string) {
-    if (toCheck === ' ' || toCheck === '' || toCheck === '-1') {
-      return 0;
-    }
-    else {
-      return 1;
-    }
+  isValid(value: string): boolean {
+    return value !== ' ' && value !== '' && value !== '-1';
   }
 
-  isDefaultAccountDetailItem(compare : any) {
-    return compare.isDefault ? 1 : 0;
+  isDefaultAccountDetailItem(compare: AccountDetailItem): boolean {
+    return compare.isDefault;
   }
 }
