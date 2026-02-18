@@ -1,54 +1,98 @@
-<body>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-11">
+      
+      <!-- Header Card -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h1 class="text-center mb-2">Shopping Cart</h1>
+          <p class="text-center text-muted">Review your items and proceed to checkout</p>
+        </div>
+      </div>
 
-  <div *ngIf="getCartTotal() > 0" class="container">
-    <table class="table">
+      <!-- Cart Items Section -->
+      <div *ngIf="getCartTotal() > 0" class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Cart Items</h3>
+          
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
 
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Subtotal</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+              <tbody>
+                <tr *ngFor="let cartItem of cartItems">
+                  <td>{{cartItem.item.name}}</td>
+                  <td>{{cartItem.item.description}}</td>
+                  <td>${{cartItem.item.price.toFixed(2)}}</td>
+                  <td>{{cartItem.quantity}}</td>
+                  <td><strong>${{cartItem.totalPrice.toFixed(2)}}</strong></td>
+                  <td>
+                    <button (click)="removeItemFromCart(cartItem)" class="btn btn-warning btn-sm me-2">
+                      Remove One
+                    </button>
+                    <button (click)="removeAllOfItem(cartItem)" class="btn btn-danger btn-sm">
+                      Remove All
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
-      <tbody>
-        <tr *ngFor="let cartItem of cartItems">
-          <td>{{cartItem.item.name}}</td>
-          <td>{{cartItem.item.description}}</td>
-          <td>${{cartItem.item.price.toFixed(2)}}</td>
-          <td>{{cartItem.quantity}}</td>
-          <td>${{cartItem.totalPrice.toFixed(2)}}</td>
-          <td>
-            <button (click)="removeItemFromCart(cartItem)" class="btn-success" style="margin-right: 5px;">Remove One</button>
-            <button (click)="removeAllOfItem(cartItem)" class="btn-danger">Remove All</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <!-- Cart Total Section -->
+      <div *ngIf="getCartTotal() > 0" class="card shadow mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <h3 class="mb-0">Total Price:</h3>
+            </div>
+            <div class="col-md-4 text-end">
+              <h3 class="mb-0 text-success">${{getCartTotal().toFixed(2)}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty Cart Message -->
+      <div *ngIf="getCartTotal() === 0" class="card shadow mb-4">
+        <div class="card-body text-center py-5">
+          <h3 class="mb-3">Your cart is empty</h3>
+          <p class="text-muted mb-4">Start adding items to your cart from the menu.</p>
+          <button (click)="goToMenu()" class="btn btn-success btn-lg">
+            Browse Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- Checkout Actions -->
+      <div *ngIf="getCartTotal() > 0" class="card shadow mb-4">
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <button *ngIf="authenticationService.isUserLoggedIn()" 
+                    (click)="payNow()" 
+                    class="btn btn-success btn-lg">
+              PROCEED TO CHECKOUT
+            </button>
+            <button *ngIf="!authenticationService.isUserLoggedIn()" 
+                    (click)="goToLogin()" 
+                    class="btn btn-success btn-lg">
+              Log In to Check Out
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-
-  <div *ngIf="getCartTotal() > 0" class="container">
-    <table class="table">
-      <tbody>
-      <td>Total price:</td>
-      <td>${{getCartTotal().toFixed(2)}}</td>
-      </tbody>
-    </table>
-  </div>
-
-  <div *ngIf="getCartTotal() === 0" class="container">
-    Cart is empty.
-    <br />
-    <button (click)="goToMenu()" class="btn-success">Go to the menu to add items to the cart.</button>
-  </div>
-
-  <div class="container">
-    <button *ngIf="authenticationService.isUserLoggedIn() && getCartTotal() > 0" (click)="payNow()" class="btn-success">PAY NOW</button>
-    <button *ngIf="!authenticationService.isUserLoggedIn()" (click)="goToLogin()" class="btn-success">Log in to check out</button>
-  </div>
-
-
-</body>
+</div>
