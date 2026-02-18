@@ -23,7 +23,7 @@ export class LoginComponent {
   password = '';
   errorMessage = 'Invalid Credentials';
   invalidLogin = false;
-  tempUserId = ''; // Store guest user ID before login
+  tempUserId = '33333333-3333-3333-3333-333333333333'; // Store guest user ID before login
 
   handleJWTAuthLogin() {
     // Capture the guest/temp userId BEFORE authentication overwrites it
