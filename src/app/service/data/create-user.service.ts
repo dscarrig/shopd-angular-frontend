@@ -22,7 +22,6 @@ export class CreateUserService {
         next: () => {
           this.http.post(`${API_URL}/register`, {username, userId: '0', password}, { observe: 'response' }).subscribe({
             next: response => {
-              console.log('User creation response:', response);
               this.basicAuthenticationService.logout();
               this.router.navigate(['success']);
               

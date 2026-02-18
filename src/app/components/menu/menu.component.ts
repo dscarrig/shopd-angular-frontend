@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit {
   private cartService = inject(CartService);
   
   itemsInCart: number = 0;
-  userName: string = 'Guest';
+  userName: string = 'guest';
 
   ngOnInit(): void {
     this.updateUsername();
@@ -47,6 +47,6 @@ export class MenuComponent implements OnInit {
 
   private updateUsername() {
     const authenticatedUser = this.authenticationService.getAuthenticatedUser();
-    this.userName = authenticatedUser || 'Guest';
+    this.userName = authenticatedUser || 'guest';
   }
 }

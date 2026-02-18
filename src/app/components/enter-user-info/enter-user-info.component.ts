@@ -32,7 +32,6 @@ export class EnterUserInfoComponent implements OnInit {
     );
     this.creditCardNumber = '';
 
-
     // Extract credit card number from accountDetailItem if available
     // Assuming accountDetailItem has a cardNum property
     // this.creditCardNumber = response.cardNum || '';
@@ -61,7 +60,7 @@ export class EnterUserInfoComponent implements OnInit {
 
     if (userId) {
       this.userInfoService.addUserAddress(userId, updatedAccountDetail).subscribe(
-        (response: any) => {
+        () => {
           this.router.navigate(['confirm-checkout']);
         }
       );

@@ -32,7 +32,6 @@ export class MyAccountComponent implements OnInit {
     this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
-        console.log('Loaded default account details:', this.accountDetailItem);
       }
     );
   }
