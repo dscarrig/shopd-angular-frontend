@@ -47,7 +47,6 @@ export class BasicAuthenticationService {
         password
       }).pipe(
         tap(data => {
-          console.log('Logged in as guest');
           sessionStorage.setItem(AUTHENTICATED_USER, username);
           sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
         }),
@@ -69,7 +68,6 @@ export class BasicAuthenticationService {
 
   getAuthenticatedUserId(): string | null {
     const userId = sessionStorage.getItem(USER_ID);
-    console.log('Retrieved user ID: ' + userId);
     return userId ? userId.replace(/"/g, '') : null;
   }
 

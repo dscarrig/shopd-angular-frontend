@@ -31,27 +31,26 @@ export class CreateShopdListingComponent implements OnInit {
   }
 
   onCreateListing(formData: any) {
-    console.log('Form data received:', formData);
     if (this.isSubmitting) return;
     
     this.isSubmitting = true;
     this.errorMessage = '';
 
     const listing: ShopdListing = {
-      itemId: formData.itemId,
-      name: formData.name,
+      id: formData.id || 0, // ID will be set by backend
+      name: formData.itemName,
       description: formData.description,
       price: formData.price,
       imageUrl: formData.imageUrl,
       category: formData.category,
-      available : formData.available,
-      quantity : formData.quantity,
+      available : true,
+      quantity : 1,
       userId : this.userId
     };
 
     console.log('Creating listing with data:', listing);
 
-    this.createShopdListingService.uploadListingWithPhoto(this.username, listing, formData.photo)
+    this.createShopdListingService.uploadListingWithPhoto(this.userId, listing, formData.photo)
       .subscribe({
         next: (result) => {
           console.log('Listing created successfully:', result);

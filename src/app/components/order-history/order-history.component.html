@@ -20,7 +20,7 @@
                         <p><strong>Items:</strong></p>
                         <ul>
                             <li *ngFor="let item of order.items">
-                                {{item.itemName}} (x{{item.quantity}}) - ${{item.itemPrice.toFixed(2)}}
+                                {{item.name}} (x{{item.quantity}}) - ${{item.price.toFixed(2)}}
                             </li>
                         </ul>
                     </div>

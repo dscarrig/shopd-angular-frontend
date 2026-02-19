@@ -4,7 +4,7 @@ import { BasicAuthenticationService } from '../../service/app/basic-authenticati
 import { Router } from '@angular/router';
 import { AccountDetailItem, ShopdItem } from '../../app.classes';
 import { CartService } from '../../service/app/cart.service';
-import { OrderService, Order, OrderItem } from '../../service/app/order.service';
+import { OrderService, Order } from '../../service/app/order.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -96,11 +96,16 @@ export class ConfirmCheckoutComponent implements OnInit {
     });
 
     // Create order items with proper quantities
-    const orderItems: OrderItem[] = Array.from(itemMap.values()).map(({ item, quantity }) => ({
-      itemId: item.id,
-      itemName: item.name,
+    const orderItems: ShopdItem[] = Array.from(itemMap.values()).map(({ item, quantity }) => ({
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      category: item.category,
+      available: item.available,
       quantity: quantity,
-      itemPrice: item.price
+      price: item.price,
+      imageUrl: item.imageUrl,
+      userId: item.userId
     }));
 
     // Create the order object

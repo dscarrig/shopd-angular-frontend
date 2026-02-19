@@ -19,6 +19,9 @@ export class ShopdListingFormComponent {
   itemName = '';
   price: number | null = null;
   description = '';
+  category = '';
+  available: boolean = true;
+  quantity: number | null = null;
   photoFile: File | null = null;
   photoPreview: string | null = null;
 
@@ -45,7 +48,8 @@ export class ShopdListingFormComponent {
     return !!this.itemName.trim() &&
       this.price !== null &&
       this.price > 0 &&
-      !!this.description.trim();
+      !!this.description.trim() &&
+      !!this.category.trim();
   }
 
   onSubmit() {
@@ -54,6 +58,9 @@ export class ShopdListingFormComponent {
         itemName: this.itemName,
         price: this.price,
         description: this.description,
+        category: this.category,
+        available: this.available,
+        quantity: this.quantity,
         photo: this.photoFile
       });
     }

@@ -3,10 +3,10 @@
     <!-- Item Name -->
     <div class="mb-3">
       <label for="itemName" class="form-label">Item Name *</label>
-      <input 
-        type="text" 
-        class="form-control" 
-        id="itemName" 
+      <input
+        type="text"
+        class="form-control"
+        id="itemName"
         name="itemName"
         [(ngModel)]="itemName"
         placeholder="Enter item name"
@@ -16,10 +16,10 @@
     <!-- Price -->
     <div class="mb-3">
       <label for="price" class="form-label">Price ($) *</label>
-      <input 
-        type="number" 
-        class="form-control" 
-        id="price" 
+      <input
+        type="number"
+        class="form-control"
+        id="price"
         name="price"
         [(ngModel)]="price"
         placeholder="0.00"
@@ -31,14 +31,27 @@
     <!-- Description -->
     <div class="mb-3">
       <label for="description" class="form-label">Description *</label>
-      <textarea 
-        class="form-control" 
-        id="description" 
+      <textarea
+        class="form-control"
+        id="description"
         name="description"
         [(ngModel)]="description"
         rows="4"
         placeholder="Describe your item"
         required></textarea>
+    </div>
+
+    <!-- Category -->
+    <div class="mb-3">
+      <label for="category" class="form-label">Category *</label>
+      <input
+        type="text"
+        class="form-control"
+        id="category"
+        name="category"
+        [(ngModel)]="category"
+        placeholder="Enter category"
+        required>
     </div>
 
     <!-- Photo Upload -->
@@ -93,7 +106,7 @@
     <!-- Validation Message -->
     @if (!isFormValid()) {
       <div class="alert alert-warning mt-3">
-        Please fill out all required fields (Item Name, Price, and Description)
+        Please fill out all required fields (Item Name, Price, Description, and Category) to enable the {{submitButtonText}} button.
       </div>
     }
   </form>

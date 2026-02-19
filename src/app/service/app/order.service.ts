@@ -2,13 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from '../../app.constants';
-
-export interface OrderItem {
-  itemId: string;
-  itemName: string;
-  quantity: number;
-  itemPrice: number;
-}
+import { ShopdItem } from '../../app.classes';
 
 export interface Order {
   id: number;
@@ -16,7 +10,7 @@ export interface Order {
   date: string;
   status: string;
   total: number;
-  items: OrderItem[];
+  items: ShopdItem[];
 }
 
 @Injectable({
@@ -39,6 +33,6 @@ export class OrderService {
   }
 
   updateOrderStatus(id: number, status: string): Observable<Order> {
-    return this.http.put<Order>(`${this.apiUrl}/${id}/status`, status);
+    return this.http.put<Order>(`${this.apiUrl}/${id}/status`, { status });
   }
 }
