@@ -12,10 +12,10 @@ import { OrderService, Order } from '../../service/app/order.service';
 export class OrderHistoryComponent implements OnInit {
   @Input() username?: string;
   orders: Order[] = [];
-  isLoading = false;
-  errorMessage = '';
+  isLoading: boolean = false;
+  errorMessage: string = '';
   
-  private orderService = inject(OrderService);
+  private orderService: OrderService = inject(OrderService);
 
   ngOnInit(): void {
     // Initialize order history for the given username

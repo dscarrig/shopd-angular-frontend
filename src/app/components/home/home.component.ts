@@ -8,8 +8,8 @@ import { BasicAuthenticationService } from '../../service/app/basic-authenticati
     standalone: false
 })
 export class HomeComponent implements OnInit {
-  title = 'Home';
-  authenticationService = inject(BasicAuthenticationService);
+  title: string = 'Home';
+  authenticationService: BasicAuthenticationService = inject(BasicAuthenticationService);
   username: string | null = null;
 
   ngOnInit(): void {

@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'createaccount', component: CreateAccountComponent },
   { path: 'createaccount/:id', component: CreateAccountComponent },
-  { path: 'shopitem/:id', component: ShopItemComponent },
+  { path: 'shop-item/:id', component: ShopItemComponent },
   { path: 'success', component: SuccessComponent },
   { path: 'cart', component: UserCartComponent },
   { path: 'checkout', component: CheckoutComponent },

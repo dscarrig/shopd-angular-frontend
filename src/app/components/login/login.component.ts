@@ -18,12 +18,12 @@ export class LoginComponent {
   private cartService = inject(CartService);
   private appComponent = inject(AppComponent);
 
-  username = '';
-  userId = '';
-  password = '';
-  errorMessage = 'Invalid Credentials';
-  invalidLogin = false;
-  tempUserId = '33333333-3333-3333-3333-333333333333'; // Store guest user ID before login
+  username: string = '';
+  userId: string = '';
+  password: string = '';
+  errorMessage: string = 'Invalid Credentials';
+  invalidLogin: boolean = false;
+  tempUserId: string = '33333333-3333-3333-3333-333333333333'; // Store guest user ID before login
 
   handleJWTAuthLogin() {
     // Capture the guest/temp userId BEFORE authentication overwrites it

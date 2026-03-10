@@ -10,10 +10,9 @@ import { BasicAuthenticationService } from '../app/basic-authentication.service'
 export class CreateUserService {
   private http = inject(HttpClient);
   private basicAuthenticationService = inject(BasicAuthenticationService);
-  private router = inject(Router);
+  private router: Router = inject(Router);
 
-
-  userExists = false;
+  userExists: boolean = false;
 
   createUser(username: string, password: string): void {
 

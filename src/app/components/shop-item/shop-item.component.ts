@@ -3,16 +3,19 @@ import { ShopItemService } from '../../service/data/shop-item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { ShopdItem } from '../../app.classes';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shop-item',
-  imports: [],
   templateUrl: './shop-item.component.html',
-  styleUrl: './shop-item.component.css'
+  styleUrls: ['./shop-item.component.css'],
+  imports: [CommonModule]
 })
 export class ShopItemComponent {
-  private shopItemService = inject(ShopItemService);
-  private route = inject(ActivatedRoute)
+  private shopItemService: ShopItemService = inject(ShopItemService);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private router: Router = inject(Router);
+  private authenticationService: BasicAuthenticationService = inject(BasicAuthenticationService);
 
   shopItems!: ShopdItem[];
 
@@ -30,8 +33,18 @@ export class ShopItemComponent {
 
     if (this.id !== '-1') {
       this.shopItemService.retrieveItem(this.id).subscribe(
-        (data: ShopdItem) => this.shopItem = data
+        (data: ShopdItem) => {
+          this.shopItem = data;
+          console.log('Retrieved item:', this.shopItem);
+        }
       );
+    }
+  }
+
+  addItemToCart(item: ShopdItem) {
+    const userId = this.authenticationService.getAuthenticatedUserId();
+    if (userId) {
+      this.router.navigate(['/cart']);
     }
   }
 

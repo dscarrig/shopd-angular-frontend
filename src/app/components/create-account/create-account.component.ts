@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CreateUserService } from '../../service/data/create-user.service';
@@ -11,15 +10,14 @@ import { CreateUserService } from '../../service/data/create-user.service';
   styleUrls: ['./create-account.component.css']
 })
 export class CreateAccountComponent implements OnInit {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private createUserService = inject(CreateUserService);
-  private fb = inject(FormBuilder);
+  private route: ActivatedRoute = inject(ActivatedRoute);
+  private createUserService: CreateUserService = inject(CreateUserService);
+  private fb: FormBuilder = inject(FormBuilder);
 
   createAccountForm!: FormGroup;
-  fail = '';
-  invalidLogin = false;
-  userExists = false;
+  fail: string = '';
+  invalidLogin: boolean = false;
+  userExists: boolean = false;
 
   ngOnInit(): void {
     this.createAccountForm = this.fb.group({

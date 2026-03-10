@@ -27,13 +27,14 @@ import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter
     MenuComponent,
     LoginComponent,
     CreateAccountComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    OrderHistoryComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true },
         provideHttpClient(withInterceptorsFromDi())
   ],
-  bootstrap: [AppComponent], 
+  bootstrap: [AppComponent],
   })
 
 export class AppModule { }

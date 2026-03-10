@@ -38,8 +38,8 @@ export class BasicAuthenticationService {
   }
 
   loginAsGuest(): any {
-    const username = 'guest';
-    const password = 'temp';
+    const username: string = 'guest';
+    const password: string = 'temp';
 
     return this.http.post<any>(
       `${API_URL}/authenticate`, {
@@ -67,7 +67,7 @@ export class BasicAuthenticationService {
   }
 
   getAuthenticatedUserId(): string | null {
-    const userId = sessionStorage.getItem(USER_ID);
+    const userId: string | null = sessionStorage.getItem(USER_ID);
     return userId ? userId.replace(/"/g, '') : null;
   }
 
@@ -83,7 +83,7 @@ export class BasicAuthenticationService {
   }
 
   isUserLoggedIn(): boolean {
-    const user = sessionStorage.getItem(AUTHENTICATED_USER);
+    const user: string | null = sessionStorage.getItem(AUTHENTICATED_USER);
     return !(user === null) && !(user === 'guest');
   }
 

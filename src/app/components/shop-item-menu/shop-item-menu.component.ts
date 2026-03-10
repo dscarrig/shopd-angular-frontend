@@ -3,18 +3,19 @@ import { ShopItemService } from '../../service/data/shop-item.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { CartService } from '../../service/app/cart.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ShopdItem } from '../../app.classes';
 
 @Component({
   selector: 'app-item-menu',
   templateUrl: './shop-item-menu.component.html',
   styleUrls: ['./shop-item-menu.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink]
 })
 export class ShopItemMenuComponent implements OnInit {
-  private itemMenuService = inject(ShopItemService);
-  private authenticationService = inject(BasicAuthenticationService);
-  private cartService = inject(CartService);
+  private itemMenuService: ShopItemService = inject(ShopItemService);
+  private authenticationService: BasicAuthenticationService = inject(BasicAuthenticationService);
+  private cartService: CartService = inject(CartService);
 
   shopItems: ShopdItem[] = [];
   userId!: string | null;

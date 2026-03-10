@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
+import { NonNullAssert } from '@angular/compiler';
 
 export interface ShopdListing {
   id: number,
@@ -25,22 +26,12 @@ export class CreateShopdListingService {
     return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/create-item/${userId}`, listing);
   }
 
-  uploadListingWithPhoto(userId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
+  uploadListingWithPhoto(userId: string, listing: ShopdListing, photo: File | NonNullAssert): Observable<ShopdListing> {
+    console.log('Creating listing with photo. User ID: ' + userId + ', Listing Name: ' + listing.name + ', Photo: ' + photo);
     if (!photo) {
       return this.createListing(userId, listing);
     }
 
-    // Create FormData for multipart upload
-    const formData = new FormData();
-    formData.append('name', listing.name);
-    formData.append('price', listing.price.toString());
-    formData.append('description', listing.description);
-    formData.append('image_url', photo, photo.name);
-    formData.append('category', listing.category);
-    formData.append('available', listing.available.toString());
-    formData.append('quantity', listing.quantity.toString());
-    formData.append('userId', userId);
-
-    return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/create-item/${userId}`, formData);
+    return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/create-item/${userId}`, listing);
   }
 }

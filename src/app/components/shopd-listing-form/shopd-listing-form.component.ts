@@ -16,10 +16,10 @@ export class ShopdListingFormComponent {
   @Output() formSubmit = new EventEmitter<any>();
   @Output() formCancel = new EventEmitter<void>();
 
-  itemName = '';
+  itemName: string = '';
   price: number | null = null;
-  description = '';
-  category = '';
+  description: string = '';
+  category: string = '';
   available: boolean = true;
   quantity: number | null = null;
   photoFile: File | null = null;
