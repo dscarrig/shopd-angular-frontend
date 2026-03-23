@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
-import { NonNullAssert } from '@angular/compiler';
 
 export interface ShopdListing {
   id: number,
