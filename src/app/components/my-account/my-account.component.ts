@@ -6,6 +6,12 @@ import { Router } from '@angular/router';
 import { OrderHistoryComponent } from '../order-history/order-history.component';
 import { AccountDetailItem } from '../../app.classes';
 
+/**
+ * Component for managing the user's account information. It displays the user's default account details, such as their address and payment information, and provides options to modify or delete this information.
+ * The component interacts with the UserInfoService to retrieve and manage the user's account details, and with the BasicAuthenticationService to obtain the authenticated user's information.
+ * It also provides navigation options for users to modify their address or card number, and handles the deletion of account details with appropriate updates to the displayed information.
+ * The component includes methods to check for the presence of saved addresses and card numbers, and to determine if the current account detail item is the default one.
+ */
 @Component({
   selector: 'app-my-account',
   imports: [CommonModule, OrderHistoryComponent],

@@ -4,6 +4,12 @@ import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { AccountDetailItem } from '../../app.classes';
 import { Observable, of, tap } from 'rxjs';
 
+/**
+ * Service for managing user information, including addresses and payment details.
+ * It interacts with the backend API to perform CRUD operations on user addresses and payment information.
+ * The service also implements caching for the default account details to optimize performance and reduce unnecessary API calls.
+ * It provides methods for adding, retrieving, deleting, and setting default addresses and payment information for users, ensuring that the cache is cleared when relevant changes are made to maintain data consistency.
+ */
 @Injectable({
   providedIn: 'root'
 })

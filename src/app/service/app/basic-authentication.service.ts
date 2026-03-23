@@ -8,6 +8,12 @@ export const TOKEN = 'token';
 export const AUTHENTICATED_USER = 'authenticatedUser';
 export const USER_ID = 'userId';
 
+/**
+ * Service for handling basic authentication, including login, logout, and session management.
+ * It interacts with the backend API to authenticate users and manage their session data in the browser's session storage.
+ * The service provides methods for executing JWT authentication, logging in as a guest, retrieving authenticated user information, and checking login status.
+ * It also ensures that user credentials and tokens are securely stored and managed during the user's session.
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -7,6 +7,11 @@ import { CartService } from '../../service/app/cart.service';
 import { OrderService, Order } from '../../service/app/order.service';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Component for confirming the checkout process. It displays the user's default account details, the items in the cart, and allows the user to complete their order.
+ * The component interacts with various services to retrieve user information, manage the cart, and create orders. It also handles the submission of the order and provides feedback to the user based on the success or failure of the order creation process.
+ * The component ensures that the user has a valid card number before allowing them to complete the order and prevents multiple submissions of the same order.
+ */
 @Component({
   selector: 'app-confirm-checkout',
   templateUrl: './confirm-checkout.component.html',

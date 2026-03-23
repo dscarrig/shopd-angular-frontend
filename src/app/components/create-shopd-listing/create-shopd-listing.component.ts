@@ -5,6 +5,13 @@ import { ShopdListingFormComponent } from '../shopd-listing-form/shopd-listing-f
 import { CreateShopdListingService, ShopdListing } from '../../service/data/create-shopd-listing.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 
+/**
+ * Component for creating a new shop listing. It provides a form for users to enter the details of their listing, including item name, description, price, image URL, category, and an optional photo upload.
+ * The component interacts with the CreateShopdListingService to handle the submission of the listing data to the backend API, including uploading any associated photos.
+ * It also manages user authentication to ensure that only logged-in users can create listings, and provides feedback to the user based on the success or failure of the listing creation process.
+ * The component includes navigation options to return to the menu or proceed with creating a listing, and ensures that form submissions are handled appropriately to prevent multiple submissions or errors.
+ * Overall, this component serves as the interface for users to create new shop listings within the application.
+ */
 @Component({
   selector: 'app-create-shopd-listing',
   imports: [CommonModule, ShopdListingFormComponent],

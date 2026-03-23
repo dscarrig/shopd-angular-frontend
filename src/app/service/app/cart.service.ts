@@ -4,6 +4,11 @@ import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { ShopdItem } from '../../app.classes';
 import { BehaviorSubject, tap } from 'rxjs';
 
+/**
+ * Service for managing the shopping cart functionality, including adding items to the cart, retrieving cart contents, deleting items from the cart, and calculating totals.
+ * It interacts with the backend API to perform these operations and maintains a BehaviorSubject to track the count of items in the cart, allowing components to reactively update their views when the cart changes.
+ * The service provides methods for adding items to the cart, copying a temporary cart to a user's cart, retrieving all items in the cart, deleting specific items or clearing the entire cart, and calculating the total price and item count in the cart.
+ */
 @Injectable({
   providedIn: 'root'
 })

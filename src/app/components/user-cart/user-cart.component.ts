@@ -17,6 +17,11 @@ export class CartItem {
   }
 }
 
+/**
+ * Component for managing the user's shopping cart. It displays the items currently in the cart, allows users to remove items or adjust quantities, and provides options to proceed to checkout or return to the menu.
+ * The component interacts with the CartService to retrieve the cart items for the authenticated user and to perform operations such as deleting items from the cart. It also uses the BasicAuthenticationService to obtain the user's information and ensure that cart operations are performed for the correct user.
+ * The component includes methods to calculate the total price of the items in the cart and to navigate to other parts of the application, such as the login page or the checkout process.
+ */
 @Component({
   selector: 'app-user-cart',
   templateUrl: './user-cart.component.html',

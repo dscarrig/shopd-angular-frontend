@@ -6,6 +6,11 @@ import { AppComponent } from '../../app.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
+/**
+ * Component for handling user login functionality. It provides a form for users to enter their username and password, and manages the authentication process using the BasicAuthenticationService.
+ * The component also handles the transfer of any items in the cart from a guest session to the authenticated user's session upon successful login, ensuring a seamless shopping experience.
+ * It provides navigation options for users to go to the account creation page if they don't have an account, and displays error messages for invalid login attempts.
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
