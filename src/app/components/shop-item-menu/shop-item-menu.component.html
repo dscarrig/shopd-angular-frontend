@@ -13,7 +13,8 @@
     </thead>
     <tbody>
       <tr *ngFor="let shopItem of shopItems">
-        <td><img [src]="shopItem.imageUrl" [alt]="shopItem.name" width="200" height="150"></td>
+        <td><a [routerLink]="['/shop-item', shopItem.id]"><img [src]="shopItem.imageUrl" [alt]="shopItem.name"
+              width="200" height="150"></a></td>
         <td><a [routerLink]="['/shop-item', shopItem.id]">{{shopItem.name}}</a></td>
         <td>{{shopItem.description}}</td>
         <td>${{shopItem.price}}</td>

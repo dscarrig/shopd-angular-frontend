@@ -5,6 +5,7 @@ import { CartService } from '../../service/app/cart.service';
 import { AppComponent } from '../../app.component';
 import { CommonModule } from '@angular/common';
 import { ShopdItem } from '../../app.classes';
+import { RouterLink } from '@angular/router';
 
 export class CartItem {
   constructor(
@@ -26,7 +27,7 @@ export class CartItem {
   selector: 'app-user-cart',
   templateUrl: './user-cart.component.html',
   styleUrls: ['./user-cart.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink]
 })
 export class UserCartComponent implements OnInit {
   private cartService = inject(CartService);

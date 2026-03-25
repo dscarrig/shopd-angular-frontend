@@ -5,6 +5,7 @@ import { BasicAuthenticationService } from '../../service/app/basic-authenticati
 import { UserInfoService } from '../../service/app/user-info.service';
 import { ShopdItem } from '../../app.classes';
 import { CommonModule } from '@angular/common';
+import { CartService } from 'src/app/service/app/cart.service';
 
 @Component({
   selector: 'app-shop-item',
@@ -18,6 +19,7 @@ export class ShopItemComponent {
   private router: Router = inject(Router);
   private authenticationService: BasicAuthenticationService = inject(BasicAuthenticationService);
   private userInfoService: UserInfoService = inject(UserInfoService);
+  private cartService: CartService = inject(CartService);
 
   shopItems!: ShopdItem[];
   username: string = '';
@@ -60,7 +62,11 @@ export class ShopItemComponent {
   addItemToCart(item: ShopdItem) {
     const userId = this.authenticationService.getAuthenticatedUserId();
     if (userId) {
+      this.cartService.addToCart(userId, item.id).subscribe();
       this.router.navigate(['/cart']);
+    }
+    else {
+      console.error('User ID is not available. Cannot add item to cart.');
     }
   }
 

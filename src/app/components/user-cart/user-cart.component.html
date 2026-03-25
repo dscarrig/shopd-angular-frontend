@@ -34,7 +34,8 @@
                   <td class="align-middle">
                     <img [src]="cartItem.item.imageUrl" [alt]="cartItem.item.name" class="cart-item-image">
                   </td>
-                  <td class="align-middle">{{cartItem.item.name}}</td>
+                  <td class="align-middle"><a [routerLink]="['/shop-item', cartItem.item.id]">{{cartItem.item.name}}</a>
+                  </td>
                   <td class="align-middle">{{cartItem.item.description}}</td>
                   <td class="align-middle">${{cartItem.item.price.toFixed(2)}}</td>
                   <td class="align-middle">{{cartItem.quantity}}</td>
