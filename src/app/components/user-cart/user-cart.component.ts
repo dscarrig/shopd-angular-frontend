@@ -46,7 +46,7 @@ export class UserCartComponent implements OnInit {
   refreshItems() {
     this.userId = this.authenticationService.getAuthenticatedUserId();
     if (!this.userId) return;
-    
+
     this.cartService.retrieveAllFromCart(this.userId).subscribe(
       (response: ShopdItem[]) => {
         this.shopItems = response;
@@ -58,7 +58,7 @@ export class UserCartComponent implements OnInit {
 
   private groupItems() {
     const itemMap = new Map<string, CartItem>();
-    
+
     this.shopItems.forEach(item => {
       if (itemMap.has(item.id)) {
         const cartItem = itemMap.get(item.id)!;
@@ -67,14 +67,14 @@ export class UserCartComponent implements OnInit {
         itemMap.set(item.id, new CartItem(item, 1));
       }
     });
-    
+
     this.cartItems = Array.from(itemMap.values());
   }
 
   removeItemFromCart(cartItem: CartItem) {
     // Remove one instance of the item
     if (!this.userId) return;
-    
+
     this.cartService.deleteFromCart(this.userId, cartItem.item.id).subscribe(
       () => {
         this.refreshItems();
@@ -85,17 +85,17 @@ export class UserCartComponent implements OnInit {
   removeAllOfItem(cartItem: CartItem) {
     // Remove all instances of this item
     if (!this.userId) return;
-    
+
     const deleteObservables = [];
     for (let i = 0; i < cartItem.quantity; i++) {
       deleteObservables.push(
         this.cartService.deleteFromCart(this.userId, cartItem.item.id)
       );
     }
-      deleteObservables.push(
-        this.cartService.deleteFromCart(this.userId, cartItem.item.id)
-      );
-    
+    deleteObservables.push(
+      this.cartService.deleteFromCart(this.userId, cartItem.item.id)
+    );
+
     // Execute all delete operations
     let completed = 0;
     deleteObservables.forEach(obs => {

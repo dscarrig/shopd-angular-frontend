@@ -10,7 +10,7 @@ describe('ShopdListingFormComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ShopdListingFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ShopdListingFormComponent);
     component = fixture.componentInstance;

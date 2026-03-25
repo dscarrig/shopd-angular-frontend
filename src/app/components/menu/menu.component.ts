@@ -19,7 +19,7 @@ import { CartService } from '../../service/app/cart.service';
 export class MenuComponent implements OnInit {
   private authenticationService = inject(BasicAuthenticationService);
   private cartService = inject(CartService);
-  
+
   itemsInCart: number = 0;
   userName: string = 'guest';
 

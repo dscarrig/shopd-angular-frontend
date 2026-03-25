@@ -1,0 +1,12 @@
+.border-danger {
+  border-width: 2px !important;
+}
+
+.btn-danger {
+  font-weight: 500;
+}
+
+.btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+}

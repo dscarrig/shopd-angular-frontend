@@ -44,7 +44,7 @@ export class EnterUserInfoComponent implements OnInit {
     }
 
     const userId = this.basicAuthenticationService.getAuthenticatedUserId();
-    
+
     const updatedAccountDetail = new AccountDetailItem(
       this.accountDetailItem.id,
       addressData.fullName,

@@ -15,8 +15,9 @@ import { RouteGuardService } from './service/app/route-guard.service';
 import { EnterUserInfoComponent } from './components/enter-user-info/enter-user-info.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { OrderCompleteComponent } from './components/order-complete/order-complete.component';
-import {CreateShopdListingComponent} from './components/create-shopd-listing/create-shopd-listing.component'
+import { CreateShopdListingComponent } from './components/create-shopd-listing/create-shopd-listing.component'
 import { ModifyAddressComponent } from './components/modify-address/modify-address.component';
+import { ModifyShopListingComponent } from './components/modify-shop-listing/modify-shop-listing.component';
 import { ErrorComponent } from './components/error/error.component';
 
 
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'confirm-checkout', component: ConfirmCheckoutComponent, canActivate: [RouteGuardService] },
   { path: 'order-complete', component: OrderCompleteComponent, canActivate: [RouteGuardService] },
   { path: 'create-shopd-listing', component: CreateShopdListingComponent, canActivate: [RouteGuardService] },
+  { path: 'modify-shop-listing/:id', component: ModifyShopListingComponent, canActivate: [RouteGuardService] },
   { path: 'modify-address', component: ModifyAddressComponent, canActivate: [RouteGuardService] },
 
   { path: '**', component: ErrorComponent }

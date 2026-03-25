@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-10 col-xl-11">
-      
+
       <div *ngIf="shopItem">
         <!-- Item Details Card -->
         <div class="card shadow mb-4">
@@ -9,16 +9,17 @@
             <div class="row">
               <!-- Image Section -->
               <div class="col-md-5 mb-3 mb-md-0">
-                <img [src]="shopItem.imageUrl"
-                     [alt]="shopItem.name"
-                     class="img-fluid rounded shadow-sm">
+                <img [src]="shopItem.imageUrl" [alt]="shopItem.name" class="img-fluid rounded shadow-sm">
               </div>
-              
+
               <!-- Details Section -->
               <div class="col-md-7">
                 <h1 class="mb-3">{{shopItem.name}}</h1>
+                <p class="text-muted mb-2" *ngIf="username">
+                  <small>Listed by: <strong>{{username}}</strong></small>
+                </p>
                 <p class="text-muted mb-4">{{shopItem.description}}</p>
-                
+
                 <div class="card bg-light mb-4">
                   <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
@@ -27,10 +28,13 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="d-grid">
-                  <button (click)="addItemToCart(shopItem)"
-                          class="btn btn-success btn-lg">
+                  <!-- Show "Modify Listing" for owners, "Add to Cart" for others -->
+                  <button *ngIf="isOwner()" (click)="modifyListing()" class="btn btn-primary btn-lg">
+                    <i class="bi bi-pencil"></i> Modify Listing
+                  </button>
+                  <button *ngIf="!isOwner()" (click)="addItemToCart(shopItem)" class="btn btn-success btn-lg">
                     <i class="bi bi-cart-plus"></i> Add to Cart
                   </button>
                 </div>

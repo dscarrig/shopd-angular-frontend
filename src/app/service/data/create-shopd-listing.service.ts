@@ -11,9 +11,9 @@ export interface ShopdListing {
   price: number,
   imageUrl: string,
   category: string,
-  available : boolean,
-  quantity : number,
-  userId : string
+  available: boolean,
+  quantity: number,
+  userId: string
 }
 
 @Injectable({
@@ -26,12 +26,16 @@ export class CreateShopdListingService {
     return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/create-item/${userId}`, listing);
   }
 
+  updateListing(userId: string, itemId: string, listing: ShopdListing): Observable<ShopdListing> {
+    return this.http.put<ShopdListing>(`${SHOPD_JPA_API_URL}/items/update-item/${userId}/${itemId}`, listing);
+  }
+
   uploadListingWithPhoto(userId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
     console.log('Creating listing with photo. User ID: ' + userId + ', Listing Name: ' + listing.name + ', Photo: ' + photo);
     if (!photo) {
       return this.createListing(userId, listing);
     }
-    
+
     return this.createListing(userId, listing).pipe(
       switchMap(createdListing => {
         const formData = new FormData();
@@ -39,5 +43,24 @@ export class CreateShopdListingService {
         return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/${createdListing.id}/upload-image`, formData);
       })
     );
+  }
+
+  updateListingWithPhoto(userId: string, itemId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
+    console.log('Updating listing with photo. User ID: ' + userId + ', Item ID: ' + itemId + ', Photo: ' + photo);
+    if (!photo) {
+      return this.updateListing(userId, itemId, listing);
+    }
+
+    return this.updateListing(userId, itemId, listing).pipe(
+      switchMap(updatedListing => {
+        const formData = new FormData();
+        formData.append('file', photo);
+        return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/${updatedListing.id}/upload-image`, formData);
+      })
+    );
+  }
+
+  deleteListing(listingId: number): Observable<void> {
+    return this.http.delete<void>(`${SHOPD_JPA_API_URL}/items/${listingId}`);
   }
 }

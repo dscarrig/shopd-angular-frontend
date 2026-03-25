@@ -17,4 +17,13 @@ export class ShopItemService {
   retrieveAllItems(): any {
     return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items`);
   }
+
+  getUserListings(userId: string): any {
+    return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items/get-all-items-from-user/${userId}`);
+  }
+
+  deleteItem(userId: string, itemId: string): any {
+    return this.http.delete(`${SHOPD_JPA_API_URL}/items/${userId}/${itemId}`);
+  }
+
 }

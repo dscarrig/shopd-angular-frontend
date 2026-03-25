@@ -1,0 +1,18 @@
+.cart-item-image {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.item-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.item-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}

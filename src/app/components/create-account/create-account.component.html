@@ -6,60 +6,49 @@
           <h1 class="text-center mb-4">CREATE AN ACCOUNT!</h1>
 
           @if (userExists) {
-            <div class="alert alert-warning text-center">Username already exists</div>
+          <div class="alert alert-warning text-center">Username already exists</div>
           }
 
           <form [formGroup]="createAccountForm">
             <!-- Username Field -->
             <div class="mb-3">
               <label for="username" class="form-label">User Name</label>
-              <input
-                type="text"
-                class="form-control"
+              <input type="text" class="form-control"
                 [class.is-invalid]="createAccountForm.get('username')?.invalid && createAccountForm.get('username')?.touched"
-                id="username"
-                formControlName="username"
-                placeholder="Enter username">
+                id="username" formControlName="username" placeholder="Enter username">
               @if (createAccountForm.get('username')?.invalid && createAccountForm.get('username')?.touched) {
-                <div class="invalid-feedback">
-                  @if (createAccountForm.get('username')?.errors?.['required']) {
-                    Username is required.
-                  }
-                  @if (createAccountForm.get('username')?.errors?.['minlength']) {
-                    Username must be at least 6 characters.
-                  }
-                </div>
+              <div class="invalid-feedback">
+                @if (createAccountForm.get('username')?.errors?.['required']) {
+                Username is required.
+                }
+                @if (createAccountForm.get('username')?.errors?.['minlength']) {
+                Username must be at least 6 characters.
+                }
+              </div>
               }
             </div>
 
             <!-- Password Field -->
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input
-                type="password"
-                class="form-control"
+              <input type="password" class="form-control"
                 [class.is-invalid]="createAccountForm.get('password')?.invalid && createAccountForm.get('password')?.touched"
-                id="password"
-                formControlName="password"
-                placeholder="Enter password">
+                id="password" formControlName="password" placeholder="Enter password">
               @if (createAccountForm.get('password')?.invalid && createAccountForm.get('password')?.touched) {
-                <div class="invalid-feedback">
-                  @if (createAccountForm.get('password')?.errors?.['required']) {
-                    Password is required.
-                  }
-                  @if (createAccountForm.get('password')?.errors?.['minlength']) {
-                    Password must be at least 6 characters.
-                  }
-                </div>
+              <div class="invalid-feedback">
+                @if (createAccountForm.get('password')?.errors?.['required']) {
+                Password is required.
+                }
+                @if (createAccountForm.get('password')?.errors?.['minlength']) {
+                Password must be at least 6 characters.
+                }
+              </div>
               }
             </div>
 
             <!-- Submit Button -->
             <div class="d-grid">
-              <button
-                type="button"
-                (click)="createUser()"
-                [disabled]="createAccountForm.invalid"
+              <button type="button" (click)="createUser()" [disabled]="createAccountForm.invalid"
                 class="btn btn-success btn-lg">
                 Create Account
               </button>

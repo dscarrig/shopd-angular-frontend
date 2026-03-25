@@ -30,7 +30,7 @@ export class CreateAccountComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-    
+
     if (this.route.snapshot.params['id'] === 'fail') {
       this.userExists = true;
     }

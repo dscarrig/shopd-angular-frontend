@@ -1,13 +1,8 @@
 <h1>Please enter your address and payment information.</h1>
 
 <div class="container">
-  <app-address-form
-    [initialData]="initialAddressData"
-    submitButtonText="Check Out"
-    cancelButtonText="Back to Cart"
-    [showCancelButton]="true"
-    (formSubmit)="onCheckout($event)"
-    (formCancel)="backToCart()">
+  <app-address-form [initialData]="initialAddressData" submitButtonText="Check Out" cancelButtonText="Back to Cart"
+    [showCancelButton]="true" (formSubmit)="onCheckout($event)" (formCancel)="backToCart()">
   </app-address-form>
 
   <div style="text-align: center; margin-top: 20px;">
@@ -19,5 +14,3 @@
     </div>
   </div>
 </div>
-
-

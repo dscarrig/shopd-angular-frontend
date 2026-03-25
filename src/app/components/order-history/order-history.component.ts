@@ -14,7 +14,7 @@ export class OrderHistoryComponent implements OnInit {
   orders: Order[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';
-  
+
   private orderService: OrderService = inject(OrderService);
 
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class OrderHistoryComponent implements OnInit {
 
     this.isLoading = true;
     this.errorMessage = '';
-    
+
     this.orderService.getUserOrders(this.username).subscribe({
       next: (orders) => {
         this.orders = orders;

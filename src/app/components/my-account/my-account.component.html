@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-xl-10">
-      
+
       <!-- Header Card -->
       <div class="card shadow mb-4">
         <div class="card-body">
@@ -14,7 +14,7 @@
       <div class="card shadow mb-4">
         <div class="card-body">
           <h3 class="mb-3">Saved Addresses</h3>
-          
+
           <div *ngIf="hasSavedAddress()">
             <div class="card mb-3">
               <div class="card-body">
@@ -28,16 +28,15 @@
                     </p>
                   </div>
                   <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
-                    <div class="alert alert-success mb-2 py-1 px-3" *ngIf="isDefaultAccountDetailItem(accountDetailItem)">
+                    <div class="alert alert-success mb-2 py-1 px-3"
+                      *ngIf="isDefaultAccountDetailItem(accountDetailItem)">
                       <small>Default Address</small>
                     </div>
-                    <button *ngIf="!isDefaultAccountDetailItem(accountDetailItem)" 
-                            (click)="setAsDefault(accountDetailItem)" 
-                            class="btn btn-outline-success btn-sm mb-2">
+                    <button *ngIf="!isDefaultAccountDetailItem(accountDetailItem)"
+                      (click)="setAsDefault(accountDetailItem)" class="btn btn-outline-success btn-sm mb-2">
                       Set As Default
                     </button>
-                    <button (click)="deleteAddress(accountDetailItem)" 
-                            class="btn btn-outline-danger btn-sm">
+                    <button (click)="deleteAddress(accountDetailItem)" class="btn btn-outline-danger btn-sm">
                       Delete Address
                     </button>
                   </div>
@@ -62,7 +61,7 @@
       <div class="card shadow mb-4">
         <div class="card-body">
           <h3 class="mb-3">Payment Information</h3>
-          
+
           <div *ngIf="hasSavedCardNum()" class="alert alert-success text-center mb-3">
             Saved card number for {{accountDetailItem.fullName}}
           </div>
@@ -99,6 +98,14 @@
         <div class="card-body">
           <h3 class="mb-3">Order History</h3>
           <app-order-history [username]="username"></app-order-history>
+        </div>
+      </div>
+
+      <!-- User Listings Section -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">User Listings</h3>
+          <app-user-listings [userId]="userId"></app-user-listings>
         </div>
       </div>
 

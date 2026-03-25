@@ -24,23 +24,23 @@ export class BasicAuthenticationService {
 
     return this.http.post<any>(
       `${API_URL}/authenticate`, {
-        username,
-        password
-      }).pipe(
-        tap(data => {
-          sessionStorage.setItem(AUTHENTICATED_USER, username);
-          sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
-        }),
-        switchMap(data =>
-          this.http.get<string>(`${SHOPD_JPA_API_URL}/users/user-id/${username}`, { responseType: 'text' as 'json' })
-            .pipe(
-              tap(userId => {
-                sessionStorage.setItem(USER_ID, userId);
-              }),
-              map(() => data)
-            )
-        )
-      );
+      username,
+      password
+    }).pipe(
+      tap(data => {
+        sessionStorage.setItem(AUTHENTICATED_USER, username);
+        sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+      }),
+      switchMap(data =>
+        this.http.get<string>(`${SHOPD_JPA_API_URL}/users/user-id/${username}`, { responseType: 'text' as 'json' })
+          .pipe(
+            tap(userId => {
+              sessionStorage.setItem(USER_ID, userId);
+            }),
+            map(() => data)
+          )
+      )
+    );
   }
 
   loginAsGuest(): any {
@@ -49,23 +49,23 @@ export class BasicAuthenticationService {
 
     return this.http.post<any>(
       `${API_URL}/authenticate`, {
-        username,
-        password
-      }).pipe(
-        tap(data => {
-          sessionStorage.setItem(AUTHENTICATED_USER, username);
-          sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
-        }),
-        switchMap(data =>
-          this.http.get<string>(`${SHOPD_JPA_API_URL}/users/user-id/${username}`, { responseType: 'text' as 'json' })
-            .pipe(
-              tap(userId => {
-                sessionStorage.setItem(USER_ID, userId);
-              }),
-              map(() => data)
-            )
-        )
-      );
+      username,
+      password
+    }).pipe(
+      tap(data => {
+        sessionStorage.setItem(AUTHENTICATED_USER, username);
+        sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+      }),
+      switchMap(data =>
+        this.http.get<string>(`${SHOPD_JPA_API_URL}/users/user-id/${username}`, { responseType: 'text' as 'json' })
+          .pipe(
+            tap(userId => {
+              sessionStorage.setItem(USER_ID, userId);
+            }),
+            map(() => data)
+          )
+      )
+    );
   }
 
   getAuthenticatedUser(): string | null {

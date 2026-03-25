@@ -10,7 +10,7 @@ describe('EnterUserInfoComponent', () => {
     await TestBed.configureTestingModule({
       imports: [EnterUserInfoComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(EnterUserInfoComponent);
     component = fixture.componentInstance;

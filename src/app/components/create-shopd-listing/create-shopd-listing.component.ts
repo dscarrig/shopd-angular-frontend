@@ -31,7 +31,7 @@ export class CreateShopdListingComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.authService.getAuthenticatedUser() || '';
     this.userId = this.authService.getAuthenticatedUserId() || '';
-    
+
     if (!this.username) {
       this.router.navigate(['login']);
     }
@@ -39,7 +39,7 @@ export class CreateShopdListingComponent implements OnInit {
 
   onCreateListing(formData: any) {
     if (this.isSubmitting) return;
-    
+
     this.isSubmitting = true;
     this.errorMessage = '';
 
@@ -50,9 +50,9 @@ export class CreateShopdListingComponent implements OnInit {
       price: formData.price,
       imageUrl: formData.imageUrl,
       category: formData.category,
-      available : true,
-      quantity : 1,
-      userId : this.userId
+      available: true,
+      quantity: 1,
+      userId: this.userId
     };
 
     console.log('Creating listing with data:', listing);

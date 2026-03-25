@@ -5,6 +5,7 @@ import { BasicAuthenticationService } from '../../service/app/basic-authenticati
 import { Router } from '@angular/router';
 import { OrderHistoryComponent } from '../order-history/order-history.component';
 import { AccountDetailItem } from '../../app.classes';
+import { UserListingsComponent } from "../user-listings/user-listings.component";
 
 /**
  * Component for managing the user's account information. It displays the user's default account details, such as their address and payment information, and provides options to modify or delete this information.
@@ -14,7 +15,7 @@ import { AccountDetailItem } from '../../app.classes';
  */
 @Component({
   selector: 'app-my-account',
-  imports: [CommonModule, OrderHistoryComponent],
+  imports: [CommonModule, OrderHistoryComponent, UserListingsComponent],
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.css']
 })

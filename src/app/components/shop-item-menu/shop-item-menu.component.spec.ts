@@ -10,7 +10,7 @@ describe('ShopItemMenuComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ShopItemMenuComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ShopItemMenuComponent);
     component = fixture.componentInstance;
