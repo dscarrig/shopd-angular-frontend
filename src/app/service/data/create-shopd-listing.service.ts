@@ -26,8 +26,8 @@ export class CreateShopdListingService {
     return this.http.post<ShopdListing>(`${SHOPD_JPA_API_URL}/items/create-item/${userId}`, listing);
   }
 
-  updateListing(userId: string, itemId: string, listing: ShopdListing): Observable<ShopdListing> {
-    return this.http.put<ShopdListing>(`${SHOPD_JPA_API_URL}/items/update-item/${userId}/${itemId}`, listing);
+  updateListing(itemId: string, listing: ShopdListing): Observable<ShopdListing> {
+    return this.http.put<ShopdListing>(`${SHOPD_JPA_API_URL}/items/update-item/${itemId}`, listing);
   }
 
   uploadListingWithPhoto(userId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
@@ -45,13 +45,13 @@ export class CreateShopdListingService {
     );
   }
 
-  updateListingWithPhoto(userId: string, itemId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
-    console.log('Updating listing with photo. User ID: ' + userId + ', Item ID: ' + itemId + ', Photo: ' + photo);
+  updateListingWithPhoto(itemId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
+    console.log('Updating listing with photo. Item ID: ' + itemId + ', Photo: ' + photo);
     if (!photo) {
-      return this.updateListing(userId, itemId, listing);
+      return this.updateListing(itemId, listing);
     }
 
-    return this.updateListing(userId, itemId, listing).pipe(
+    return this.updateListing(itemId, listing).pipe(
       switchMap(updatedListing => {
         const formData = new FormData();
         formData.append('file', photo);

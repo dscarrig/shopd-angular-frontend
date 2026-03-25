@@ -26,7 +26,7 @@ export class ModifyShopListingComponent implements OnInit {
   isLoading: boolean = true;
   isSubmitting: boolean = false;
   errorMessage: string = '';
-  
+
   // Form initial values
   itemName: string = '';
   price: number | null = null;
@@ -39,7 +39,7 @@ export class ModifyShopListingComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.authService.getAuthenticatedUserId() || '';
     this.itemId = this.route.snapshot.params['id'];
-    
+
     if (!this.userId) {
       this.router.navigate(['login']);
       return;
@@ -75,7 +75,7 @@ export class ModifyShopListingComponent implements OnInit {
 
   onUpdateListing(formData: any) {
     if (this.isSubmitting) return;
-    
+
     this.isSubmitting = true;
     this.errorMessage = '';
 
@@ -93,7 +93,7 @@ export class ModifyShopListingComponent implements OnInit {
 
     console.log('Updating listing with data:', listing);
 
-    this.createShopdListingService.updateListingWithPhoto(this.userId, this.itemId, listing, formData.photo)
+    this.createShopdListingService.updateListingWithPhoto(this.itemId, listing, formData.photo)
       .subscribe({
         next: (result) => {
           console.log('Listing updated successfully:', result);
