@@ -26,6 +26,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.updateUsername();
     this.subscribeToCartCount();
+    this.subscribeToAuthChanges();
     this.refreshCartCount();
   }
 
@@ -37,6 +38,12 @@ export class MenuComponent implements OnInit {
   private subscribeToCartCount(): void {
     this.cartService.cartItemCount$.subscribe(
       count => this.itemsInCart = count
+    );
+  }
+
+  private subscribeToAuthChanges(): void {
+    this.authenticationService.authenticationChanged$.subscribe(
+      username => this.userName = username
     );
   }
 

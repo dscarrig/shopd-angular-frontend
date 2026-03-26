@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
-
+import { BehaviorSubject } from 'rxjs';
 export const TOKEN = 'token';
 export const AUTHENTICATED_USER = 'authenticatedUser';
 export const USER_ID = 'userId';
@@ -19,6 +19,10 @@ export const USER_ID = 'userId';
 })
 export class BasicAuthenticationService {
   private http = inject(HttpClient);
+  private authenticationChanged = new BehaviorSubject<string>(
+    sessionStorage.getItem(AUTHENTICATED_USER) || 'guest'
+  );
+  public authenticationChanged$ = this.authenticationChanged.asObservable();
 
   executeJWTAuthenticationService(username: string, password: string): any {
 
@@ -36,6 +40,7 @@ export class BasicAuthenticationService {
           .pipe(
             tap(userId => {
               sessionStorage.setItem(USER_ID, userId);
+              this.authenticationChanged.next(username);
             }),
             map(() => data)
           )
@@ -61,6 +66,7 @@ export class BasicAuthenticationService {
           .pipe(
             tap(userId => {
               sessionStorage.setItem(USER_ID, userId);
+              this.authenticationChanged.next(username);
             }),
             map(() => data)
           )
@@ -98,6 +104,7 @@ export class BasicAuthenticationService {
     sessionStorage.removeItem(TOKEN);
     sessionStorage.removeItem(USER_ID);
     this.loginAsGuest();
+    this.authenticationChanged.next('guest');
   }
 
 }
