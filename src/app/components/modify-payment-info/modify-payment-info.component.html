@@ -1,0 +1,38 @@
+<h1>Modify your payment information.</h1>
+
+<div class="container">
+  <div class="payment-form-container">
+    <div>
+      Cardholder Name : <input type="text" [(ngModel)]="cardholderName" placeholder="John Doe">
+      <br />
+      Card Number : <input type="text" [(ngModel)]="cardNumber" placeholder="1234567890123456" maxlength="19">
+      <br />
+      Card Type :
+      <select [(ngModel)]="cardType">
+        <option value="">Select card type</option>
+        <option *ngFor="let type of cardTypes" [value]="type">{{type}}</option>
+      </select>
+      <br />
+      Expiration Date :
+      <select [(ngModel)]="expirationMonth">
+        <option value="">MM</option>
+        <option *ngFor="let month of months" [value]="month">{{month}}</option>
+      </select>
+      /
+      <select [(ngModel)]="expirationYear">
+        <option value="">YYYY</option>
+        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+      </select>
+      <br />
+      CVV : <input type="text" [(ngModel)]="cvv" placeholder="123" maxlength="4">
+      <br />
+      <br />
+
+      <button *ngIf="isFormValid()" (click)="onSavePaymentInfo()" class="btn btn-success">Save Payment Info</button>
+      <div class="alert alert-warning" *ngIf="!isFormValid()">Please fill out all payment fields correctly.</div>
+      <br />
+      <br />
+      <button (click)="onCancel()" class="btn btn-success">Cancel</button>
+    </div>
+  </div>
+</div>

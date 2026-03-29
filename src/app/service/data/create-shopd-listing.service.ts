@@ -31,7 +31,6 @@ export class CreateShopdListingService {
   }
 
   uploadListingWithPhoto(userId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
-    console.log('Creating listing with photo. User ID: ' + userId + ', Listing Name: ' + listing.name + ', Photo: ' + photo);
     if (!photo) {
       return this.createListing(userId, listing);
     }
@@ -46,7 +45,6 @@ export class CreateShopdListingService {
   }
 
   updateListingWithPhoto(itemId: string, listing: ShopdListing, photo: File | null): Observable<ShopdListing> {
-    console.log('Updating listing with photo. Item ID: ' + itemId + ', Photo: ' + photo);
     if (!photo) {
       return this.updateListing(itemId, listing);
     }

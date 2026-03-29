@@ -63,7 +63,7 @@
           <h3 class="mb-3">Payment Information</h3>
 
           <div *ngIf="hasSavedCardNum()" class="alert alert-success text-center mb-3">
-            Saved card number for {{accountDetailItem.fullName}}
+            Saved card number for {{accountDetailItem.fullName}}: **** **** **** {{getDefaultPaymentInfo() | slice:-4}}
           </div>
 
           <div *ngIf="!hasSavedCardNum() && hasSavedAddress()" class="alert alert-info text-center mb-3">
@@ -77,7 +77,7 @@
           <div class="row g-2">
             <div class="col-md-6">
               <div class="d-grid">
-                <button (click)="modifyCardNum()" class="btn btn-success">
+                <button (click)="modifyPaymentInfo()" class="btn btn-success">
                   Change Saved Card Number
                 </button>
               </div>

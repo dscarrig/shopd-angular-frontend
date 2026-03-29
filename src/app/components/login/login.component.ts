@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-    imports: [FormsModule, CommonModule]
+  imports: [FormsModule, CommonModule]
 })
 export class LoginComponent {
   private router = inject(Router);
@@ -33,14 +33,14 @@ export class LoginComponent {
   handleJWTAuthLogin() {
     // Capture the guest/temp userId BEFORE authentication overwrites it
     this.tempUserId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
-    
+
     this.basicAuthenticationService.executeJWTAuthenticationService(this.username, this.password)
       .subscribe(
-      () => {
-        this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
-        this.transferTempCart();
-        this.router.navigate(['home', this.userId]);
-        this.invalidLogin = false;
+        () => {
+          this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+          this.transferTempCart();
+          this.router.navigate(['home', this.userId]);
+          this.invalidLogin = false;
         },
         (error: any) => {
           console.error('Login failed', error);

@@ -63,16 +63,16 @@ export class UserInfoService {
     return this.http.post(`${SHOPD_JPA_API_URL}/users/set-new-default-address/${userId}`, newDefault);
   }
 
-  addPaymentInfo(userId: string, paymentInfo: string): any {
+  addPaymentInfo(userId: string, paymentInfo: any): any {
     return this.http.post(`${SHOPD_JPA_API_URL}/users/create-payment-info/${userId}`, paymentInfo);
   }
 
   getDefaultPaymentInfo(userId: string): any {
-    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-default-payment-info/${userId}`);
+    return this.http.get<any>(`${SHOPD_JPA_API_URL}/users/get-default-payment-info/${userId}`);
   }
 
   getAllUsersPaymentInfo(userId: string): any {
-    return this.http.get<string[]>(`${SHOPD_JPA_API_URL}/users/all-payment-info/${userId}`);
+    return this.http.get<any[]>(`${SHOPD_JPA_API_URL}/users/all-payment-info/${userId}`);
   }
 
   deletePaymentInfo(userId: string, toDelete: string): any {

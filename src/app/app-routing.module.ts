@@ -18,6 +18,7 @@ import { OrderCompleteComponent } from './components/order-complete/order-comple
 import { CreateShopdListingComponent } from './components/create-shopd-listing/create-shopd-listing.component'
 import { ModifyAddressComponent } from './components/modify-address/modify-address.component';
 import { ModifyShopListingComponent } from './components/modify-shop-listing/modify-shop-listing.component';
+import { ModifyPaymentInfoComponent } from './components/modify-payment-info/modify-payment-info.component';
 import { ErrorComponent } from './components/error/error.component';
 
 
@@ -44,7 +45,7 @@ const routes: Routes = [
   { path: 'create-shopd-listing', component: CreateShopdListingComponent, canActivate: [RouteGuardService] },
   { path: 'modify-shop-listing/:id', component: ModifyShopListingComponent, canActivate: [RouteGuardService] },
   { path: 'modify-address', component: ModifyAddressComponent, canActivate: [RouteGuardService] },
-
+  { path: 'modify-payment-info', component: ModifyPaymentInfoComponent, canActivate: [RouteGuardService] },
   { path: '**', component: ErrorComponent }
 ];
 

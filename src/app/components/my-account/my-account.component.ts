@@ -27,6 +27,7 @@ export class MyAccountComponent implements OnInit {
   username: string = '';
   userId: string = '';
   accountDetailItem: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
+  defaultPaymentInfo: any = null;
 
   ngOnInit(): void {
     this.refreshAccountInfo();
@@ -41,14 +42,28 @@ export class MyAccountComponent implements OnInit {
         this.accountDetailItem = response;
       }
     );
+
+    this.userInfoService.getDefaultPaymentInfo(this.userId).subscribe(
+      (response: any) => {
+        this.defaultPaymentInfo = response;
+      },
+      (error: any) => {
+        console.log('No payment info found or error:', error);
+        this.defaultPaymentInfo = null;
+      }
+    );
   }
 
   modifyAddress() {
     this.router.navigate(['modify-address']);
   }
 
-  modifyCardNum() {
-    this.router.navigate(['modify-card-num']);
+  modifyPaymentInfo() {
+    this.router.navigate(['modify-payment-info']);
+  }
+
+  getDefaultPaymentInfo(): string {
+    return this.defaultPaymentInfo?.lastFourDigits || '';
   }
 
   deleteAddress(toDelete: AccountDetailItem) {
@@ -60,13 +75,17 @@ export class MyAccountComponent implements OnInit {
   }
 
   deleteCardNum() {
-    // Assuming we have a way to identify the card number to delete, we would call a similar method in the service.
-    // For example:
-    // this.userInfoService.deleteUserCardNum(this.userId, cardNumId).subscribe(
-    //   () => {
-    //     this.ngOnInit();
-    //   }
-    // );
+    if (this.defaultPaymentInfo && this.defaultPaymentInfo.id) {
+      this.userInfoService.deletePaymentInfo(this.userId, this.defaultPaymentInfo.id).subscribe(
+        () => {
+          this.defaultPaymentInfo = null;
+          this.refreshAccountInfo();
+        },
+        (error: any) => {
+          console.error('Error deleting payment info:', error);
+        }
+      );
+    }
   }
 
   setAsDefault(newDefault: AccountDetailItem) {
@@ -82,7 +101,9 @@ export class MyAccountComponent implements OnInit {
   }
 
   hasSavedCardNum(): boolean {
-    return this.isValid(this.accountDetailItem.zipCode);
+    return this.defaultPaymentInfo !== null &&
+      this.defaultPaymentInfo?.lastFourDigits !== undefined &&
+      this.defaultPaymentInfo?.lastFourDigits !== '';
   }
 
   hasAddressLineTwo(): boolean {
