@@ -13,6 +13,7 @@ import { ShopdItem } from '../../app.classes';
 })
 export class UserListingsComponent {
   @Input() userId?: string;
+  @Input() username?: string = '';
   allUserListings: ShopdItem[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';

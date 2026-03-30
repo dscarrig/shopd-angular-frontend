@@ -104,8 +104,9 @@
       <!-- User Listings Section -->
       <div class="card shadow mb-4">
         <div class="card-body">
-          <h3 class="mb-3">User Listings</h3>
-          <app-user-listings [userId]="userId"></app-user-listings>
+          <h3 class="mb-3">My Listings</h3>
+          <p class="text-muted">Shopd items you have created</p>
+          <app-user-listings [userId]="userId" [username]="username"></app-user-listings>
         </div>
       </div>
 

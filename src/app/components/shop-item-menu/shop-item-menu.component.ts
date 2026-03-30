@@ -41,7 +41,7 @@ export class ShopItemMenuComponent implements OnInit {
   refreshItems() {
     this.itemMenuService.retrieveAllItems().subscribe(
       (response: ShopdItem[]) => {
-        this.shopItems = response;
+        this.shopItems = response.reverse();
         this.loadSellerNames();
       },
       (error: any) => {

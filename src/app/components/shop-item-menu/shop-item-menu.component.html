@@ -15,9 +15,9 @@
     <tbody>
       <tr *ngFor="let shopItem of shopItems">
         <td><a [routerLink]="['/shop-item', shopItem.id]"><img [src]="shopItem.imageUrl" [alt]="shopItem.name"
-              width="200" height="150"></a></td>
+              height="128"></a></td>
         <td><a [routerLink]="['/shop-item', shopItem.id]">{{shopItem.name}}</a></td>
-        <td>{{getItemSeller(shopItem)}}</td>
+        <td><a [routerLink]="['/user-shop', shopItem.userId]">{{getItemSeller(shopItem)}}</a></td>
         <td>{{shopItem.description}}</td>
         <td>${{shopItem.price}}</td>
         <td><button (click)="addItemToCart(shopItem)" class="btn btn-success">Add to cart</button></td>
