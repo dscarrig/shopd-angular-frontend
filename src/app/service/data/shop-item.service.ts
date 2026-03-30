@@ -18,6 +18,11 @@ export class ShopItemService {
     return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items`);
   }
 
+  retrieveItemsByCategories(categories: string[]): any {
+    const categoryParams = categories.map(cat => `categories=${encodeURIComponent(cat)}`).join('&');
+    return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items/search?${categoryParams}`);
+  }
+
   getUserListings(userId: string): any {
     return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items/get-all-items-from-user/${userId}`);
   }

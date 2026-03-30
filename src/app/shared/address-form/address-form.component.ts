@@ -98,4 +98,13 @@ export class AddressFormComponent implements OnInit {
     }
     return this.zipCode.match(/^[0-9]+$/) !== null;
   }
+
+  formTouched(): boolean {
+    return this.fullName !== '' ||
+      this.street !== '' ||
+      this.streetLine2 !== '' ||
+      this.city !== '' ||
+      this.state !== '' ||
+      this.zipCode !== '';
+  }
 }

@@ -59,7 +59,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   modifyPaymentInfo() {
-    this.router.navigate(['modify-payment-info']);
+    this.router.navigate(['modify-payment-info'], { queryParams: { returnUrl: 'my-account' } });
   }
 
   getDefaultPaymentInfo(): string {

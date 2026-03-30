@@ -133,7 +133,7 @@ export class UserCartComponent implements OnInit {
   }
 
   payNow() {
-    this.router.navigate(['verify-address']);
+    this.router.navigate(['confirm-checkout']);
   }
 
 }

@@ -24,8 +24,10 @@
     <!-- Category -->
     <div class="mb-3">
       <label for="category" class="form-label">Category *</label>
-      <input type="text" class="form-control" id="category" name="category" [(ngModel)]="category"
-        placeholder="Enter category" required>
+      <select class="form-select" id="category" name="category" [(ngModel)]="category" required>
+        <option value="">Select a category</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+      </select>
     </div>
 
     <!-- Photo Upload -->

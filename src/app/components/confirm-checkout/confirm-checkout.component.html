@@ -1,57 +1,116 @@
-<h1>Click Pay Now to complete order.</h1>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-11">
 
-<div>
-  <br />
-  <h3>Order details:</h3>
-  <table class="table">
+      <!-- Header Card -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h1 class="text-center mb-2">Confirm Your Order</h1>
+          <p class="text-center text-muted">Review your order details and complete your purchase</p>
+        </div>
+      </div>
 
-    <tbody>
-      <tr *ngFor="let shopItem of shopItems">
-        <td>{{shopItem.name}}</td>
-        <td>{{shopItem.price}}</td>
-      </tr>
-    </tbody>
+      <!-- Order Items Section -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Order Details</h3>
 
-  </table>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
 
-  <table class="table">
+              <tbody>
+                <tr *ngFor="let cartItem of cartItems">
+                  <td class="align-middle">
+                    <img [src]="cartItem.item.imageUrl" [alt]="cartItem.item.name" class="cart-item-image">
+                  </td>
+                  <td class="align-middle">{{cartItem.item.name}}</td>
+                  <td class="align-middle">{{cartItem.item.description}}</td>
+                  <td class="align-middle">${{cartItem.item.price.toFixed(2)}}</td>
+                  <td class="align-middle">{{cartItem.quantity}}</td>
+                  <td class="align-middle"><strong>${{cartItem.totalPrice.toFixed(2)}}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
 
-    <tbody>
-      <td>Total price:</td>
-      <td>${{getCartTotal().toFixed(2)}}</td>
-    </tbody>
+      <!-- Order Total Section -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <h3 class="mb-0">Total Price:</h3>
+            </div>
+            <div class="col-md-4 text-end">
+              <h3 class="mb-0 text-success">${{getCartTotal().toFixed(2)}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  </table>
-</div>
+      <!-- Shipping Address Section -->
+      <div *ngIf="accountDetailItem && accountDetailItem.fullName" class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Shipping Address</h3>
+          <p class="mb-1"><strong>{{accountDetailItem.fullName}}</strong></p>
+          <p class="mb-1">{{accountDetailItem.street}}</p>
+          <p class="mb-0">{{accountDetailItem.city}}, {{accountDetailItem.state}} {{accountDetailItem.zipCode}}</p>
+        </div>
+      </div>
 
-<div>
-  <br />
-  <h3>Shipping address:</h3>
-  {{accountDetailItem.fullName}}
-  <br />
-  {{accountDetailItem.street}}
-  <br />
-  {{accountDetailItem.city}} {{accountDetailItem.state}}
-  <br />
-  {{accountDetailItem.zipCode}}
-  <br />
-</div>
+      <!-- Payment Method Section -->
+      <div *ngIf="defaultPaymentInfo" class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Payment Method</h3>
+          <div class="alert alert-success mb-0">
+            <strong>Card on file:</strong> **** **** **** {{defaultPaymentInfo | slice:-4}}
+            <br>
+            <small>Cardholder: {{accountDetailItem.fullName}}</small>
+          </div>
+        </div>
+      </div>
 
-<div>
-  <br />
-  <h3>Payment method:</h3>
-  {{cardNum}}
-</div>
+      <!-- No Payment Method Section -->
+      <div *ngIf="!defaultPaymentInfo" class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Payment Method</h3>
+          <div class="alert alert-warning mb-0">
+            <strong>No payment method on file.</strong>
+            <br>
+            <small>Please add a payment method to complete your order.</small>
+          </div>
+          <button (click)="navigateToModifyPaymentInfo()" class="btn btn-primary mt-3">
+            Add Payment Method
+          </button>
+        </div>
+      </div>
 
-<div>
-  <br />
-  <button (click)="orderComplete()" class="btn-success" [disabled]="isSubmittingOrder">
-    <span *ngIf="!isSubmittingOrder">Pay Now</span>
-    <span *ngIf="isSubmittingOrder">Processing Order...</span>
-  </button>
-</div>
+      <!-- Action Buttons -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <div class="d-grid gap-2">
+            <button (click)="orderComplete()" class="btn btn-success btn-lg" [disabled]="isSubmittingOrder">
+              <span *ngIf="!isSubmittingOrder">PAY NOW</span>
+              <span *ngIf="isSubmittingOrder">PROCESSING ORDER...</span>
+            </button>
+            <button (click)="backToCart()" class="btn btn-outline-secondary btn-lg">
+              GO BACK TO CART
+            </button>
+          </div>
+        </div>
+      </div>
 
-<div>
-  <br />
-  <button (click)="backToCart()" class="btn-success">Go Back To Cart</button>
+    </div>
+  </div>
 </div>

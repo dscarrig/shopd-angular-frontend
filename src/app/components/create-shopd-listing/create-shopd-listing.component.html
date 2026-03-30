@@ -1,5 +1,9 @@
-<h1>Create a Listing</h1>
-<p>Here you can create a new SHOP'D listing to sell your items!</p>
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <h1 class="mb-4">Create a Listing</h1>
+    <p class="mb-4">Here you can create a new SHOP'D listing to sell your items!</p>
+  </div>
+</div>
 
 <app-shopd-listing-form submitButtonText="Create Listing" cancelButtonText="Back to Menu" [showCancelButton]="true"
   (formSubmit)="onCreateListing($event)" (formCancel)="backToMenu()">

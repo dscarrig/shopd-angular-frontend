@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
@@ -13,10 +13,12 @@ import { UserInfoService } from '../../service/app/user-info.service';
 })
 export class ModifyPaymentInfoComponent implements OnInit {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private userInfoService = inject(UserInfoService);
   private basicAuthenticationService = inject(BasicAuthenticationService);
 
   userId: string = '';
+  returnUrl: string = 'my-account';
   cardholderName: string = '';
   cardNumber: string = '';
   expirationMonth: string = '';
@@ -30,6 +32,11 @@ export class ModifyPaymentInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
+
+    // Get the return URL from query parameters, default to 'my-account'
+    this.route.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'] || 'my-account';
+    });
 
     // Generate years for the next 20 years
     const currentYear = new Date().getFullYear();
@@ -53,7 +60,7 @@ export class ModifyPaymentInfoComponent implements OnInit {
     this.userInfoService.addPaymentInfo(this.userId, paymentInfo).subscribe(
       (response: any) => {
         console.log('Payment info added:', response);
-        this.router.navigate(['my-account']);
+        this.router.navigate([this.returnUrl]);
       },
       (error: any) => {
         console.error('Error adding payment info:', error);
@@ -62,7 +69,7 @@ export class ModifyPaymentInfoComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['my-account']);
+    this.router.navigate([this.returnUrl]);
   }
 
   isFormValid(): boolean {
@@ -94,5 +101,14 @@ export class ModifyPaymentInfoComponent implements OnInit {
       return false;
     }
     return this.cvv.match(/^[0-9]+$/) !== null;
+  }
+
+  formTouched(): boolean {
+    return this.cardholderName !== '' ||
+      this.cardNumber !== '' ||
+      this.expirationMonth !== '' ||
+      this.expirationYear !== '' ||
+      this.cvv !== '' ||
+      this.cardType !== '';
   }
 }

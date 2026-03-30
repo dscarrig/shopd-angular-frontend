@@ -1,23 +1,204 @@
 .container {
-  background-color: lightgrey;
   max-width: 1200px;
-  border: 15px solid brown;
-  padding: 20px;
-  margin: 20px auto;
+  margin: 0 auto;
 }
 
-.table td {
-  background-color: lightgrey;
-  padding: 20px;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.table th {
+.header-card {
   background-color: #8B4513;
   color: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 5px solid #654321;
+  border-radius: 8px;
+}
+
+.search-section {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-header {
+  cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.search-header:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  transition: transform 0.3s;
+  margin-right: 10px;
+  font-size: 0.8em;
+}
+
+.dropdown-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.search-content {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+
+  to {
+    opacity: 1;
+    max-height: 1000px;
+  }
+}
+
+.search-section h5 {
+  color: white;
+  font-weight: bold;
+}
+
+.form-check-label {
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-check-input {
+  cursor: pointer;
+  border: 2px solid white;
+}
+
+.form-check-input:checked {
+  background-color: #654321;
+  border-color: #654321;
+}
+
+.btn-search {
+  background-color: white;
+  color: #8B4513;
+  font-weight: bold;
+  padding: 10px 30px;
+  border: 3px solid #654321;
+  border-radius: 6px;
+  transition: all 0.3s;
+}
+
+.btn-search:hover {
+  background-color: #654321;
+  color: white;
+  transform: scale(1.05);
+}
+
+.items-container {
+  background-color: lightgrey;
+  border: 15px solid brown;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.shop-item-card {
+  background-color: white;
+  border: 3px solid brown;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.shop-item-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(139, 69, 19, 0.3);
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shop-item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.shop-item-card:hover .shop-item-image {
+  transform: scale(1.05);
+}
+
+.card-content {
   padding: 15px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.item-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.item-link {
+  color: #8B4513;
+  text-decoration: none;
+}
+
+.item-link:hover {
+  color: #654321;
+  text-decoration: underline;
+}
+
+.seller-info {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.seller-link {
+  color: #8B4513;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.seller-link:hover {
+  text-decoration: underline;
+}
+
+.item-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+  flex-grow: 1;
+  line-height: 1.4;
+}
+
+.price-cart-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.item-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745;
 }
 
 .btn {
@@ -25,6 +206,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: 500;
 }
 
 .btn-success {
@@ -34,4 +216,11 @@
 
 .btn-success:hover {
   background-color: #218838;
+}
+
+@media (max-width: 768px) {
+  .items-container {
+    border-width: 10px;
+    padding: 15px;
+  }
 }

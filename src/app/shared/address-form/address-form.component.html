@@ -1,27 +1,73 @@
-<div class="address-form-container">
-  <div>
-    Full Name : <input type="text" [(ngModel)]="fullName">
-    <br />
-    Address Line 1 : <input type="text" [(ngModel)]="street">
-    <br />
-    Address Line 2 : <input type="text" [(ngModel)]="streetLine2">
-    <br />
-    City : <input type="text" [(ngModel)]="city">
-    <br />
-    State :
-    <select [(ngModel)]="state">
-      <option value="">Select a state</option>
-      <option *ngFor="let st of usStates" [value]="st">{{st}}</option>
-    </select>
-    <br />
-    Zip Code : <input type="text" [(ngModel)]="zipCode">
-    <br />
-    <br />
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <form>
+      <!-- Full Name -->
+      <div class="mb-3">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="fullName" [(ngModel)]="fullName" name="fullName"
+          placeholder="Enter your full name" required>
+      </div>
 
-    <button *ngIf="isFormValid()" (click)="onSubmit()" class="btn btn-success">{{submitButtonText}}</button>
-    <div class="alert alert-warning" *ngIf="!isFormValid()">Please fill out all address fields correctly.</div>
-    <br />
-    <br />
-    <button *ngIf="showCancelButton" (click)="onCancel()" class="btn btn-success">{{cancelButtonText}}</button>
+      <!-- Address Line 1 -->
+      <div class="mb-3">
+        <label for="street" class="form-label">Address Line 1</label>
+        <input type="text" class="form-control" id="street" [(ngModel)]="street" name="street"
+          placeholder="Street address, P.O. box" required>
+      </div>
+
+      <!-- Address Line 2 -->
+      <div class="mb-3">
+        <label for="streetLine2" class="form-label">Address Line 2 <small class="text-muted">(Optional)</small></label>
+        <input type="text" class="form-control" id="streetLine2" [(ngModel)]="streetLine2" name="streetLine2"
+          placeholder="Apartment, suite, unit, building, floor, etc.">
+      </div>
+
+      <!-- City -->
+      <div class="mb-3">
+        <label for="city" class="form-label">City</label>
+        <input type="text" class="form-control" id="city" [(ngModel)]="city" name="city" placeholder="Enter city"
+          required>
+      </div>
+
+      <!-- State and Zip Code -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="state" class="form-label">State</label>
+          <select class="form-select" id="state" [(ngModel)]="state" name="state" required>
+            <option value="">Select a state</option>
+            <option *ngFor="let st of usStates" [value]="st">{{st}}</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="zipCode" class="form-label">Zip Code</label>
+          <input type="text" class="form-control" id="zipCode" [(ngModel)]="zipCode" name="zipCode" placeholder="12345"
+            maxlength="5" required>
+          <div class="form-text">5 digit zip code</div>
+        </div>
+      </div>
+
+      <!-- Validation Alert -->
+      <div class="alert alert-warning mb-4" *ngIf="!isFormValid() && formTouched()">
+        <strong>Please complete the form:</strong>
+        <ul class="mb-0 mt-2">
+          <li *ngIf="!fullName">Full name is required</li>
+          <li *ngIf="!street">Address line 1 is required</li>
+          <li *ngIf="!city">City is required</li>
+          <li *ngIf="!state">State is required</li>
+          <li *ngIf="!zipCorrectFormat() && zipCode">Zip code must be 5 digits</li>
+          <li *ngIf="!zipCode">Zip code is required</li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="d-grid gap-2">
+        <button type="button" (click)="onSubmit()" class="btn btn-success btn-lg" [disabled]="!isFormValid()">
+          {{submitButtonText}}
+        </button>
+        <button *ngIf="showCancelButton" type="button" (click)="onCancel()" class="btn btn-outline-secondary btn-lg">
+          {{cancelButtonText}}
+        </button>
+      </div>
+    </form>
   </div>
 </div>

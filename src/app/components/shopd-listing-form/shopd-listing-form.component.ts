@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ITEM_CATEGORIES } from '../../app.constants';
 
 @Component({
   selector: 'app-shopd-listing-form',
@@ -31,6 +32,9 @@ export class ShopdListingFormComponent implements OnChanges {
   quantity: number | null = null;
   photoFile: File | null = null;
   photoPreview: string | null = null;
+
+  // Category options from constants
+  categories = ITEM_CATEGORIES;
 
   ngOnChanges(changes: SimpleChanges): void {
     // Pre-populate form fields when inputs change
