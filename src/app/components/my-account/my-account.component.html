@@ -27,13 +27,9 @@
                   </p>
                 </div>
                 <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
-                  <div class="alert alert-success mb-2 py-1 px-3" *ngIf="isDefaultAccountDetailItem(defaultAddress)">
+                  <div class="alert alert-success mb-2 py-1 px-3">
                     <small>Default Address</small>
                   </div>
-                  <button *ngIf="!isDefaultAccountDetailItem(defaultAddress)" (click)="setAsDefault(defaultAddress)"
-                    class="btn btn-outline-success btn-sm mb-2">
-                    Set As Default
-                  </button>
                   <button (click)="deleteAddress(defaultAddress)" class="btn btn-outline-danger btn-sm">
                     Delete Address
                   </button>
@@ -56,11 +52,7 @@
                       </p>
                     </div>
                     <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
-                      <div class="alert alert-success mb-2 py-1 px-3" *ngIf="isDefaultAccountDetailItem(address)">
-                        <small>Default Address</small>
-                      </div>
-                      <button *ngIf="!isDefaultAccountDetailItem(address)" (click)="setAsDefault(address)"
-                        class="btn btn-outline-success btn-sm mb-2">
+                      <button (click)="setAsDefault(address)" class="btn btn-outline-success btn-sm mb-2">
                         Set As Default
                       </button>
                       <button (click)="deleteAddress(address)" class="btn btn-outline-danger btn-sm">

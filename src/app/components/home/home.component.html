@@ -24,3 +24,9 @@
 <p class="aligncenter">
   <a routerLink="/menu" class="btn btn-primary btn-lg">START SHOP'N</a>
 </p>
+<div *ngIf="isLoggedIn" class="aligncenter mt-4">
+  <p class="text-muted">Already have an account? <a routerLink="/my-account">Go to your account</a></p>
+</div>
+<div *ngIf="!isLoggedIn" class="aligncenter mt-4">
+  <p class="text-muted">Don't have an account? <a routerLink="/createaccount">Register here</a></p>
+</div>
