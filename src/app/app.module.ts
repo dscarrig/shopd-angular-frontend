@@ -13,6 +13,7 @@ import { CreateAccountComponent } from './components/create-account/create-accou
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { OrderHistoryComponent } from './components/order-history/order-history.component';
 import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter-basic-auth.service';
+import { FooterComponent } from "./components/footer/footer.component";
 
 @NgModule({
   declarations: [
@@ -28,13 +29,14 @@ import { HttpIntercepterBasicAuthService } from './service/http/http-intercepter
     LoginComponent,
     CreateAccountComponent,
     MyAccountComponent,
-    OrderHistoryComponent
+    OrderHistoryComponent,
+    FooterComponent
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true },
-        provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent],
-  })
+})
 
 export class AppModule { }
