@@ -30,7 +30,7 @@ export class ModifyAddressComponent implements OnInit {
   loadAccountDetails() {
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
     //this.cardNum = this.basicAuthenticationService.getAuthenticatedUserCardNum() || '';
-    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
+    this.userInfoService.getDefaultAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
         console.log('Loaded account details:', this.accountDetailItem);
@@ -43,9 +43,9 @@ export class ModifyAddressComponent implements OnInit {
     if (!username) {
       return;
     }
-    
+
     const updatedAccountDetail = new AccountDetailItem(
-      this.accountDetailItem.id,
+      '', // Use '0' or empty ID to signal creation of a new address
       addressData.fullName,
       addressData.street,
       addressData.streetLine2,
@@ -54,7 +54,7 @@ export class ModifyAddressComponent implements OnInit {
       addressData.zipCode,
       addressData.country,
       addressData.user = this.userId,
-      true
+      false
     );
 
     this.userInfoService.addUserAddress(this.userId, updatedAccountDetail).subscribe(

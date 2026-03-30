@@ -25,7 +25,7 @@ export class EnterUserInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.basicAuthenticationService.getAuthenticatedUser() || '';
-    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
+    this.userInfoService.getDefaultAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
       }

@@ -18,7 +18,7 @@ export class UserInfoService {
   private cachedAccountDetail: AccountDetailItem | null = null;
   private cachedUserId: string | null = null;
 
-  getDefaultAccountDetail(userId: string): Observable<AccountDetailItem> {
+  getDefaultAddress(userId: string): Observable<AccountDetailItem> {
     if (this.cachedAccountDetail && this.cachedUserId === userId) {
       return of(this.cachedAccountDetail);
     }

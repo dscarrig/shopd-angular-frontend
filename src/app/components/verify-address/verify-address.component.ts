@@ -24,8 +24,8 @@ export class VerifyAddressComponent implements OnInit {
     if (this.username === null) {
       return;
     }
-    
-    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
+
+    this.userInfoService.getDefaultAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
       }

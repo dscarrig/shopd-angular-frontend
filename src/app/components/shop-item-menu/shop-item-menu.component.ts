@@ -105,6 +105,7 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   searchByCategories(categories: string[]) {
+    console.log('Searching items by categories:', categories);
     this.itemMenuService.retrieveItemsByCategories(categories).subscribe(
       (response: ShopdItem[]) => {
         this.shopItems = response.reverse();

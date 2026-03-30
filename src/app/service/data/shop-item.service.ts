@@ -20,7 +20,7 @@ export class ShopItemService {
 
   retrieveItemsByCategories(categories: string[]): any {
     const categoryParams = categories.map(cat => `categories=${encodeURIComponent(cat)}`).join('&');
-    return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items/search?${categoryParams}`);
+    return this.http.get<ShopdItem[]>(`${SHOPD_JPA_API_URL}/items/search-by-category?${categoryParams}`);
   }
 
   getUserListings(userId: string): any {

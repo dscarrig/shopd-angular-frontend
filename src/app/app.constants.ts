@@ -7,6 +7,7 @@ export const GOOGLE_SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 export const ITEM_CATEGORIES = [
   'Abstract Concepts',
+  'Appliances',
   'Automotive',
   'Books',
   'Clothing',

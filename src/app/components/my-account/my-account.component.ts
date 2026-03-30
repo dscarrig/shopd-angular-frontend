@@ -26,7 +26,8 @@ export class MyAccountComponent implements OnInit {
 
   username: string = '';
   userId: string = '';
-  accountDetailItem: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
+  defaultAddress: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
+  allAddresses: AccountDetailItem[] = [];
   defaultPaymentInfo: any = null;
 
   ngOnInit(): void {
@@ -37,9 +38,16 @@ export class MyAccountComponent implements OnInit {
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
 
-    this.userInfoService.getDefaultAccountDetail(this.userId).subscribe(
+    this.userInfoService.getDefaultAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
-        this.accountDetailItem = response;
+        this.defaultAddress = response;
+      }
+    );
+
+    this.userInfoService.getAllUsersAddresses(this.userId).subscribe(
+      (response: AccountDetailItem[]) => {
+        console.log('Fetched all addresses:', response);
+        this.allAddresses = response;
       }
     );
 
@@ -97,7 +105,7 @@ export class MyAccountComponent implements OnInit {
   }
 
   hasSavedAddress(): boolean {
-    return this.isValid(this.accountDetailItem.street);
+    return this.isValid(this.defaultAddress.street);
   }
 
   hasSavedCardNum(): boolean {
@@ -107,11 +115,11 @@ export class MyAccountComponent implements OnInit {
   }
 
   hasAddressLineTwo(): boolean {
-    return this.isValid(this.accountDetailItem.streetLine2);
+    return this.isValid(this.defaultAddress.streetLine2);
   }
 
   hasState(): boolean {
-    return this.isValid(this.accountDetailItem.state);
+    return this.isValid(this.defaultAddress.state);
   }
 
   isValid(value: string): boolean {
