@@ -16,6 +16,7 @@ export const ITEM_CATEGORIES = [
   'Health & Beauty',
   'Handmade & Crafts',
   'Home & Garden',
+  'Household Items',
   'Live Animals',
   'Music & Movies',
   'Office Supplies',

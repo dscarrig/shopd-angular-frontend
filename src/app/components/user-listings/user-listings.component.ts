@@ -74,7 +74,7 @@ export class UserListingsComponent {
   }
 
   editItem(itemId: string): void {
-    this.router.navigate(['/shop-item', itemId]);
+    this.router.navigate(['/modify-shop-listing', itemId]);
   }
 
 }

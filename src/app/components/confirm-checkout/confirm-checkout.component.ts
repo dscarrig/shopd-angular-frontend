@@ -61,11 +61,9 @@ export class ConfirmCheckoutComponent implements OnInit {
 
     this.userInfoService.getDefaultPaymentInfo(this.userId).subscribe(
       (response: any) => {
-        console.log('Default payment info retrieved:', response);
         this.defaultPaymentInfo = response;
       },
       (error: any) => {
-        console.log('No payment info found or error:', error);
         this.defaultPaymentInfo = null;
       }
     );

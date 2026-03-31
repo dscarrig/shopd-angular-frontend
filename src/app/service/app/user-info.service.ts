@@ -57,9 +57,9 @@ export class UserInfoService {
     return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/get-default-address/${userId}`);
   }
 
-  deleteUserAddress(userId: string, toDelete: string): any {
+  deleteUserAddress(userId: string, addressId: string): any {
     this.clearCache(); // Clear cache when deleting
-    return this.http.post(`${SHOPD_JPA_API_URL}/users/delete-address/${userId}`, toDelete);
+    return this.http.delete(`${SHOPD_JPA_API_URL}/users/delete-address/${addressId}`);
   }
 
   setDefaultAddress(userId: string, newDefault: string): any {
@@ -80,7 +80,7 @@ export class UserInfoService {
   }
 
   deletePaymentInfo(userId: string, toDelete: string): any {
-    return this.http.post(`${SHOPD_JPA_API_URL}/users/delete-payment-info/${userId}`, toDelete);
+    return this.http.delete(`${SHOPD_JPA_API_URL}/users/delete-payment-info/${userId}`, { body: toDelete });
   }
 
   setDefaultPaymentInfo(userId: string, newDefault: string): any {

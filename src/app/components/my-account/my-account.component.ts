@@ -46,7 +46,6 @@ export class MyAccountComponent implements OnInit {
 
     this.userInfoService.getAllUsersAddresses(this.userId).subscribe(
       (response: AccountDetailItem[]) => {
-        console.log('Fetched all addresses:', response);
         this.allAddresses = response;
       }
     );
@@ -56,7 +55,6 @@ export class MyAccountComponent implements OnInit {
         this.defaultPaymentInfo = response;
       },
       (error: any) => {
-        console.log('No payment info found or error:', error);
         this.defaultPaymentInfo = null;
       }
     );
@@ -105,21 +103,13 @@ export class MyAccountComponent implements OnInit {
   }
 
   hasSavedAddress(): boolean {
-    return this.isValid(this.defaultAddress.street);
+    return this.allAddresses.length > 0;
   }
 
   hasSavedCardNum(): boolean {
     return this.defaultPaymentInfo !== null &&
       this.defaultPaymentInfo?.lastFourDigits !== undefined &&
       this.defaultPaymentInfo?.lastFourDigits !== '';
-  }
-
-  hasAddressLineTwo(): boolean {
-    return this.isValid(this.defaultAddress.streetLine2);
-  }
-
-  hasState(): boolean {
-    return this.isValid(this.defaultAddress.state);
   }
 
   isValid(value: string): boolean {
