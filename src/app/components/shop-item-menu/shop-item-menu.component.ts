@@ -31,6 +31,7 @@ export class ShopItemMenuComponent implements OnInit {
   isCategorySectionExpanded = false;
 
   isSellerSectionExpanded = false;
+  sellerUsername: string = '';
 
   ngOnInit(): void {
     if (this.authenticationService.isUserLoggedIn()) {
@@ -67,8 +68,11 @@ export class ShopItemMenuComponent implements OnInit {
     // Fetch username for each unique seller
     uniqueSellerIds.forEach(sellerId => {
       this.userInfoService.getUsername(sellerId).subscribe(
-        (username: string) => {
-          this.sellerNames.set(sellerId, username);
+        (username: any) => {
+          const name = typeof username === 'string'
+            ? username
+            : (username?.username ?? username?.name ?? String(username));
+          this.sellerNames.set(sellerId, name);
         },
         (error: any) => {
           this.sellerNames.set(sellerId, 'Unknown Seller');
@@ -118,6 +122,37 @@ export class ShopItemMenuComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error searching items by categories:', error);
+        this.shopItems = [];
+      }
+    );
+  }
+
+  onSearchBySeller(): void {
+    if (!this.sellerUsername.trim()) {
+      console.log('Seller username is empty. Refreshing all items.');
+      this.refreshItems();
+      return;
+    }
+    const sellerId = [...this.sellerNames.entries()]
+      .find(([, name]) => name.toLowerCase() === this.sellerUsername.trim().toLowerCase())?.[0];
+    if (sellerId) {
+      console.log('Found seller ID:', sellerId, 'for username:', this.sellerUsername);
+      this.searchBySeller(sellerId);
+    } else {
+      console.log('Seller not found. No items to display.');
+      this.shopItems = [];
+    }
+  }
+
+  searchBySeller(sellerId: string) {
+    console.log('Searching items by seller ID:', sellerId);
+    this.itemMenuService.getUserListings(sellerId).subscribe(
+      (response: ShopdItem[]) => {
+        this.shopItems = response.reverse();
+        this.loadSellerNames();
+      },
+      (error: any) => {
+        console.error('Error searching items by seller:', error);
         this.shopItems = [];
       }
     );
