@@ -4,14 +4,14 @@
 
     <!-- Search by Category Section -->
     <div class="search-section">
-      <div class="search-header" (click)="toggleSearchSection()">
+      <div class="search-header" (click)="toggleCategorySection()">
         <h5 class="mb-0">
-          <span class="dropdown-arrow" [class.expanded]="isSearchSectionExpanded">▶</span>
+          <span class="dropdown-arrow" [class.expanded]="isCategorySectionExpanded">▶</span>
           Search by category
         </h5>
       </div>
 
-      <div class="search-content" *ngIf="isSearchSectionExpanded">
+      <div class="search-content" *ngIf="isCategorySectionExpanded">
         <div class="row mt-3">
           <div class="col-md-3 col-sm-6 mb-2" *ngFor="let category of categories">
             <div class="form-check">
@@ -30,40 +30,53 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="items-container" *ngIf="shopItems && shopItems.length > 0">
-    <div class="row">
-      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let shopItem of shopItems">
-        <div class="shop-item-card">
-          <div class="card-image-wrapper">
-            <a [routerLink]="['/shop-item', shopItem.id]">
-              <img [src]="shopItem.imageUrl" [alt]="shopItem.name" class="shop-item-image">
-            </a>
-          </div>
-          <div class="card-content">
-            <h5 class="item-name">
-              <a [routerLink]="['/shop-item', shopItem.id]" class="item-link">{{shopItem.name}}</a>
-            </h5>
-            <p class="item-category">{{shopItem.category}}</p>
-            <p class="seller-info">
-              Seller: <a [routerLink]="['/user-shop', shopItem.userId]"
-                class="seller-link">{{getItemSeller(shopItem)}}</a>
-            </p>
-            <p class="item-description">{{shopItem.description}}</p>
-            <div class="price-cart-section">
-              <div class="item-price">${{shopItem.price.toFixed(2)}}</div>
-              <button (click)="addItemToCart(shopItem)" class="btn btn-success">
-                Add to cart
-              </button>
-            </div>
+    <!-- Search by Seller Section -->
+    <div class="search-section">
+      <div class="search-header" (click)="toggleSellerSection()">
+        <h5 class="mb-0">
+          <span class="dropdown-arrow" [class.expanded]="isSellerSectionExpanded">▶</span>
+          Search by seller
+        </h5>
+      </div>
+
+      <!-- Search by Seller Content to be added -->
+
+    </div>
+  </div>
+</div>
+
+<div class="items-container" *ngIf="shopItems && shopItems.length > 0">
+  <div class="row">
+    <div class="col-md-6 col-lg-4 mb-4" *ngFor="let shopItem of shopItems">
+      <div class="shop-item-card">
+        <div class="card-image-wrapper">
+          <a [routerLink]="['/shop-item', shopItem.id]">
+            <img [src]="shopItem.imageUrl" [alt]="shopItem.name" class="shop-item-image">
+          </a>
+        </div>
+        <div class="card-content">
+          <h5 class="item-name">
+            <a [routerLink]="['/shop-item', shopItem.id]" class="item-link">{{shopItem.name}}</a>
+          </h5>
+          <p class="item-category">{{shopItem.category}}</p>
+          <p class="seller-info">
+            Seller: <a [routerLink]="['/user-shop', shopItem.userId]"
+              class="seller-link">{{getItemSeller(shopItem)}}</a>
+          </p>
+          <p class="item-description">{{shopItem.description}}</p>
+          <div class="price-cart-section">
+            <div class="item-price">${{shopItem.price.toFixed(2)}}</div>
+            <button (click)="addItemToCart(shopItem)" class="btn btn-success">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div *ngIf="!shopItems || shopItems.length === 0" class="alert alert-info text-center mt-4">
-    <p class="mb-0">Loading items, please wait...</p>
-  </div>
+<div *ngIf="!shopItems || shopItems.length === 0" class="alert alert-info text-center mt-4">
+  <p class="mb-0">Loading items, please wait...</p>
 </div>

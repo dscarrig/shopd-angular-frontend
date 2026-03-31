@@ -34,6 +34,8 @@
                   <th>Quantity</th>
                   <th>Category</th>
                   <th>Status</th>
+                  <th *ngIf="!isSellerView">Actions</th>
+                  <th *ngIf="isSellerView">Buy It</th>
                 </tr>
               </thead>
 
@@ -55,6 +57,16 @@
                     <span class="badge" [ngClass]="listing.available ? 'bg-success' : 'bg-secondary'">
                       {{listing.available ? 'Available' : 'Unavailable'}}
                     </span>
+                  </td>
+                  <td class="align-middle" *ngIf="!isSellerView">
+                    <button class="btn btn-sm btn-primary" (click)="editItem(listing.id)">
+                      Edit
+                    </button>
+                  </td>
+                  <td class="align-middle" *ngIf="isSellerView">
+                    <button (click)="addItemToCart(listing)" class="btn btn-success">
+                      Add to cart
+                    </button>
                   </td>
                 </tr>
               </tbody>

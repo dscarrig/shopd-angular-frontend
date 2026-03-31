@@ -40,6 +40,10 @@ export class UserInfoService {
     return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/username/${userId}`);
   }
 
+  getUsersWithListings(): any {
+    return this.http.get<any[]>(`${SHOPD_JPA_API_URL}/users/with-listings`);
+  }
+
   addUserAddress(userId: string, userAddress: AccountDetailItem): any {
     this.clearCache(); // Clear cache when adding new info
     return this.http.post(`${SHOPD_JPA_API_URL}/users/create-new-address/${userId}`, userAddress);

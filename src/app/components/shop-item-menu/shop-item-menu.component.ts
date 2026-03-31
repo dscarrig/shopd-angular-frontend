@@ -28,7 +28,9 @@ export class ShopItemMenuComponent implements OnInit {
   // Category search
   categories = ITEM_CATEGORIES;
   selectedCategories: { [key: string]: boolean } = {};
-  isSearchSectionExpanded = false;
+  isCategorySectionExpanded = false;
+
+  isSellerSectionExpanded = false;
 
   ngOnInit(): void {
     if (this.authenticationService.isUserLoggedIn()) {
@@ -88,8 +90,11 @@ export class ShopItemMenuComponent implements OnInit {
     return this.sellerNames.get(item.userId) || 'Loading...';
   }
 
-  toggleSearchSection(): void {
-    this.isSearchSectionExpanded = !this.isSearchSectionExpanded;
+  toggleCategorySection(): void {
+    this.isCategorySectionExpanded = !this.isCategorySectionExpanded;
+  }
+  toggleSellerSection(): void {
+    this.isSellerSectionExpanded = !this.isSellerSectionExpanded;
   }
 
   onSearchByCategories(): void {
