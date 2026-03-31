@@ -36,8 +36,8 @@ export class UserInfoService {
     this.cachedUserId = null;
   }
 
-  getUsername(userId: string): any {
-    return this.http.get<string>(`${SHOPD_JPA_API_URL}/users/username/${userId}`);
+  getUsername(userId: string): Observable<string> {
+    return this.http.get(`${SHOPD_JPA_API_URL}/users/username/${userId}`, { responseType: 'text' });
   }
 
   getUsersWithListings(): any {
