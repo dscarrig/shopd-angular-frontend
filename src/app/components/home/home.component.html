@@ -5,28 +5,37 @@
 </style>
 
 <p class="aligncenter">
-  <img src="assets/logo.png" width="312" alt="SHOPD Logo">
+  <img src="assets/logo.svg" width="420" alt="SHOPD Logo">
 </p>
 
+<div *ngIf="isLoggedIn" class="aligncenter mt-4">
+  <p class="text-muted">Logged in as {{username}}</p>
+</div>
 <h1 class="aligncenter">
-  @if (username) {
-  Welcome {{username}}!
-  } @else {
-  Welcome to SHOP'D!
-  }
+  <ng-container *ngIf="username; else welcomeMessage">
+    Welcome {{username}}!
+  </ng-container>
+  <ng-template #welcomeMessage>
+    Welcome to SHOP'D!
+  </ng-template>
 </h1>
+
 <h2 class="aligncenter">
-  Your one-stop shop for all of your human needs.
+  Your one-stop shop for buying and selling everything.
 </h2>
+
 <p class="aligncenter">
   BUY. SELL. SHOP'D.
 </p>
+
 <p class="aligncenter">
   <a routerLink="/menu" class="btn btn-primary btn-lg">START SHOP'N</a>
 </p>
+
 <div *ngIf="isLoggedIn" class="aligncenter mt-4">
   <p class="text-muted">Already have an account? <a routerLink="/my-account">Go to your account</a></p>
 </div>
+
 <div *ngIf="!isLoggedIn" class="aligncenter mt-4">
   <p class="text-muted">Don't have an account? <a routerLink="/createaccount">Register here</a></p>
 </div>

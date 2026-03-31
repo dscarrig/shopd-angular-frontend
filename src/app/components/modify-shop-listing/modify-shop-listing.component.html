@@ -36,7 +36,7 @@
       <div *ngIf="!isLoading && !errorMessage" class="card shadow mb-4">
         <div class="card-body">
           <app-shopd-listing-form [submitButtonText]="'Update Listing'" [cancelButtonText]="'Cancel'"
-            [showCancelButton]="true" [initialItemName]="itemName" [initialPrice]="price"
+            [showCancelButton]="true" [initialItemName]="itemName" [initialPrice]="price" [initialAvailable]="available"
             [initialDescription]="description" [initialCategory]="category" [initialAvailable]="available"
             [initialQuantity]="quantity" [initialImageUrl]="imageUrl" (formSubmit)="onUpdateListing($event)"
             (formCancel)="onCancel()">
