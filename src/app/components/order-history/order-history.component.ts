@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrderService, Order } from '../../service/app/order.service';
+import { Order } from '../../service/app/order.service';
+import { PurchaseHistoryService } from 'src/app/service/data/purchase-history.service';
 
 @Component({
   selector: 'app-order-history',
@@ -11,11 +12,12 @@ import { OrderService, Order } from '../../service/app/order.service';
 })
 export class OrderHistoryComponent implements OnInit {
   @Input() username?: string;
+  @Input() userId?: string;
   orders: Order[] = [];
   isLoading: boolean = false;
   errorMessage: string = '';
 
-  private orderService: OrderService = inject(OrderService);
+  private purchaseHistoryService: PurchaseHistoryService = inject(PurchaseHistoryService);
 
   ngOnInit(): void {
     // Initialize order history for the given username
@@ -28,20 +30,20 @@ export class OrderHistoryComponent implements OnInit {
   }
 
   private loadOrderHistory(): void {
-    if (!this.username) {
+    if (!this.username || !this.userId) {
       return;
     }
 
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.orderService.getUserOrders(this.username).subscribe({
-      next: (orders) => {
+    this.purchaseHistoryService.getUserPurchaseHistory(this.userId).subscribe({
+      next: (orders: Order[]) => {
         this.orders = orders;
         this.isLoading = false;
         console.log(`Loaded ${orders.length} orders for ${this.username}`);
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error loading order history:', error);
         this.errorMessage = 'Failed to load order history. Please try again later.';
         this.isLoading = false;

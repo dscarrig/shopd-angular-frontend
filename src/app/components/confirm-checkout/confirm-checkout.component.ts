@@ -51,6 +51,7 @@ export class ConfirmCheckoutComponent implements OnInit {
 
     this.userInfoService.getUserAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
+        console.log('Account details retrieved:', response);
         this.accountDetailItem = response;
       },
       (error: any) => {
@@ -61,9 +62,11 @@ export class ConfirmCheckoutComponent implements OnInit {
 
     this.userInfoService.getDefaultPaymentInfo(this.userId).subscribe(
       (response: any) => {
+        console.log('Default payment info retrieved:', response);
         this.defaultPaymentInfo = response;
       },
       (error: any) => {
+        console.error('Error fetching default payment info:', error);
         this.defaultPaymentInfo = null;
       }
     );
@@ -152,11 +155,11 @@ export class ConfirmCheckoutComponent implements OnInit {
     // Create the order object
     const order: Order = {
       id: 0, // Will be set by backend
-      username: this.username,
-      date: new Date().toISOString(),
-      status: 'PENDING',
+      userId: this.userId,
+      items: orderItems,
       total: this.getCartTotal(),
-      items: orderItems
+      status: 'Pending',
+      createdAt: new Date().toISOString()
     };
 
     // Send order to backend
@@ -184,6 +187,10 @@ export class ConfirmCheckoutComponent implements OnInit {
     const cardNumPattern = /^\d{16}$/; // Simple pattern for 16 digit card number
 
     return cardNum !== null && cardNumPattern.test(cardNum);
+  }
+
+  navigateToModifyAddress(): void {
+    this.router.navigate(['modify-address'], { queryParams: { returnUrl: 'confirm-checkout' } });
   }
 
   navigateToModifyPaymentInfo(): void {

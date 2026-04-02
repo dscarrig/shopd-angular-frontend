@@ -10,7 +10,7 @@ describe('OrderHistoryComponent', () => {
     await TestBed.configureTestingModule({
       imports: [OrderHistoryComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(OrderHistoryComponent);
     component = fixture.componentInstance;

@@ -89,6 +89,11 @@
   </div>
 </div>
 
-<div *ngIf="!shopItems || shopItems.length === 0" class="alert alert-info text-center mt-4">
+<div *ngIf="!shopItems" class="alert alert-info text-center mt-4">
   <p class="mb-0">Loading items, please wait...</p>
+</div>
+
+<div *ngIf="shopItems && shopItems.length === 0" class="alert alert-info text-center mt-4">
+  <p class="mb-0">No items available with the given criteria. Try searching with different filters or check if the
+    seller's username is spelled correctly.</p>
 </div>

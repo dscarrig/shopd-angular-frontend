@@ -29,6 +29,7 @@ export class MyAccountComponent implements OnInit {
   defaultAddress: AccountDetailItem = new AccountDetailItem('0', '', '', '', '', '', '', '', '', false);
   allAddresses: AccountDetailItem[] = [];
   defaultPaymentInfo: any = null;
+  allPaymentInfo: any[] = [];
 
   ngOnInit(): void {
     this.refreshAccountInfo();
@@ -58,6 +59,15 @@ export class MyAccountComponent implements OnInit {
         this.defaultPaymentInfo = null;
       }
     );
+
+    this.userInfoService.getAllUsersPaymentInfo(this.userId).subscribe(
+      (response: any[]) => {
+        this.allPaymentInfo = response;
+      },
+      (error: any) => {
+        this.allPaymentInfo = [];
+      }
+    );
   }
 
   modifyAddress() {
@@ -80,11 +90,14 @@ export class MyAccountComponent implements OnInit {
     );
   }
 
-  deleteCardNum() {
-    if (this.defaultPaymentInfo && this.defaultPaymentInfo.id) {
-      this.userInfoService.deletePaymentInfo(this.userId, this.defaultPaymentInfo.id).subscribe(
+  deleteCardNum(paymentInfo?: any) {
+    const paymentToDelete = paymentInfo || this.defaultPaymentInfo;
+    if (paymentToDelete && paymentToDelete.id) {
+      this.userInfoService.deletePaymentInfo(this.userId, paymentToDelete.id).subscribe(
         () => {
-          this.defaultPaymentInfo = null;
+          if (!paymentInfo || paymentToDelete.id === this.defaultPaymentInfo?.id) {
+            this.defaultPaymentInfo = null;
+          }
           this.refreshAccountInfo();
         },
         (error: any) => {
@@ -102,14 +115,24 @@ export class MyAccountComponent implements OnInit {
     );
   }
 
+  setAsDefaultPayment(newDefault: any) {
+    this.userInfoService.setDefaultPaymentInfo(this.userId, newDefault.id).subscribe(
+      () => {
+        this.ngOnInit();
+      }
+    );
+  }
+
   hasSavedAddress(): boolean {
     return this.allAddresses.length > 0;
   }
 
   hasSavedCardNum(): boolean {
-    return this.defaultPaymentInfo !== null &&
-      this.defaultPaymentInfo?.lastFourDigits !== undefined &&
-      this.defaultPaymentInfo?.lastFourDigits !== '';
+    return this.allPaymentInfo.length > 0;
+  }
+
+  isDefaultPayment(payment: any): boolean {
+    return payment.isDefault === true;
   }
 
   isValid(value: string): boolean {

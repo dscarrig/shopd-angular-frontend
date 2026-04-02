@@ -63,4 +63,3 @@ export class MenuComponent implements OnInit {
     this.userName = authenticatedUser || 'guest';
   }
 }
-

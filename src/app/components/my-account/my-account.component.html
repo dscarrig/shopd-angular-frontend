@@ -82,33 +82,90 @@
         <div class="card-body">
           <h3 class="mb-3">Payment Information</h3>
 
-          <div *ngIf="hasSavedCardNum()" class="alert alert-success text-center mb-3">
-            Saved card number for {{defaultAddress.fullName}}: **** **** **** {{getDefaultPaymentInfo() | slice:-4}}
-          </div>
-
-          <div *ngIf="!hasSavedCardNum() && hasSavedAddress()" class="alert alert-info text-center mb-3">
-            No saved card number for {{defaultAddress.fullName}}.
-          </div>
-
-          <div *ngIf="!hasSavedCardNum() && !hasSavedAddress()" class="alert alert-info text-center mb-3">
-            No saved card number.
-          </div>
-
-          <div class="row g-2">
-            <div class="col-md-6">
-              <div class="d-grid">
-                <button (click)="modifyPaymentInfo()" class="btn btn-success">
-                  Change Saved Card Number
-                </button>
+          <div *ngIf="hasSavedCardNum()">
+            <div *ngFor="let payment of allPaymentInfo">
+              <div *ngIf="isDefaultPayment(payment)" class="card mb-3 border-success">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h5 class="card-title">{{payment.cardholderName || defaultAddress.fullName}}</h5>
+                      <p class="card-text mb-0" *ngIf="payment.billingAddress">
+                        {{payment.billingAddress.street || defaultAddress.street}}<br />
+                        <span *ngIf="isValid(payment.billingAddress.streetLine2 || defaultAddress.streetLine2)">
+                          {{payment.billingAddress.streetLine2 || defaultAddress.streetLine2}}<br />
+                        </span>
+                        {{payment.billingAddress.city || defaultAddress.city}}, 
+                        {{payment.billingAddress.state || defaultAddress.state}} 
+                        {{payment.billingAddress.zipCode || defaultAddress.zipCode}}
+                      </p>
+                      <p class="card-text mb-0" *ngIf="!payment.billingAddress && hasSavedAddress()">
+                        {{defaultAddress.street}}<br />
+                        <span *ngIf="isValid(defaultAddress.streetLine2)">{{defaultAddress.streetLine2}}<br /></span>
+                        {{defaultAddress.city}}, {{defaultAddress.state}} {{defaultAddress.zipCode}}
+                      </p>
+                      <p class="card-text mt-2">
+                        <strong>**** **** **** {{payment.lastFourDigits}}</strong>
+                      </p>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
+                      <div class="alert alert-success mb-2 py-1 px-3">
+                        <small>Default</small>
+                      </div>
+                      <button (click)="deleteCardNum(payment)" class="btn btn-outline-danger btn-sm">
+                        Delete Payment Method
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col-md-6" *ngIf="hasSavedCardNum()">
-              <div class="d-grid">
-                <button (click)="deleteCardNum()" class="btn btn-outline-danger">
-                  Delete Payment Info
-                </button>
+
+            <div *ngFor="let payment of allPaymentInfo">
+              <div *ngIf="!isDefaultPayment(payment)" class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h5 class="card-title">{{payment.cardholderName || defaultAddress.fullName}}</h5>
+                      <p class="card-text mb-0" *ngIf="payment.billingAddress">
+                        {{payment.billingAddress.street || defaultAddress.street}}<br />
+                        <span *ngIf="isValid(payment.billingAddress.streetLine2 || defaultAddress.streetLine2)">
+                          {{payment.billingAddress.streetLine2 || defaultAddress.streetLine2}}<br />
+                        </span>
+                        {{payment.billingAddress.city || defaultAddress.city}}, 
+                        {{payment.billingAddress.state || defaultAddress.state}} 
+                        {{payment.billingAddress.zipCode || defaultAddress.zipCode}}
+                      </p>
+                      <p class="card-text mb-0" *ngIf="!payment.billingAddress && hasSavedAddress()">
+                        {{defaultAddress.street}}<br />
+                        <span *ngIf="isValid(defaultAddress.streetLine2)">{{defaultAddress.streetLine2}}<br /></span>
+                        {{defaultAddress.city}}, {{defaultAddress.state}} {{defaultAddress.zipCode}}
+                      </p>
+                      <p class="card-text mt-2">
+                        <strong>**** **** **** {{payment.lastFourDigits}}</strong>
+                      </p>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column align-items-end justify-content-center">
+                      <button (click)="setAsDefaultPayment(payment)" class="btn btn-outline-success btn-sm mb-2">
+                        Set As Default
+                      </button>
+                      <button (click)="deleteCardNum(payment)" class="btn btn-outline-danger btn-sm">
+                        Delete Payment Method
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div *ngIf="!hasSavedCardNum()" class="alert alert-info text-center">
+            You have no saved payment methods.
+          </div>
+
+          <div class="d-grid">
+            <button (click)="modifyPaymentInfo()" class="btn btn-success">
+              <i class="bi bi-plus-circle"></i> Add New Payment Method
+            </button>
           </div>
         </div>
       </div>
@@ -117,7 +174,7 @@
       <div class="card shadow mb-4">
         <div class="card-body">
           <h3 class="mb-3">Order History</h3>
-          <app-order-history [username]="username"></app-order-history>
+          <app-order-history [username]="username" [userId]="userId"></app-order-history>
         </div>
       </div>
 

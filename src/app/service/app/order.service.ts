@@ -10,17 +10,17 @@ import { ShopdItem } from '../../app.classes';
  */
 export interface Order {
   id: number;
-  username: string;
-  date: string;
-  status: string;
-  total: number;
+  userId: string;
   items: ShopdItem[];
+  total: number;
+  status: string;
+  createdAt: string;
 }
 
 /**
  * Service for managing orders, including retrieving user orders, getting order details, creating new orders, and updating order status.
  * It interacts with the backend API to perform these operations and provides methods for components to access and manipulate order data.
- * The service defines an Order interface to represent the structure of order data, including properties such as id, username, date, status, total, and items.
+ * The service defines an Order interface to represent the structure of order data, including properties such as id, userId, date, orderStatus, and items.
  * It allows components to retrieve a user's orders, get details of a specific order, create new orders, and update the status of existing orders through HTTP requests to the backend API.
  */
 @Injectable({
@@ -39,7 +39,7 @@ export class OrderService {
   }
 
   createOrder(order: Order): Observable<Order> {
-    return this.http.post<Order>(this.apiUrl, order);
+    return this.http.post<Order>(`${this.apiUrl}/create`, order);
   }
 
   updateOrderStatus(id: number, status: string): Observable<Order> {
