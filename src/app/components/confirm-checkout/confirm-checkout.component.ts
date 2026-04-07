@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { UserInfoService } from '../../service/app/user-info.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { Router } from '@angular/router';
-import { AccountDetailItem, ShopdItem } from '../../app.classes';
+import { AccountDetailItem, OrderItem, ShopdItem } from '../../app.classes';
 import { CartService } from '../../service/app/cart.service';
 import { OrderService, Order } from '../../service/app/order.service';
 import { CommonModule } from '@angular/common';
@@ -140,24 +140,20 @@ export class ConfirmCheckoutComponent implements OnInit {
     });
 
     // Create order items with proper quantities
-    const orderItems: ShopdItem[] = Array.from(itemMap.values()).map(({ item, quantity }) => ({
-      id: item.id,
+    const orderItems: OrderItem[] = Array.from(itemMap.values()).map(({ item, quantity }) => ({
+      id: '', // This will be set by the backend
       name: item.name,
-      description: item.description,
-      category: item.category,
-      available: item.available,
-      quantity: quantity,
+      itemId: item.id,
       price: item.price,
-      imageUrl: item.imageUrl,
-      userId: item.userId
+      quantity: quantity
     }));
 
     // Create the order object
     const order: Order = {
-      id: 0, // Will be set by backend
+      orderId: '', // Will be set by backend
       userId: this.userId,
       items: orderItems,
-      total: this.getCartTotal(),
+      totalAmount: this.getCartTotal(),
       status: 'Pending',
       createdAt: new Date().toISOString()
     };

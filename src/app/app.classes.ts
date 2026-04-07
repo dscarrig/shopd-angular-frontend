@@ -26,3 +26,13 @@ export class AccountDetailItem {
     public isDefault: boolean
   ) { }
 }
+
+export class OrderItem {
+  constructor(
+    public id: string,
+    public name: string,
+    public itemId: string,
+    public price: number,
+    public quantity: number
+  ) { }
+}

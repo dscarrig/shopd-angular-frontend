@@ -27,5 +27,6 @@
   "[json]": {
     "editor.tabSize": 2,
     "editor.insertSpaces": true
-  }
+  },
+  "js/ts.tsdk.path": "node_modules\\typescript\\lib"
 }
