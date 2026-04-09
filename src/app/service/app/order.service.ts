@@ -2,20 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { API_URL } from '../../app.constants';
-import { OrderItem } from '../../app.classes';
-
-/**
- * Interface representing an order, including properties such as id, username, date, status, total, and items.
- * This interface defines the structure of order data that is used throughout the OrderService to manage and manipulate order information.
- */
-export interface Order {
-  orderId: string;
-  userId: string;
-  items: OrderItem[];
-  totalAmount: number;
-  status: string;
-  createdAt: string;
-}
+import { Order, OrderItem } from '../../app.classes';
 
 /**
  * Service for managing orders, including retrieving user orders, getting order details, creating new orders, and updating order status.

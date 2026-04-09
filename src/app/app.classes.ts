@@ -36,3 +36,15 @@ export class OrderItem {
     public quantity: number
   ) { }
 }
+
+export class Order {
+  constructor(
+    public orderId: string,
+    public userId: string,
+    public items: OrderItem[],
+    public totalAmount: number,
+    public status: string,
+    public createdAt: string
+  ) { }
+
+}

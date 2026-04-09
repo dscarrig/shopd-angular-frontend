@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from '../../service/app/order.service';
+import { Order } from 'src/app/app.classes';
 import { PurchaseHistoryService } from 'src/app/service/data/purchase-history.service';
+import { OrderItem } from 'src/app/app.classes';
 
 @Component({
   selector: 'app-order-history',
@@ -41,7 +42,7 @@ export class OrderHistoryComponent implements OnInit {
       next: (orders: Order[]) => {
         this.orders = orders;
         this.isLoading = false;
-        console.log(`Loaded ${orders.length} orders for ${this.username}`);
+        console.log(`Loaded all orders: ${JSON.stringify(this.orders)} for ${this.username}`);
       },
       error: (error: any) => {
         console.error('Error loading order history:', error);
