@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10 col-xl-11">
+
+      <!-- Header Card -->
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <h1 class="text-center mb-2">Order Details</h1>
+          <p class="text-center text-muted">Review the items in your order</p>
+        </div>
+      </div>
+
+      <!-- Order Items Section -->
+      <div *ngIf="order" class="card shadow mb-4">
+        <div class="card-body">
+          <h3 class="mb-1">Order #{{order.orderId}}</h3>
+          <p class="text-muted mb-3">
+            <strong>Date:</strong> {{order.createdAt | date:'medium'}} &nbsp;|&nbsp;
+            <strong>Status:</strong> {{order.status}}
+          </p>
+
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="table-light">
+                <tr>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let item of order.items">
+                  <td class="align-middle">
+                    <a [routerLink]="['/shop-item', item.itemId]">{{item.name}}</a>
+                  </td>
+                  <td class="align-middle">${{item.price.toFixed(2)}}</td>
+                  <td class="align-middle">{{item.quantity}}</td>
+                  <td class="align-middle"><strong>${{(item.price * item.quantity).toFixed(2)}}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Total Section -->
+      <div *ngIf="order" class="card shadow mb-4">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <h3 class="mb-0">Total Price:</h3>
+            </div>
+            <div class="col-md-4 text-end">
+              <h3 class="mb-0 text-success">${{order.totalAmount.toFixed(2)}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Not Found Message -->
+      <div *ngIf="!order" class="card shadow mb-4">
+        <div class="card-body text-center py-5">
+          <h3 class="mb-3">Order not found</h3>
+          <p class="text-muted">The requested order could not be loaded.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

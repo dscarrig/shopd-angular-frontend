@@ -2,14 +2,14 @@ import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Order } from 'src/app/app.classes';
 import { PurchaseHistoryService } from 'src/app/service/data/purchase-history.service';
-import { OrderItem } from 'src/app/app.classes';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.css'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink]
 })
 export class OrderHistoryComponent implements OnInit {
   @Input() username?: string;
@@ -42,7 +42,6 @@ export class OrderHistoryComponent implements OnInit {
       next: (orders: Order[]) => {
         this.orders = orders;
         this.isLoading = false;
-        console.log(`Loaded all orders: ${JSON.stringify(this.orders)} for ${this.username}`);
       },
       error: (error: any) => {
         console.error('Error loading order history:', error);

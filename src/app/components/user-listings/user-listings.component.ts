@@ -46,7 +46,6 @@ export class UserListingsComponent {
       next: (listings: ShopdItem[]) => {
         this.allUserListings = listings;
         this.isLoading = false;
-        console.log(`Loaded ${listings.length} listings for user ID ${this.userId}`);
       },
       error: (error: any) => {
         console.error('Error loading user listings:', error);

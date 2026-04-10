@@ -11,7 +11,8 @@
     <div *ngIf="hasOrders(); else noOrders">
       <div class="order-item" *ngFor="let order of orders">
         <div class="order-header">
-          <strong>Order #{{order.orderId}}</strong> - {{formatDate(order.createdAt)}}
+          <strong><a [routerLink]="['/order-details', order.orderId]">Order #{{order.orderId}}</a></strong> -
+          {{formatDate(order.createdAt)}}
           <span class="order-status">{{order.status}}</span>
         </div>
         <div class="order-details">

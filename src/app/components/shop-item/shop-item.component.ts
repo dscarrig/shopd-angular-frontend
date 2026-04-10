@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ShopItemService } from '../../service/data/shop-item.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
@@ -39,14 +39,12 @@ export class ShopItemComponent {
       this.shopItemService.retrieveItem(this.id).subscribe(
         (data: ShopdItem) => {
           this.shopItem = data;
-          console.log('Retrieved item:', this.shopItem);
 
           // Fetch username for the user who listed this item
           if (this.shopItem.userId) {
             this.userInfoService.getUsername(this.shopItem.userId).subscribe(
               (username: string) => {
                 this.username = username;
-                console.log('Retrieved username:', this.username);
               },
               (error: any) => {
                 console.error('Error fetching username:', error);

@@ -114,7 +114,6 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   searchByCategories(categories: string[]) {
-    console.log('Searching items by categories:', categories);
     this.itemMenuService.retrieveItemsByCategories(categories).subscribe(
       (response: ShopdItem[]) => {
         this.shopItems = response.reverse();
@@ -136,7 +135,6 @@ export class ShopItemMenuComponent implements OnInit {
     const sellerId = [...this.sellerNames.entries()]
       .find(([, name]) => name.toLowerCase() === this.sellerUsername.trim().toLowerCase())?.[0];
     if (sellerId) {
-      console.log('Found seller ID:', sellerId, 'for username:', this.sellerUsername);
       this.searchBySeller(sellerId);
     } else {
       console.log('Seller not found. No items to display.');
@@ -145,7 +143,6 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   searchBySeller(sellerId: string) {
-    console.log('Searching items by seller ID:', sellerId);
     this.itemMenuService.getUserListings(sellerId).subscribe(
       (response: ShopdItem[]) => {
         this.shopItems = response.reverse();

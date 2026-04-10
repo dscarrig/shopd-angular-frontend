@@ -15,7 +15,6 @@ export class PurchaseHistoryService {
   }
 
   getUserPurchaseHistory(userId: string): any {
-    console.log(`Fetching purchase history for user: ${userId}`);
     return this.http.get<Order[]>(`${SHOPD_JPA_API_URL}/purchases/user/orders/${userId}`);
   }
 

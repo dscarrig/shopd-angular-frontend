@@ -59,7 +59,6 @@ export class ModifyPaymentInfoComponent implements OnInit {
 
     this.userInfoService.addPaymentInfo(this.userId, paymentInfo).subscribe(
       (response: any) => {
-        console.log('Payment info added:', response);
         this.router.navigate([this.returnUrl]);
       },
       (error: any) => {

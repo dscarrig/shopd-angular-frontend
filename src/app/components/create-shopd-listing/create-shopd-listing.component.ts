@@ -55,12 +55,9 @@ export class CreateShopdListingComponent implements OnInit {
       userId: this.userId
     };
 
-    console.log('Creating listing with data:', listing);
-
     this.createShopdListingService.uploadListingWithPhoto(this.userId, listing, formData.photo)
       .subscribe({
         next: (result) => {
-          console.log('Listing created successfully:', result);
           this.router.navigate(['menu']);
         },
         error: (error) => {

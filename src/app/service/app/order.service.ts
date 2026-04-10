@@ -21,7 +21,7 @@ export class OrderService {
     return this.http.get<Order[]>(`${this.apiUrl}/user/${username}`);
   }
 
-  getOrder(id: number): Observable<Order> {
+  getOrder(id: string): Observable<Order> {
     return this.http.get<Order>(`${this.apiUrl}/${id}`);
   }
 
@@ -29,7 +29,7 @@ export class OrderService {
     return this.http.post<Order>(`${this.apiUrl}/create`, order);
   }
 
-  updateOrderStatus(id: number, status: string): Observable<Order> {
+  updateOrderStatus(id: string, status: string): Observable<Order> {
     return this.http.put<Order>(`${this.apiUrl}/${id}/status`, { status });
   }
 }

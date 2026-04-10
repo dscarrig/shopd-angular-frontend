@@ -91,12 +91,9 @@ export class ModifyShopListingComponent implements OnInit {
       userId: this.userId
     };
 
-    console.log('Updating listing with data:', listing);
-
     this.createShopdListingService.updateListingWithPhoto(this.itemId, listing, formData.photo)
       .subscribe({
         next: (result) => {
-          console.log('Listing updated successfully:', result);
           this.router.navigate(['/shop-item', this.itemId]);
         },
         error: (error: any) => {

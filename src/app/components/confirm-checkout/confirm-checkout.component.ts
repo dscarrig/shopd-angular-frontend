@@ -51,7 +51,6 @@ export class ConfirmCheckoutComponent implements OnInit {
 
     this.userInfoService.getUserAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
-        console.log('Account details retrieved:', response);
         this.accountDetailItem = response;
       },
       (error: any) => {
@@ -62,7 +61,6 @@ export class ConfirmCheckoutComponent implements OnInit {
 
     this.userInfoService.getDefaultPaymentInfo(this.userId).subscribe(
       (response: any) => {
-        console.log('Default payment info retrieved:', response);
         this.defaultPaymentInfo = response;
       },
       (error: any) => {
@@ -161,7 +159,6 @@ export class ConfirmCheckoutComponent implements OnInit {
     // Send order to backend
     this.orderService.createOrder(order).subscribe({
       next: (createdOrder) => {
-        console.log('Order created successfully:', createdOrder);
         this.isSubmittingOrder = false;
         this.router.navigate(['order-complete']);
       },

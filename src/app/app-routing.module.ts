@@ -20,6 +20,7 @@ import { ModifyAddressComponent } from './components/modify-address/modify-addre
 import { ModifyShopListingComponent } from './components/modify-shop-listing/modify-shop-listing.component';
 import { ModifyPaymentInfoComponent } from './components/modify-payment-info/modify-payment-info.component';
 import { UserShopComponent } from './components/user-shop/user-shop.component';
+import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { ErrorComponent } from './components/error/error.component';
 
 
@@ -48,6 +49,7 @@ const routes: Routes = [
   { path: 'modify-address', component: ModifyAddressComponent, canActivate: [RouteGuardService] },
   { path: 'modify-payment-info', component: ModifyPaymentInfoComponent, canActivate: [RouteGuardService] },
   { path: 'user-shop/:id', component: UserShopComponent },
+  { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [RouteGuardService] },
   { path: '**', component: ErrorComponent }
 ];
 
