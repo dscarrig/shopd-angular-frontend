@@ -13,7 +13,6 @@
         <div class="order-header">
           <strong>Order <a [routerLink]="['/order-details', order.orderId]">{{order.orderId}}</a></strong> -
           {{formatDate(order.createdAt)}}
-          <span class="order-status">{{order.status}}</span>
         </div>
         <div class="order-details">
           <p>Total: ${{order.totalAmount.toFixed(2)}}</p>
@@ -21,11 +20,14 @@
             <p><strong>Items:</strong></p>
             <ul>
               <li *ngFor="let item of order.items">
-                {{item.name}} (x{{item.quantity}}) - ${{item.price.toFixed(2)}}
+                <strong><a [routerLink]="['/shop-item', item.itemId]">{{item.name}}</a></strong> (x{{item.quantity}}) -
+                ${{item.price.toFixed(2)}} - Status:
+                <strong>{{item.status}}</strong>
               </li>
             </ul>
           </div>
         </div>
+        <hr class="hr" />
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { OrderHistoryComponent } from '../order-history/order-history.component'
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BasicAuthenticationService } from 'src/app/service/app/basic-authentication.service';
-import { Order, OrderItem } from 'src/app/app.classes';
+import { Order, OrderItem, ShopdItem } from 'src/app/app.classes';
 import { OrderService } from 'src/app/service/data/order.service';
 
 @Component({
@@ -18,6 +18,7 @@ export class OrderStatusComponent {
   username: string = '';
   userId: string = '';
   userListedOrders: OrderItem[] = [];
+  userListedItems: ShopdItem[] = [];
 
   ngOnInit(): void {
     this.refreshAccountInfo();
@@ -27,13 +28,25 @@ export class OrderStatusComponent {
     this.username = this.basicAuthenticationService.getAuthenticatedUser() || '';
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
     if (this.userId) {
-      console.log(`Fetching listed orders for userId: ${this.userId}`);
       this.orderService.getUsersListedOrders(this.userId).subscribe((orders) => {
         console.log('Fetched user listed orders:', orders);
         this.userListedOrders = orders;
-        console.log(orders);
+        console.log('User listed orders set to:', this.userListedOrders);
+        //// Fetch the corresponding shop items for each order item
+        //orders.forEach((orderItem) => {
+        //  this.orderService.getShopItemByOrderItemId(orderItem.itemId).subscribe((shopItem) => {
+        //    this.userListedItems.push(shopItem);
+        //  });
+        //});
       });
     }
+  }
+
+  updateStatus(item: OrderItem, event: Event): void {
+    const newStatus = (event.target as HTMLSelectElement).value;
+    this.orderService.updateOrderItemStatus(item.id, newStatus).subscribe(() => {
+      item.status = newStatus;
+    });
   }
 
   formatDate(dateString: string): string {

@@ -154,7 +154,7 @@ export class ConfirmCheckoutComponent implements OnInit {
       userId: this.userId,
       items: orderItems,
       totalAmount: this.getCartTotal(),
-      status: 'Pending',
+      status: 'Active',
       createdAt: new Date().toISOString()
     };
 

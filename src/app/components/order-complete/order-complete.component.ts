@@ -2,9 +2,11 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CartService } from '../../service/app/cart.service';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { AppComponent } from '../../app.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-order-complete',
+  imports: [RouterModule],
   templateUrl: './order-complete.component.html',
   styleUrls: ['./order-complete.component.css']
 })

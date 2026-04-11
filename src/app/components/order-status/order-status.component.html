@@ -16,12 +16,19 @@
         </div>
         <div class="order-details">
           <p><strong>Order Item ID:</strong> {{item.id}}</p>
-          <p><strong>Shop Item ID:</strong> {{item.itemId}}</p>
+          <p><strong>Shop Item ID: <a [routerLink]="['/shop-item', item.itemId]">{{item.itemId}}</a></strong></p>
           <p><strong>Price:</strong> ${{item.price.toFixed(2)}}</p>
           <p><strong>Quantity:</strong> {{item.quantity}}</p>
-          <p><strong>Status:</strong> {{item.status}}</p>
+          <p><strong>Status:</strong>
+            <select [value]="item.status" (change)="updateStatus(item, $event)">
+              <option value="Pending">Pending</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Canceled">Canceled</option>
+            </select>
+          </p>
           <p><strong>Created At:</strong> {{item.createdAt | date:'medium'}}</p>
         </div>
+        <hr class="hr" />
       </div>
     </div>
 

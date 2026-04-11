@@ -27,6 +27,7 @@
                   <th>Price</th>
                   <th>Quantity</th>
                   <th>Subtotal</th>
+                  <th class="align-middle text-end">Status</th>
                 </tr>
               </thead>
 
@@ -38,6 +39,7 @@
                   <td class="align-middle">${{item.price.toFixed(2)}}</td>
                   <td class="align-middle">{{item.quantity}}</td>
                   <td class="align-middle"><strong>${{(item.price * item.quantity).toFixed(2)}}</strong></td>
+                  <td class="align-middle text-end">{{item.status}}</td>
                 </tr>
               </tbody>
             </table>

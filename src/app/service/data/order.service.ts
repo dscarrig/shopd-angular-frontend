@@ -42,10 +42,20 @@ export class OrderService {
   }
 
   updateOrderStatus(id: string, status: string): Observable<Order> {
-    return this.http.put<Order>(`${SHOPD_JPA_API_URL}/orders/${id}/status`, { status });
+    console.log(`Updating order status for orderId: ${id} to status: ${status}`);
+    return this.http.put<Order>(`${SHOPD_JPA_API_URL}/orders/status/${id}`, { status });
+  }
+
+  updateOrderItemStatus(id: string, status: string): Observable<OrderItem> {
+    console.log(`Updating order item status for orderItemId: ${id} to status: ${status}`);
+    return this.http.put<OrderItem>(`${SHOPD_JPA_API_URL}/orders/item/status/${id}`, { status });
   }
 
   getUsersListedOrders(userId: string): Observable<OrderItem[]> {
     return this.http.get<OrderItem[]>(`${SHOPD_JPA_API_URL}/orders/user/order-listings/${userId}`);
+  }
+
+  getShopItemByOrderItemId(orderItemId: string): Observable<ShopdItem> {
+    return this.http.get<ShopdItem>(`${SHOPD_JPA_API_URL}/orders/user/shop-item/${orderItemId}`);
   }
 }
