@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { BasicAuthenticationService } from 'src/app/service/app/basic-authentication.service';
-import { Order, OrderItem, ShopdItem } from 'src/app/app.classes';
+import { OrderItem, ShopdItem } from 'src/app/app.classes';
 import { OrderService } from 'src/app/service/data/order.service';
 import { UserInfoService } from 'src/app/service/app/user-info.service';
 

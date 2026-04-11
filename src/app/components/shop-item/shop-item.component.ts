@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ShopItemService } from '../../service/data/shop-item.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { UserInfoService } from '../../service/app/user-info.service';
 import { ShopdItem } from '../../app.classes';
@@ -11,7 +11,7 @@ import { CartService } from 'src/app/service/app/cart.service';
   selector: 'app-shop-item',
   templateUrl: './shop-item.component.html',
   styleUrls: ['./shop-item.component.css'],
-  imports: [CommonModule]
+  imports: [CommonModule, RouterLink]
 })
 export class ShopItemComponent {
   private shopItemService: ShopItemService = inject(ShopItemService);
@@ -23,6 +23,7 @@ export class ShopItemComponent {
 
   shopItems!: ShopdItem[];
   username: string = '';
+  userId: string = '';
 
   id: string = this.route.snapshot.params['id'];
   name: string = '';
@@ -45,6 +46,7 @@ export class ShopItemComponent {
             this.userInfoService.getUsername(this.shopItem.userId).subscribe(
               (username: string) => {
                 this.username = username;
+                this.userId = this.shopItem.userId;
               },
               (error: any) => {
                 console.error('Error fetching username:', error);

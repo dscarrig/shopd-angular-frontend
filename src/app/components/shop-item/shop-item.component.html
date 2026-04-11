@@ -19,7 +19,7 @@
                   <small>You listed this item.</small>
                 </p>
                 <p *ngIf="!isOwner() && username" class="text-muted mb-2">
-                  <small>Listed by: <strong>{{username}}</strong></small>
+                  <small>Listed by: <strong><a [routerLink]="['/user-shop', userId]">{{username}}</a></strong></small>
                 </p>
                 <p class="text-muted mb-4">{{shopItem.description}}</p>
 
