@@ -33,7 +33,6 @@ export class ModifyAddressComponent implements OnInit {
     this.userInfoService.getDefaultAddress(this.userId).subscribe(
       (response: AccountDetailItem) => {
         this.accountDetailItem = response;
-        console.log('Loaded account details:', this.accountDetailItem);
       }
     );
   }
