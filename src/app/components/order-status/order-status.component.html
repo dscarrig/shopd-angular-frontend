@@ -1,0 +1,35 @@
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <h3 class="mb-3">Your Active Order Purchases</h3>
+    <app-order-history [username]="username" [userId]="userId"></app-order-history>
+  </div>
+</div>
+
+<div class="card shadow mb-4">
+  <div class="card-body">
+    <h3 class="mb-3">Your Active Order Listings</h3>
+
+    <div *ngIf="userListedOrders.length > 0; else noListedOrders">
+      <div class="order-item" *ngFor="let item of userListedOrders">
+        <div class="order-header">
+          <strong>{{item.name}}</strong>
+        </div>
+        <div class="order-details">
+          <p><strong>Order Item ID:</strong> {{item.id}}</p>
+          <p><strong>Shop Item ID:</strong> {{item.itemId}}</p>
+          <p><strong>Price:</strong> ${{item.price.toFixed(2)}}</p>
+          <p><strong>Quantity:</strong> {{item.quantity}}</p>
+          <p><strong>Status:</strong> {{item.status}}</p>
+          <p><strong>Created At:</strong> {{item.createdAt | date:'medium'}}</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noListedOrders>
+      <div class="no-orders">
+        <p>No active order listings found.</p>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

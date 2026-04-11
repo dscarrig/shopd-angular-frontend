@@ -22,6 +22,7 @@ import { ModifyPaymentInfoComponent } from './components/modify-payment-info/mod
 import { UserShopComponent } from './components/user-shop/user-shop.component';
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { ErrorComponent } from './components/error/error.component';
+import { OrderStatusComponent } from './components/order-status/order-status.component';
 
 
 const routes: Routes = [
@@ -50,6 +51,7 @@ const routes: Routes = [
   { path: 'modify-payment-info', component: ModifyPaymentInfoComponent, canActivate: [RouteGuardService] },
   { path: 'user-shop/:id', component: UserShopComponent },
   { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [RouteGuardService] },
+  { path: 'order-status', component: OrderStatusComponent, canActivate: [RouteGuardService] },
   { path: '**', component: ErrorComponent }
 ];
 

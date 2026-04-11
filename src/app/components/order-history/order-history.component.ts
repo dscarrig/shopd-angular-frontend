@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Order } from 'src/app/app.classes';
-import { PurchaseHistoryService } from 'src/app/service/data/purchase-history.service';
 import { RouterLink } from '@angular/router';
+import { OrderService } from 'src/app/service/data/order.service';
 
 @Component({
   selector: 'app-order-history',
@@ -18,7 +18,7 @@ export class OrderHistoryComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
 
-  private purchaseHistoryService: PurchaseHistoryService = inject(PurchaseHistoryService);
+  private orderService: OrderService = inject(OrderService);
 
   ngOnInit(): void {
     // Initialize order history for the given username
@@ -38,14 +38,14 @@ export class OrderHistoryComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = '';
 
-    this.purchaseHistoryService.getUserPurchaseHistory(this.userId).subscribe({
+    this.orderService.getUserPurchaseHistory(this.userId).subscribe({
       next: (orders: Order[]) => {
         this.orders = orders;
         this.isLoading = false;
       },
       error: (error: any) => {
         console.error('Error loading order history:', error);
-        this.errorMessage = 'Failed to load order history. Please try again later.';
+        this.errorMessage = 'No orders found or an error occurred while loading order history.';
         this.isLoading = false;
       }
     });

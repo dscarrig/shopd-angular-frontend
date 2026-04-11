@@ -4,8 +4,8 @@ import { BasicAuthenticationService } from '../../service/app/basic-authenticati
 import { Router } from '@angular/router';
 import { AccountDetailItem, Order, OrderItem, ShopdItem } from '../../app.classes';
 import { CartService } from '../../service/app/cart.service';
-import { OrderService } from '../../service/app/order.service';
 import { CommonModule } from '@angular/common';
+import { OrderService } from 'src/app/service/data/order.service';
 
 export class CartItem {
   constructor(
@@ -143,7 +143,9 @@ export class ConfirmCheckoutComponent implements OnInit {
       name: item.name,
       itemId: item.id,
       price: item.price,
-      quantity: quantity
+      quantity: quantity,
+      status: 'Pending',
+      createdAt: new Date().toISOString()
     }));
 
     // Create the order object

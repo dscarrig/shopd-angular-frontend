@@ -33,7 +33,9 @@ export class OrderItem {
     public name: string,
     public itemId: string,
     public price: number,
-    public quantity: number
+    public quantity: number,
+    public status: string,
+    public createdAt: string
   ) { }
 }
 
