@@ -31,4 +31,8 @@ export class ShopItemService {
     return this.http.delete(`${SHOPD_JPA_API_URL}/items/${userId}/${itemId}`);
   }
 
+  getUserIdByItemId(itemId: string): any {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/items/user-id/${itemId}`);
+  }
+
 }

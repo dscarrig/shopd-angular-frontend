@@ -23,6 +23,10 @@
                 <strong><a [routerLink]="['/shop-item', item.itemId]">{{item.name}}</a></strong> (x{{item.quantity}}) -
                 ${{item.price.toFixed(2)}} - Status:
                 <strong>{{item.status}}</strong>
+                <br />
+                <span *ngIf="sellerUsernames[item.itemId]"> - Sold by:
+                  <strong><a
+                      [routerLink]="['/user-shop', sellerUserIds[item.itemId]]">{{sellerUsernames[item.itemId]}}</a></strong></span>
               </li>
             </ul>
           </div>

@@ -58,4 +58,8 @@ export class OrderService {
   getShopItemByOrderItemId(orderItemId: string): Observable<ShopdItem> {
     return this.http.get<ShopdItem>(`${SHOPD_JPA_API_URL}/orders/user/shop-item/${orderItemId}`);
   }
+
+  getUserIdByOrderItemId(orderItemId: string): Observable<string> {
+    return this.http.get<string>(`${SHOPD_JPA_API_URL}/orders/user-id/${orderItemId}`);
+  }
 }

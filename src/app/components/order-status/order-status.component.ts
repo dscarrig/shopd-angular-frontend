@@ -2,9 +2,11 @@ import { Component, inject } from '@angular/core';
 import { OrderHistoryComponent } from '../order-history/order-history.component';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { BasicAuthenticationService } from 'src/app/service/app/basic-authentication.service';
 import { Order, OrderItem, ShopdItem } from 'src/app/app.classes';
 import { OrderService } from 'src/app/service/data/order.service';
+import { UserInfoService } from 'src/app/service/app/user-info.service';
 
 @Component({
   selector: 'app-order-status',
@@ -15,10 +17,13 @@ import { OrderService } from 'src/app/service/data/order.service';
 export class OrderStatusComponent {
   private basicAuthenticationService = inject(BasicAuthenticationService);
   private orderService = inject(OrderService);
+  private userInfoService = inject(UserInfoService);
   username: string = '';
   userId: string = '';
   userListedOrders: OrderItem[] = [];
   userListedItems: ShopdItem[] = [];
+  buyerUsernames: Record<string, string> = {};
+  buyerUserIds: Record<string, string> = {};
 
   ngOnInit(): void {
     this.refreshAccountInfo();
@@ -29,17 +34,23 @@ export class OrderStatusComponent {
     this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
     if (this.userId) {
       this.orderService.getUsersListedOrders(this.userId).subscribe((orders) => {
-        console.log('Fetched user listed orders:', orders);
         this.userListedOrders = orders;
-        console.log('User listed orders set to:', this.userListedOrders);
-        //// Fetch the corresponding shop items for each order item
-        //orders.forEach((orderItem) => {
-        //  this.orderService.getShopItemByOrderItemId(orderItem.itemId).subscribe((shopItem) => {
-        //    this.userListedItems.push(shopItem);
-        //  });
-        //});
+        this.loadBuyerUsernames();
       });
     }
+  }
+
+  private loadBuyerUsernames(): void {
+    this.userListedOrders.forEach(item => {
+      this.orderService.getUserIdByOrderItemId(item.id).pipe(
+        switchMap((buyerId: string) => {
+          this.buyerUserIds[item.id] = buyerId;
+          return this.userInfoService.getUsername(buyerId);
+        })
+      ).subscribe((username: string) => {
+        this.buyerUsernames[item.id] = username;
+      });
+    });
   }
 
   updateStatus(item: OrderItem, event: Event): void {

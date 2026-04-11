@@ -2,7 +2,10 @@ import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Order } from 'src/app/app.classes';
 import { RouterLink } from '@angular/router';
+import { switchMap } from 'rxjs';
 import { OrderService } from 'src/app/service/data/order.service';
+import { ShopItemService } from 'src/app/service/data/shop-item.service';
+import { UserInfoService } from 'src/app/service/app/user-info.service';
 
 @Component({
   selector: 'app-order-history',
@@ -19,6 +22,10 @@ export class OrderHistoryComponent implements OnInit {
   errorMessage: string = '';
 
   private orderService: OrderService = inject(OrderService);
+  private shopItemService = inject(ShopItemService);
+  private userInfoService = inject(UserInfoService);
+  sellerUsernames: Record<string, string> = {};
+  sellerUserIds: Record<string, string> = {};
 
   ngOnInit(): void {
     // Initialize order history for the given username
@@ -42,12 +49,27 @@ export class OrderHistoryComponent implements OnInit {
       next: (orders: Order[]) => {
         this.orders = orders;
         this.isLoading = false;
+        this.loadSellerUsernames();
       },
       error: (error: any) => {
         console.error('Error loading order history:', error);
         this.errorMessage = 'No orders found or an error occurred while loading order history.';
         this.isLoading = false;
       }
+    });
+  }
+
+  private loadSellerUsernames(): void {
+    const uniqueItemIds = [...new Set(this.orders.flatMap(o => o.items.map(i => i.itemId)))];
+    uniqueItemIds.forEach(itemId => {
+      this.shopItemService.getUserIdByItemId(itemId).pipe(
+        switchMap((userId: string) => {
+          this.sellerUserIds[itemId] = userId;
+          return this.userInfoService.getUsername(userId);
+        })
+      ).subscribe((username: string) => {
+        this.sellerUsernames[itemId] = username;
+      });
     });
   }
 

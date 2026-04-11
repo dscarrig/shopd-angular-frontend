@@ -12,11 +12,11 @@
     <div *ngIf="userListedOrders.length > 0; else noListedOrders">
       <div class="order-item" *ngFor="let item of userListedOrders">
         <div class="order-header">
-          <strong>{{item.name}}</strong>
+          <h2><strong><a [routerLink]="['/shop-item', item.itemId]">{{item.name}}</a></strong></h2>
         </div>
         <div class="order-details">
-          <p><strong>Order Item ID:</strong> {{item.id}}</p>
-          <p><strong>Shop Item ID: <a [routerLink]="['/shop-item', item.itemId]">{{item.itemId}}</a></strong></p>
+          <p><strong>Buyer: </strong> <a [routerLink]="['/user-shop', buyerUserIds[item.id]]">{{buyerUsernames[item.id]
+              || '...'}}</a></p>
           <p><strong>Price:</strong> ${{item.price.toFixed(2)}}</p>
           <p><strong>Quantity:</strong> {{item.quantity}}</p>
           <p><strong>Status:</strong>
