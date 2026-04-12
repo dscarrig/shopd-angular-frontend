@@ -27,6 +27,7 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.createAccountForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -38,10 +39,11 @@ export class CreateAccountComponent implements OnInit {
 
   createUser(): void {
     if (this.createAccountForm.valid) {
+      const email = this.createAccountForm.get('email')?.value;
       const username = this.createAccountForm.get('username')?.value;
       const password = this.createAccountForm.get('password')?.value;
 
-      this.createUserService.createUser(username, password);
+      this.createUserService.createUser(email, username, password);
     }
   }
 

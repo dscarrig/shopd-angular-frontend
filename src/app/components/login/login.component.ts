@@ -23,6 +23,7 @@ export class LoginComponent {
   private cartService = inject(CartService);
   private appComponent = inject(AppComponent);
 
+  email: string = '';
   username: string = '';
   userId: string = '';
   password: string = '';

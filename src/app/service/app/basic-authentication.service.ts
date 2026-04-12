@@ -32,7 +32,6 @@ export class BasicAuthenticationService {
       password
     }).pipe(
       tap(data => {
-        sessionStorage.setItem(AUTHENTICATED_USER, username);
         sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
       }),
       switchMap(data =>
@@ -40,9 +39,17 @@ export class BasicAuthenticationService {
           .pipe(
             tap(userId => {
               sessionStorage.setItem(USER_ID, userId);
-              this.authenticationChanged.next(username);
             }),
-            map(() => data)
+            switchMap(userId =>
+              this.http.get(`${SHOPD_JPA_API_URL}/users/username/${userId.replace(/"/g, '')}`, { responseType: 'text' as 'json' })
+                .pipe(
+                  tap((actualUsername: any) => {
+                    sessionStorage.setItem(AUTHENTICATED_USER, actualUsername);
+                    this.authenticationChanged.next(actualUsername);
+                  }),
+                  map(() => data)
+                )
+            )
           )
       )
     );

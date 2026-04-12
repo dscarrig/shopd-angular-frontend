@@ -109,15 +109,14 @@ export class UserCartComponent implements OnInit {
     });
   }
 
+  isInStock(cartItem: CartItem): boolean {
+    return cartItem.quantity <= cartItem.item.quantity && cartItem.item.available;
+  }
+
   getCartTotal() {
-    let total = 0;
-    let i;
-
-    for (i = 0; i < this.shopItems.length; i++) {
-      total = total + this.shopItems[i].price;
-    }
-
-    return total;
+    return this.cartItems
+      .filter(cartItem => this.isInStock(cartItem))
+      .reduce((total, cartItem) => total + cartItem.totalPrice, 0);
   }
 
   getCartItemsNum() {

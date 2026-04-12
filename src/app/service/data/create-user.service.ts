@@ -19,12 +19,12 @@ export class CreateUserService {
 
   userExists: boolean = false;
 
-  createUser(username: string, password: string): void {
+  createUser(email: string, username: string, password: string): void {
 
     this.basicAuthenticationService.executeJWTAuthenticationService('temp', 'temp')
       .subscribe({
         next: () => {
-          this.http.post(`${API_URL}/register`, { username, userId: '0', password }, { observe: 'response' }).subscribe({
+          this.http.post(`${API_URL}/register`, { email, username, userId: '0', password }, { observe: 'response' }).subscribe({
             next: response => {
               this.basicAuthenticationService.logout();
               this.router.navigate(['success']);

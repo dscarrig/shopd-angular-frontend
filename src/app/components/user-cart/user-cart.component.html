@@ -38,7 +38,11 @@
                   </td>
                   <td class="align-middle">{{cartItem.item.description}}</td>
                   <td class="align-middle">${{cartItem.item.price.toFixed(2)}}</td>
-                  <td class="align-middle">{{cartItem.quantity}}</td>
+                  <td *ngIf="cartItem.quantity <= cartItem.item.quantity && cartItem.item.available; else outOfStock"
+                    class="align-middle">{{cartItem.quantity}}</td>
+                  <ng-template #outOfStock>
+                    <td class="align-middle text-danger">Out of Stock</td>
+                  </ng-template>
                   <td class="align-middle"><strong>${{cartItem.totalPrice.toFixed(2)}}</strong></td>
                   <td class="align-middle">
                     <button (click)="removeItemFromCart(cartItem)" class="btn btn-warning btn-sm me-2">

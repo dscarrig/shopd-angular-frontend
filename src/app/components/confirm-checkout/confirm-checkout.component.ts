@@ -98,23 +98,12 @@ export class ConfirmCheckoutComponent implements OnInit {
       }
     });
 
-    this.cartItems = Array.from(itemMap.values()
-    );
+    this.cartItems = Array.from(itemMap.values())
+      .filter(ci => ci.quantity <= ci.item.quantity && ci.item.available);
   }
 
   getCartTotal(): number {
-    if (!this.shopItems || this.shopItems.length === 0) {
-      return 0;
-    }
-
-    let total = 0;
-    let i;
-
-    for (i = 0; i < this.shopItems.length; i++) {
-      total = total + this.shopItems[i].price;
-    }
-
-    return total;
+    return this.cartItems.reduce((total, ci) => total + ci.totalPrice, 0);
   }
 
   orderComplete(): void {
@@ -125,25 +114,13 @@ export class ConfirmCheckoutComponent implements OnInit {
 
     this.isSubmittingOrder = true;
 
-    // Group items by ID and count quantities
-    const itemMap = new Map<string, { item: ShopdItem, quantity: number }>();
-
-    this.shopItems.forEach(item => {
-      if (itemMap.has(item.id)) {
-        const existing = itemMap.get(item.id)!;
-        existing.quantity++;
-      } else {
-        itemMap.set(item.id, { item: item, quantity: 1 });
-      }
-    });
-
-    // Create order items with proper quantities
-    const orderItems: OrderItem[] = Array.from(itemMap.values()).map(({ item, quantity }) => ({
+    // Build order items from already-grouped, in-stock cartItems
+    const orderItems: OrderItem[] = this.cartItems.map(cartItem => ({
       id: '', // This will be set by the backend
-      name: item.name,
-      itemId: item.id,
-      price: item.price,
-      quantity: quantity,
+      name: cartItem.item.name,
+      itemId: cartItem.item.id,
+      price: cartItem.item.price,
+      quantity: cartItem.quantity,
       status: 'Pending',
       createdAt: new Date().toISOString()
     }));

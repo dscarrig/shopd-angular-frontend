@@ -10,6 +10,25 @@
           }
 
           <form [formGroup]="createAccountForm">
+
+            <!-- Email Field -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control"
+                [class.is-invalid]="createAccountForm.get('email')?.invalid && createAccountForm.get('email')?.touched"
+                id="email" formControlName="email" placeholder="Enter email">
+              @if (createAccountForm.get('email')?.invalid && createAccountForm.get('email')?.touched) {
+              <div class="invalid-feedback">
+                @if (createAccountForm.get('email')?.errors?.['required']) {
+                Email is required.
+                }
+                @if (createAccountForm.get('email')?.errors?.['email']) {
+                Please enter a valid email address.
+                }
+              </div>
+              }
+            </div>
+
             <!-- Username Field -->
             <div class="mb-3">
               <label for="username" class="form-label">User Name</label>
