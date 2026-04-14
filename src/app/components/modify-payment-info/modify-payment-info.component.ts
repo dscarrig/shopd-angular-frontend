@@ -5,11 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { UserInfoService } from '../../service/app/user-info.service';
 
+/*
+  Component for modifying payment information. It allows users to add new payment details, such as credit card information, and validates the input before saving it to the user's account.
+  The component interacts with the UserInfoService to manage payment information and with the BasicAuthenticationService to retrieve the authenticated user's ID. It also handles navigation based on user actions, such as saving or canceling changes.
+*/
 @Component({
   selector: 'app-modify-payment-info',
   imports: [CommonModule, FormsModule],
   templateUrl: './modify-payment-info.component.html',
-  styleUrl: './modify-payment-info.component.css'
+  styleUrls: ['./modify-payment-info.component.css']
 })
 export class ModifyPaymentInfoComponent implements OnInit {
   private router = inject(Router);

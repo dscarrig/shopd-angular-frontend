@@ -1,4 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 import { ModifyAddressComponent } from './modify-address.component';
 
@@ -8,9 +11,10 @@ describe('ModifyAddressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModifyAddressComponent]
+      imports: [ModifyAddressComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ModifyAddressComponent);
     component = fixture.componentInstance;

@@ -30,6 +30,7 @@ export class MenuComponent implements OnInit {
     this.refreshCartCount();
   }
 
+  // Method to refresh the menu, typically called when there are changes in authentication status or cart contents. It updates the displayed username and cart item count accordingly.
   refreshMenu() {
     this.updateUsername();
     this.refreshCartCount();

@@ -3,20 +3,20 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideRouter } from '@angular/router';
 
-import { EnterUserInfoComponent } from './enter-user-info.component';
+import { FaqComponent } from './faq.component';
 
-describe('EnterUserInfoComponent', () => {
-  let component: EnterUserInfoComponent;
-  let fixture: ComponentFixture<EnterUserInfoComponent>;
+describe('FaqComponent', () => {
+  let component: FaqComponent;
+  let fixture: ComponentFixture<FaqComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EnterUserInfoComponent],
+      imports: [FaqComponent],
       providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(EnterUserInfoComponent);
+    fixture = TestBed.createComponent(FaqComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

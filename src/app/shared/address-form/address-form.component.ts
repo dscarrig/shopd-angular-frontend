@@ -14,6 +14,9 @@ export interface AddressFormData {
   user?: string;
 }
 
+/*
+  Component for displaying and handling an address form. It allows users to input their address information, including full name, street, city, state, zip code, and country.
+*/
 @Component({
   selector: 'app-address-form',
   templateUrl: './address-form.component.html',
@@ -57,6 +60,7 @@ export class AddressFormComponent implements OnInit {
     }
   }
 
+  // Handles the form submission event, emitting the form data if the form is valid.
   onSubmit(): void {
     if (this.isFormValid()) {
       this.formSubmit.emit({
@@ -79,6 +83,7 @@ export class AddressFormComponent implements OnInit {
     return this.allInputEntered() && this.allCorrectFormat();
   }
 
+  // Validates that all required input fields have been entered by the user.
   allInputEntered(): boolean {
     return this.fullName !== '' && this.street !== '' && this.city !== ''
       && this.state !== '' && this.zipCode !== '';
@@ -99,6 +104,7 @@ export class AddressFormComponent implements OnInit {
     return this.zipCode.match(/^[0-9]+$/) !== null;
   }
 
+  // Checks if any of the form fields have been touched (i.e., if the user has entered any data into the form).
   formTouched(): boolean {
     return this.fullName !== '' ||
       this.street !== '' ||

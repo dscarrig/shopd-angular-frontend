@@ -55,6 +55,7 @@ export class BasicAuthenticationService {
     );
   }
 
+  // Method to log in as a guest user with temporary credentials
   loginAsGuest(): any {
     const username: string = 'guest';
     const password: string = 'temp';
