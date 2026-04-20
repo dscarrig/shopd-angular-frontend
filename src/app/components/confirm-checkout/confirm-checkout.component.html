@@ -67,6 +67,9 @@
           <p class="mb-1">{{accountDetailItem.street}}</p>
           <p class="mb-0">{{accountDetailItem.city}}, {{accountDetailItem.state}} {{accountDetailItem.zipCode}}</p>
         </div>
+        <button (click)="navigateToModifyAddress()" class="btn btn-outline-secondary m-3">
+          Change Shipping Address
+        </button>
       </div>
 
       <!-- No Shipping Address Section -->
@@ -93,6 +96,9 @@
             <br>
             <small>Cardholder: {{accountDetailItem.fullName}}</small>
           </div>
+          <button (click)="navigateToModifyPaymentInfo()" class="btn btn-outline-secondary m-3">
+            Change Payment Method
+          </button>
         </div>
       </div>
 

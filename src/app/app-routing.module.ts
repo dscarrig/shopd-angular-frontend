@@ -24,6 +24,7 @@ import { OrderDetailsComponent } from './components/order-details/order-details.
 import { ErrorComponent } from './components/error/error.component';
 import { OrderStatusComponent } from './components/order-status/order-status.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { OrderItemComponent } from './components/order-item/order-item.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'user-shop/:id', component: UserShopComponent },
   { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [RouteGuardService] },
   { path: 'order-status', component: OrderStatusComponent, canActivate: [RouteGuardService] },
+  { path: 'order-item/:id', component: OrderItemComponent, canActivate: [RouteGuardService] },
   { path: 'faq', component: FaqComponent },
   { path: '**', component: ErrorComponent }
 ];

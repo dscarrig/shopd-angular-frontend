@@ -36,6 +36,10 @@ export class OrderService {
     return this.http.get<Order>(`${SHOPD_JPA_API_URL}/orders/${id}`);
   }
 
+  getOrderItemById(id: string): Observable<OrderItem> {
+    return this.http.get<OrderItem>(`${SHOPD_JPA_API_URL}/orders/item/${id}`);
+  }
+
   createOrder(order: Order): Observable<Order> {
     console.log(`Creating order: ${JSON.stringify(order)}`);
     return this.http.post<Order>(`${SHOPD_JPA_API_URL}/orders/create`, order);

@@ -1,0 +1,9 @@
+<div *ngIf="orderItem as orderItem">
+  <h2>Order Item Details</h2>
+  <p><strong>Item Name:</strong> {{ orderItem.name }}</p>
+  <p><strong>Quantity:</strong> {{ orderItem.quantity }}</p>
+  <p><strong>Price:</strong> {{ orderItem.price }}</p>
+  <p><strong>Total:</strong> {{ orderItem.price * orderItem.quantity }}</p>
+  <p><strong>Shop Item ID:</strong> {{ orderItem.itemId }}</p>
+  <p><strong>Seller Username:</strong> {{ sellerUsername }}</p>
+</div>
