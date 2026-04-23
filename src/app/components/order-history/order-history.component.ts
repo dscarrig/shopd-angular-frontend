@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Order } from 'src/app/app.classes';
+import { Order, OrderItem } from 'src/app/app.classes';
 import { RouterLink } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { OrderService } from 'src/app/service/data/order.service';
@@ -82,4 +82,9 @@ export class OrderHistoryComponent implements OnInit {
     return date.toLocaleDateString();
   }
 
+  updateStatus(item: OrderItem, status: string): void {
+    this.orderService.updateOrderItemStatus(item.id, status).subscribe(() => {
+      item.status = status;
+    });
+  }
 }

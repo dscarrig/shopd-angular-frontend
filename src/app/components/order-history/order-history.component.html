@@ -27,6 +27,15 @@
                 <span *ngIf="sellerUsernames[item.itemId]"> - Sold by:
                   <strong><a
                       [routerLink]="['/user-shop', sellerUserIds[item.itemId]]">{{sellerUsernames[item.itemId]}}</a></strong></span>
+                <br />
+                <button *ngIf="item.status === 'Pending'" class="btn btn-outline-danger btn-md"
+                  (click)="updateStatus(item, 'Cancelled')">Cancel</button>
+                <button *ngIf="item.status === 'Shipped'" class="btn btn-outline-success btn-md"
+                  (click)="updateStatus(item, 'Received')">Mark
+                  as Received</button>
+                <button *ngIf="item.status === 'Shipped'" class="btn btn-outline-warning btn-md"
+                  (click)="updateStatus(item, 'Refund Requested')">Request
+                  Refund</button>
               </li>
             </ul>
           </div>

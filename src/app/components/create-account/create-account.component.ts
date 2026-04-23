@@ -37,7 +37,8 @@ export class CreateAccountComponent implements OnInit {
     }
   }
 
-  // Method to handle the creation of a new user account. It checks if the form is valid and then retrieves the email, username, and password from the form controls. It then calls the createUser method of the CreateUserService to attempt to create the new user account with the provided information.
+  // Method to handle the creation of a new user account.
+  // It checks if the form is valid and then retrieves the email, username, and password from the form controls. It then calls the createUser method of the CreateUserService to attempt to create the new user account with the provided information.
   createUser(): void {
     if (this.createAccountForm.valid) {
       const email = this.createAccountForm.get('email')?.value;
