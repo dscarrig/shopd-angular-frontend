@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { OrderItem } from 'src/app/app.classes';
 import { UserInfoService } from 'src/app/service/app/user-info.service';
 import { OrderService } from 'src/app/service/data/order.service';
-import { ShopItemService } from 'src/app/service/data/shop-item.service';
 
 @Component({
   selector: 'app-order-item',
@@ -14,7 +13,6 @@ import { ShopItemService } from 'src/app/service/data/shop-item.service';
 })
 export class OrderItemComponent {
   private orderService: OrderService = inject(OrderService);
-  private shopItemService = inject(ShopItemService);
   private userInfoService = inject(UserInfoService);
   private route = inject(ActivatedRoute);
 
