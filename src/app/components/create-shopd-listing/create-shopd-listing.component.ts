@@ -51,7 +51,7 @@ export class CreateShopdListingComponent implements OnInit {
       imageUrl: formData.imageUrl,
       category: formData.category,
       available: true,
-      quantity: formData.quantity,
+      quantity: formData.quantity || 1,
       userId: this.userId
     };
 
