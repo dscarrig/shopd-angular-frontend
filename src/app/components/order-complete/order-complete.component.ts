@@ -17,9 +17,11 @@ export class OrderCompleteComponent implements OnInit {
 
   ngOnInit(): void {
     const username = this.basicAuthenticationService.getAuthenticatedUser();
+    console.log('Order completed for user:', username);
     if (username) {
       this.cartService.deleteAllFromCart(username).subscribe(
         () => {
+          console.log('Cart cleared successfully after order completion.');
           this.appComponent.refreshMenu();
         }
       );
