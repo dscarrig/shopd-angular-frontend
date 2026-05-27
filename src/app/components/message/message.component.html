@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h4 class="mb-3">New Message</h4>
+
+  <form>
+    <!-- To -->
+    <div class="mb-3">
+      <label for="recipientUserName" class="form-label">To *</label>
+      <input type="text" class="form-control" id="recipientUserName" name="recipientUserName"
+        [(ngModel)]="recipientUserName" placeholder="Recipient username or ID" required>
+    </div>
+
+    <!-- Subject -->
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject *</label>
+      <input type="text" class="form-control" id="subject" name="subject" [(ngModel)]="subject"
+        placeholder="Enter subject" required>
+    </div>
+
+    <!-- Content -->
+    <div class="mb-3">
+      <label for="content" class="form-label">Message *</label>
+      <textarea class="form-control" id="content" name="content" [(ngModel)]="content" rows="8"
+        placeholder="Write your message here" required></textarea>
+    </div>
+
+    <!-- Feedback -->
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+    <div *ngIf="successMessage" class="alert alert-success" role="alert">{{ successMessage }}</div>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2">
+      <button type="button" class="btn btn-success" [disabled]="!isFormValid() || isSending" (click)="onSend()">
+        {{ isSending ? 'Sending...' : 'Send Message' }}
+      </button>
+
+      <button *ngIf="showCancelButton" type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+    </div>
+  </form>
+</div>

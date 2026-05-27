@@ -94,8 +94,8 @@
                         <span *ngIf="isValid(payment.billingAddress.streetLine2 || defaultAddress.streetLine2)">
                           {{payment.billingAddress.streetLine2 || defaultAddress.streetLine2}}<br />
                         </span>
-                        {{payment.billingAddress.city || defaultAddress.city}}, 
-                        {{payment.billingAddress.state || defaultAddress.state}} 
+                        {{payment.billingAddress.city || defaultAddress.city}},
+                        {{payment.billingAddress.state || defaultAddress.state}}
                         {{payment.billingAddress.zipCode || defaultAddress.zipCode}}
                       </p>
                       <p class="card-text mb-0" *ngIf="!payment.billingAddress && hasSavedAddress()">
@@ -131,8 +131,8 @@
                         <span *ngIf="isValid(payment.billingAddress.streetLine2 || defaultAddress.streetLine2)">
                           {{payment.billingAddress.streetLine2 || defaultAddress.streetLine2}}<br />
                         </span>
-                        {{payment.billingAddress.city || defaultAddress.city}}, 
-                        {{payment.billingAddress.state || defaultAddress.state}} 
+                        {{payment.billingAddress.city || defaultAddress.city}},
+                        {{payment.billingAddress.state || defaultAddress.state}}
                         {{payment.billingAddress.zipCode || defaultAddress.zipCode}}
                       </p>
                       <p class="card-text mb-0" *ngIf="!payment.billingAddress && hasSavedAddress()">

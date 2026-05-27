@@ -1,0 +1,33 @@
+.messages-container {
+  padding: 1rem;
+}
+
+.messages-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.messages-table th,
+.messages-table td {
+  text-align: left;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.messages-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+.messages-table tr.unread td {
+  font-weight: bold;
+}
+
+.messages-table tbody tr:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}

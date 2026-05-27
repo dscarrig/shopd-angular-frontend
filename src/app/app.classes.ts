@@ -48,5 +48,18 @@ export class Order {
     public status: string,
     public createdAt: string
   ) { }
+}
 
+export class Message {
+  constructor(
+    public id: string,
+    public senderName: string,
+    public senderEmail: string,
+    public subject: string,
+    public content: string,
+    public timestamp: string,
+    public read: boolean,
+    public userId: string,
+    public receiverUserId: string
+  ) { }
 }

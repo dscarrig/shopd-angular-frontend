@@ -128,7 +128,6 @@ export class ShopItemMenuComponent implements OnInit {
 
   onSearchBySeller(): void {
     if (!this.sellerUsername.trim()) {
-      console.log('Seller username is empty. Refreshing all items.');
       this.refreshItems();
       return;
     }
@@ -137,7 +136,6 @@ export class ShopItemMenuComponent implements OnInit {
     if (sellerId) {
       this.searchBySeller(sellerId);
     } else {
-      console.log('Seller not found. No items to display.');
       this.shopItems = [];
     }
   }

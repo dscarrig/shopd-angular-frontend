@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { AccountDetailItem } from '../../app.classes';
 import { Observable, of, tap } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 /**
  * Service for managing user information, including addresses and payment details.
@@ -68,6 +69,7 @@ export class UserInfoService {
   }
 
   addPaymentInfo(userId: string, paymentInfo: any): any {
+    this.clearCache(); // Clear cache when adding new info
     return this.http.post(`${SHOPD_JPA_API_URL}/users/create-payment-info/${userId}`, paymentInfo);
   }
 
@@ -85,5 +87,10 @@ export class UserInfoService {
 
   setDefaultPaymentInfo(userId: string, newDefault: string): any {
     return this.http.post(`${SHOPD_JPA_API_URL}/users/set-default-payment/${userId}`, newDefault);
+  }
+
+  getUserIdByUsername(username: string): Observable<string> {
+    return this.http.get(`${SHOPD_JPA_API_URL}/users/user-id/${username}`, { responseType: 'text' })
+      .pipe(map((id: string) => id.replace(/"/g, '')));
   }
 }

@@ -41,17 +41,14 @@ export class OrderService {
   }
 
   createOrder(order: Order): Observable<Order> {
-    console.log(`Creating order: ${JSON.stringify(order)}`);
     return this.http.post<Order>(`${SHOPD_JPA_API_URL}/orders/create`, order);
   }
 
   updateOrderStatus(id: string, status: string): Observable<Order> {
-    console.log(`Updating order status for orderId: ${id} to status: ${status}`);
     return this.http.put<Order>(`${SHOPD_JPA_API_URL}/orders/status/${id}`, { status });
   }
 
   updateOrderItemStatus(id: string, status: string): Observable<OrderItem> {
-    console.log(`Updating order item status for orderItemId: ${id} to status: ${status}`);
     return this.http.put<OrderItem>(`${SHOPD_JPA_API_URL}/orders/item/status/${id}`, { status });
   }
 

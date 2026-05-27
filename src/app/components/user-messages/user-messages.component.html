@@ -1,0 +1,32 @@
+<div class="messages-container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <a routerLink="/write-message" class="btn btn-primary">New Message</a>
+  </div>
+
+  @if (errorMessage) {
+  <p class="error">{{ errorMessage }}</p>
+  }
+
+  @if (messages.length === 0 && !errorMessage) {
+  <p>No messages found.</p>
+  } @else {
+  <table class="messages-table">
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>Subject</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (message of messages; track message.id) {
+      <tr [class.unread]="!message.read">
+        <td>{{ message.userId }}</td>
+        <td>{{ message.subject }}</td>
+        <td>{{ message.timestamp | date:'short' }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }
+</div>

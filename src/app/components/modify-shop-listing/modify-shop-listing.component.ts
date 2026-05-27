@@ -125,7 +125,6 @@ export class ModifyShopListingComponent implements OnInit {
 
     this.shopItemService.deleteItem(this.userId, this.itemId).subscribe({
       next: () => {
-        console.log('Listing deleted successfully');
         // Navigate to user listings or menu after successful deletion
         this.router.navigate(['/menu']);
       },

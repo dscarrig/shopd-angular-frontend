@@ -25,6 +25,9 @@ import { ErrorComponent } from './components/error/error.component';
 import { OrderStatusComponent } from './components/order-status/order-status.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { OrderItemComponent } from './components/order-item/order-item.component';
+import { UserMessagesComponent } from './components/user-messages/user-messages.component';
+import { WriteMessageComponent } from './components/write-message/write-message.component';
+import { MessageDetailsComponent } from './components/message-details/message-details.component';
 
 
 const routes: Routes = [
@@ -56,6 +59,9 @@ const routes: Routes = [
   { path: 'order-status', component: OrderStatusComponent, canActivate: [RouteGuardService] },
   { path: 'order-item/:id', component: OrderItemComponent, canActivate: [RouteGuardService] },
   { path: 'faq', component: FaqComponent },
+  { path: 'user-messages', component: UserMessagesComponent, canActivate: [RouteGuardService] },
+  { path: 'write-message', component: WriteMessageComponent, canActivate: [RouteGuardService] },
+  { path: 'message-details/:id', component: MessageDetailsComponent, canActivate: [RouteGuardService] },
   { path: '**', component: ErrorComponent }
 ];
 
