@@ -1,1 +1,24 @@
-<p>message-details works!</p>
+<div class="container mt-4">
+  @if (errorMessage) {
+  <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  @if (message) {
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">{{ message.subject }}</h5>
+      <small class="text-muted">{{ message.timestamp | date:'medium' }}</small>
+    </div>
+    <div class="card-body">
+      <p class="mb-1"><strong>From:</strong> {{ message.senderName }}</p>
+      <hr>
+      <p class="message-content">{{ message.content }}</p>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-secondary" (click)="goBack()">Back to Messages</button>
+    </div>
+  </div>
+  } @else if (!errorMessage) {
+  <p>Loading...</p>
+  }
+</div>

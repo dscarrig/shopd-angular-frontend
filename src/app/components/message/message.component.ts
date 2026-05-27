@@ -50,9 +50,11 @@ export class MessageComponent {
       return;
     }
 
+    const senderName = this.authenticationService.getAuthenticatedUser() ?? '';
+
     this.userInfoService.getUserIdByUsername(this.recipientUserName).pipe(
       switchMap((recipientId: string) => {
-        const message = new Message('', '', this.senderEmail, this.subject, this.content, new Date().toISOString(), false, senderId, recipientId);
+        const message = new Message('', senderName, this.senderEmail, this.subject, this.content, new Date().toISOString(), false, senderId, recipientId);
         return this.messageService.sendMessage(message, senderId, recipientId);
       })
     ).subscribe({

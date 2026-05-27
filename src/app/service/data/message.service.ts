@@ -29,4 +29,8 @@ export class MessageService {
   deleteMessage(messageId: string): Observable<any> {
     return this.http.delete(`${SHOPD_JPA_API_URL}/messages/delete/${messageId}`);
   }
+
+  getMessageById(messageId: string): Observable<Message> {
+    return this.http.get<Message>(`${SHOPD_JPA_API_URL}/messages/by-id/${messageId}`);
+  }
 }

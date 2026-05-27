@@ -20,8 +20,8 @@
     </thead>
     <tbody>
       @for (message of messages; track message.id) {
-      <tr [class.unread]="!message.read">
-        <td>{{ message.userId }}</td>
+      <tr [class.unread]="!message.read" [routerLink]="['/message-details', message.id]" style="cursor: pointer;">
+        <td>{{ message.senderName }}</td>
         <td>{{ message.subject }}</td>
         <td>{{ message.timestamp | date:'short' }}</td>
       </tr>
