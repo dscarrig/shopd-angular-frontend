@@ -41,6 +41,7 @@ export class LoginComponent {
           this.userId = this.basicAuthenticationService.getAuthenticatedUserId() || '';
           this.transferTempCart();
           this.router.navigate(['home', this.userId]);
+          this.appComponent.refreshMenu();
           this.invalidLogin = false;
         },
         (error: any) => {

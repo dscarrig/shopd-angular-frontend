@@ -49,10 +49,8 @@ export class CartService {
   }
 
   deleteAllFromCart(userId: string): any {
-    console.log(`Clearing cart for user: ${userId}`);
     return this.http.delete(`${SHOPD_JPA_API_URL}/cart/clear/${userId}`).pipe(
       tap(() => {
-        console.log(`Cart cleared for user: ${userId}`);
         this.refreshCartCount(userId);
       })
     );

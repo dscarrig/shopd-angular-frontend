@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from '../../service/data/message.service';
+import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { Message } from '../../app.classes';
 
 @Component({
@@ -14,6 +15,7 @@ export class MessageDetailsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private messageService = inject(MessageService);
+  private authService = inject(BasicAuthenticationService);
 
   message: Message | null = null;
   errorMessage: string = '';
@@ -28,7 +30,12 @@ export class MessageDetailsComponent implements OnInit {
       next: (msg: Message) => {
         this.message = msg;
         if (!msg.read) {
-          this.messageService.markMessageAsRead(id).subscribe();
+          this.messageService.markMessageAsRead(id).subscribe({
+            next: () => {
+              const userId = this.authService.getAuthenticatedUserId();
+              if (userId) this.messageService.refreshUnreadCount(userId);
+            }
+          });
         }
       },
       error: () => { this.errorMessage = 'Failed to load message.'; }

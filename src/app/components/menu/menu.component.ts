@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BasicAuthenticationService } from '../../service/app/basic-authentication.service';
 import { CartService } from '../../service/app/cart.service';
+import { MessageService } from '../../service/data/message.service';
 
 /**
  * Component for the main menu of the application. It displays navigation options for users to access different parts of the application, such as home, shop, cart, and account management.
@@ -19,21 +20,26 @@ import { CartService } from '../../service/app/cart.service';
 export class MenuComponent implements OnInit {
   private authenticationService = inject(BasicAuthenticationService);
   private cartService = inject(CartService);
+  private messageService = inject(MessageService);
 
   itemsInCart: number = 0;
+  unreadMessages: number = 0;
   userName: string = 'guest';
 
   ngOnInit(): void {
     this.updateUsername();
     this.subscribeToCartCount();
     this.subscribeToAuthChanges();
+    this.subscribeToUnreadCount();
     this.refreshCartCount();
+    this.refreshUnreadCount();
   }
 
   // Method to refresh the menu, typically called when there are changes in authentication status or cart contents. It updates the displayed username and cart item count accordingly.
   refreshMenu() {
     this.updateUsername();
     this.refreshCartCount();
+    this.refreshUnreadCount();
   }
 
   private subscribeToCartCount(): void {
@@ -42,16 +48,30 @@ export class MenuComponent implements OnInit {
     );
   }
 
-  private subscribeToAuthChanges(): void {
-    this.authenticationService.authenticationChanged$.subscribe(
-      username => this.userName = username
+  private subscribeToUnreadCount(): void {
+    this.messageService.unreadCount$.subscribe(
+      count => this.unreadMessages = count
     );
+  }
+
+  private subscribeToAuthChanges(): void {
+    this.authenticationService.authenticationChanged$.subscribe(username => {
+      this.userName = username;
+      this.refreshUnreadCount();
+    });
   }
 
   private refreshCartCount(): void {
     const userId = this.authenticationService.getAuthenticatedUserId();
     if (userId) {
       this.cartService.refreshCartCount(userId);
+    }
+  }
+
+  private refreshUnreadCount(): void {
+    const userId = this.authenticationService.getAuthenticatedUserId();
+    if (userId && this.authenticationService.isUserLoggedIn()) {
+      this.messageService.refreshUnreadCount(userId);
     }
   }
 

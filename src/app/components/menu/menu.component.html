@@ -29,8 +29,11 @@
               Status</a>
           </li>
           <li>
-            <a (click)="refreshMenu()" routerLink="/user-messages" class="nav-link"
-              routerLinkActive="active">Messages</a>
+            <a (click)="refreshMenu()" routerLink="/user-messages" class="nav-link" routerLinkActive="active">Messages
+              @if (unreadMessages > 0) {
+              <span class="badge bg-light text-dark">{{unreadMessages}}</span>
+              }
+            </a>
           </li>
           }
           <li class="nav-item">

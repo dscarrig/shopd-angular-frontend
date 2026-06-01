@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { Message } from '../../app.classes';
 
@@ -9,6 +9,19 @@ import { Message } from '../../app.classes';
 })
 export class MessageService {
   private http = inject(HttpClient);
+
+  private unreadCountSubject = new BehaviorSubject<number>(0);
+  unreadCount$ = this.unreadCountSubject.asObservable();
+
+  refreshUnreadCount(userId: string): void {
+    this.getMessages(userId).subscribe({
+      next: (messages: Message[]) => {
+        const unread = messages.filter(m => !m.read).length;
+        this.unreadCountSubject.next(unread);
+      },
+      error: () => this.unreadCountSubject.next(0)
+    });
+  }
 
   sendMessage(message: Message, sender_id: string, recipient_id: string): Observable<any> {
     return this.http.post(`${SHOPD_JPA_API_URL}/messages/send/${sender_id}/${recipient_id}`, message);
