@@ -28,7 +28,8 @@ export class CartService {
       switchMap((cartItems: ShopdItem[]) => {
         const currentCount = cartItems.filter(i => i.id === item.id).length;
         if (currentCount >= item.quantity) {
-          return throwError(() => new Error(`Cannot add "${item.name}" — cart already has the maximum available quantity (${item.quantity}).`));
+          console.warn(`Cannot add more of item ${item.name} to cart. Available quantity: ${item.quantity}`);
+          return new Observable<void>((observer) => observer.complete());
         }
         return this.http.post(`${SHOPD_JPA_API_URL}/cart/add/${userId}`, item.id).pipe(
           tap(() => this.refreshCartCount(userId))
