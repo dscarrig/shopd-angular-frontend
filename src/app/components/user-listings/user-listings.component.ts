@@ -65,7 +65,7 @@ export class UserListingsComponent {
 
   addItemToCart(item: ShopdItem) {
     if (this.userId) {
-      this.cartService.addToCart(this.userId, item.id).subscribe();
+      this.cartService.addToCart(this.userId, item).subscribe();
     }
     else {
       console.error('User ID is not available. Cannot add item to cart.');

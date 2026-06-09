@@ -62,7 +62,7 @@ export class ShopItemComponent {
   addItemToCart(item: ShopdItem) {
     const userId = this.authenticationService.getAuthenticatedUserId();
     if (userId) {
-      this.cartService.addToCart(userId, item.id).subscribe();
+      this.cartService.addToCart(userId, item).subscribe();
       this.router.navigate(['/cart']);
     }
     else {

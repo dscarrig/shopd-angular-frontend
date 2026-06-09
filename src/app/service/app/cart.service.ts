@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { ShopdItem } from '../../app.classes';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap, throwError } from 'rxjs';
 
 /**
  * Service for managing the shopping cart functionality, including adding items to the cart, retrieving cart contents, deleting items from the cart, and calculating totals.
@@ -23,13 +23,21 @@ export class CartService {
     );
   }
 
-  addToCart(userId: string, itemId: string): any {
-    return this.http.post(`${SHOPD_JPA_API_URL}/cart/add/${userId}`, itemId).pipe(
-      tap(() => this.refreshCartCount(userId))
+  addToCart(userId: string, item: ShopdItem): Observable<any> {
+    return this.retrieveAllFromCart(userId).pipe(
+      switchMap((cartItems: ShopdItem[]) => {
+        const currentCount = cartItems.filter(i => i.id === item.id).length;
+        if (currentCount >= item.quantity) {
+          return throwError(() => new Error(`Cannot add "${item.name}" — cart already has the maximum available quantity (${item.quantity}).`));
+        }
+        return this.http.post(`${SHOPD_JPA_API_URL}/cart/add/${userId}`, item.id).pipe(
+          tap(() => this.refreshCartCount(userId))
+        );
+      })
     );
   }
 
-  copyTempCart(userId: string, tempUserId: string): any {
+  copyTempCart(userId: string, tempUserId: string): Observable<any> {
     return this.http.post(`${SHOPD_JPA_API_URL}/cart/copy/${userId}`, tempUserId, {
       headers: { 'Content-Type': 'application/json' },
       responseType: 'text' as 'json'
