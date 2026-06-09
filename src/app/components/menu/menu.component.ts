@@ -57,6 +57,7 @@ export class MenuComponent implements OnInit {
   private subscribeToAuthChanges(): void {
     this.authenticationService.authenticationChanged$.subscribe(username => {
       this.userName = username;
+      this.refreshCartCount();
       this.refreshUnreadCount();
     });
   }
