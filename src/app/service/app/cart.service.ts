@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SHOPD_JPA_API_URL } from '../../app.constants';
 import { ShopdItem } from '../../app.classes';
-import { BehaviorSubject, Observable, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, switchMap, tap } from 'rxjs';
 
 /**
  * Service for managing the shopping cart functionality, including adding items to the cart, retrieving cart contents, deleting items from the cart, and calculating totals.
@@ -28,8 +28,8 @@ export class CartService {
       switchMap((cartItems: ShopdItem[]) => {
         const currentCount = cartItems.filter(i => i.id === item.id).length;
         if (currentCount >= item.quantity) {
-          console.warn(`Cannot add more of item ${item.name} to cart. Available quantity: ${item.quantity}`);
-          return new Observable<void>((observer) => observer.complete());
+          console.warn(`Cannot add "${item.name}" — cart already has the maximum available quantity (${item.quantity}).`);
+          return EMPTY;
         }
         return this.http.post(`${SHOPD_JPA_API_URL}/cart/add/${userId}`, item.id).pipe(
           tap(() => this.refreshCartCount(userId))
