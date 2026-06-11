@@ -53,6 +53,9 @@
       <input type="file" class="form-control" id="photo" name="photo" accept="image/*"
         (change)="onFileSelected($event)">
       <small class="form-text text-muted">Upload a photo of your item (optional)</small>
+      @if (photoError) {
+      <div class="text-danger mt-1">{{photoError}}</div>
+      }
     </div>
 
     <!-- Photo Preview -->

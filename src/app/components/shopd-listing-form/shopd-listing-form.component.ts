@@ -32,6 +32,7 @@ export class ShopdListingFormComponent implements OnChanges {
   quantity: number | null = null;
   photoFile: File | null = null;
   photoPreview: string | null = null;
+  photoError: string | null = null;
 
   // Category options from constants
   categories = ITEM_CATEGORIES;
@@ -63,8 +64,18 @@ export class ShopdListingFormComponent implements OnChanges {
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
+    this.photoError = null;
     if (input.files && input.files[0]) {
-      this.photoFile = input.files[0];
+      const file = input.files[0];
+      const maxSizeBytes = 5 * 1024 * 1024; // 5 MB
+      if (file.size > maxSizeBytes) {
+        this.photoError = 'Image file too large.';
+        this.photoFile = null;
+        this.photoPreview = null;
+        input.value = '';
+        return;
+      }
+      this.photoFile = file;
 
       // Create preview
       const reader = new FileReader();
