@@ -21,7 +21,7 @@ export class ShopItemMenuComponent implements OnInit {
   private cartService: CartService = inject(CartService);
   private userInfoService: UserInfoService = inject(UserInfoService);
 
-  shopItems: ShopdItem[] = [];
+  shopItems: ShopdItem[] | null = null;
   userId!: string | null;
   sellerNames: Map<string, string> = new Map();
 
@@ -62,6 +62,10 @@ export class ShopItemMenuComponent implements OnInit {
   }
 
   loadSellerNames() {
+    if (!this.shopItems) {
+      return;
+    }
+
     // Get unique seller IDs
     const uniqueSellerIds = [...new Set(this.shopItems.map(item => item.userId))];
 

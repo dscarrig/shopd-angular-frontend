@@ -94,7 +94,8 @@
 </div>
 
 <div *ngIf="!shopItems" class="alert alert-info text-center mt-4">
-  <p class="mb-0">Loading items, please wait...</p>
+  <div class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></div>
+  <span>Loading items, please wait...</span>
 </div>
 
 <div *ngIf="shopItems && shopItems.length === 0" class="alert alert-info text-center mt-4">
