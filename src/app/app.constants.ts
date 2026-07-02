@@ -1,5 +1,5 @@
-export const API_URL = 'https://api-local.shopd.us';
-export const SHOPD_JPA_API_URL = 'https://api-local.shopd.us/api';
+export const API_URL = 'https://shopd.us';
+export const SHOPD_JPA_API_URL = 'https://api.shopd.us/api';
 
 // Google OAuth Configuration
 //export const GOOGLE_CLIENT_ID = '';
